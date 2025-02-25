@@ -1,0 +1,200 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --poppins:"Poppins", serif;
+}
+
+.links{
+    height: 40vh;
+    margin: 0 10px;
+    width: 100%;
+}
+.links_scroll {
+    display: grid;
+    grid-template-columns:  repeat(3, 1fr);
+    gap: 6vw;
+    margin-top: 40px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+.links_scroll .phone{
+    height:80vh;
+    width: 20vw;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    border-radius: 35px;
+    border: 8px solid black;
+}
+
+
+
+
+
+
+.phone .phone_profile{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 200px;
+    border-radius: 25px;
+    background: #3e3b3b;
+    margin-bottom: 20px;
+}
+.phone .phone_profile img{
+    margin-top: 20px;
+        height: 80px;
+        width: 80px ;
+        border-radius: 100%;
+}
+.phone .phone_profile p{
+    font-size: 24px;
+    font-weight: bold;
+    font-family: var(--poppins);
+    margin-top: 10px;
+    color: #fff;
+
+}
+.phone .phone_save{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    
+    
+}
+.phone .phone_save .p_link{
+    background: #28A263;
+    color: #fff;
+}
+.phone .phone_save .p_inital{
+    background: #C9C9C9;
+}
+.phone_save .phone_save_container{
+    display: flex;
+    align-items: center;
+    background: #C9C9C9;
+    width: 210px;
+    height: 6vh;
+    border-radius: 35px;
+}
+
+.phone_save div{
+    
+    padding:10px 5px;
+    text-align: center;
+    border-radius: 35px;
+    width: 120px;
+}
+
+
+
+.phone .phone_links{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+.phone .phone_links .phone_links_scroll{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    height: 150px;
+    width: 250px;
+    overflow-y: scroll;
+        
+}
+.phone_links .phone_links_scroll div{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    justify-content: start;
+    background-color: #C9C9C9;
+    border-radius: 35px;
+    height: 60px;
+    gap: 20px;
+}
+
+.phone_links_scroll div img{
+    height: 40px;
+    width: 40px ;
+    border-radius: 100%;
+}
+
+#tasklist::-webkit-scrollbar{
+    display: none;
+}
+
+
+
+
+.phone .phone_button{
+    margin-top: 7vh;
+    margin-bottom: 8px;
+    
+    display: flex;
+    justify-content: center;
+}
+.phone .phone_button button{
+padding: 10px;
+border-radius: 35px;
+    background: #28A263;
+    border: none;
+    color: #fff;
+    width: 15vw;
+}
+.links_scroll .phone .logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--poppins)
+}
+
+
+
+/* profile */
+
+.profile .profile_box{
+    margin-top: 10px;
+    border-radius: 25px;
+    height: 40vh;
+    width: 40vw;
+    background: #fff;
+    
+}
+.profile .profile_box .image_piker{
+    display: flex;
+    padding: 30px;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile .profile_box .image_piker img{
+    height: 80px;
+    width: 80px ;
+    border-radius: 100%;
+}
+.profile .profile_box .image_piker .image_piker_button{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+}
+.profile .profile_box .image_piker .image_piker_button button{
+    width: 30vw;
+    padding: 10px;
+    border-radius: 35px;
+    border: 2px solid #E0E2D9;
+}
+
+.image_piker_upload{
+    background: #28A263 !important;
+    border:none !important;
+}
