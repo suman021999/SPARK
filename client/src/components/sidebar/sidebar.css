@@ -29,28 +29,26 @@
   font-family: "Poppins", serif;
 }
 
-.sidebar .sidebar_link {
+
+.sidebar_link{
+  cursor: pointer;
+  background: red;
   display: flex;
   flex-direction: column;
-}
-
-.sidebar .sidebar_link div {
-  cursor: pointer;
-  display: flex;
-  column-gap: 10px;
-  align-items: center;
+  
+gap: 10px;
+  
   list-style: none;
   padding: 10px 30px;
-  
+  cursor: pointer;
 }
-.sidebar .sidebar_link div:active{
-  background: #f3f2f2;
-  color: aqua;
-  
-}
-
-
-.sidebar .sidebar_link div a {
-  color: #000;
+.sidebar_a{
   text-decoration: none;
+  color: black;
 }
+.co{
+background: #fff;
+}
+
+
+
