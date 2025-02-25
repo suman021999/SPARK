@@ -14,9 +14,9 @@ const Sidebar = () => {
         <h2>SPARK</h2>
       </div>
 
-      <div className="sidebar_link">
+      <div className="">
         {sidebar.map((link, index) => (
-            <div  className={`co  ${active===index?"active":""}`} onClick={()=>setActive(index)} key={index}>
+            <div  className={`sidebar_link  ${active===index?"active":""}`} onClick={()=>setActive(index)} key={index}>
               <img src={link.img} alt="" />
               <Link className="sidebar_a" to={link.href}>{link.label}</Link>
             </div>

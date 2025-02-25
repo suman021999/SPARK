@@ -32,15 +32,18 @@
 
 .sidebar_link{
   cursor: pointer;
-  background: red;
   display: flex;
-  flex-direction: column;
+ 
   
 gap: 10px;
   
   list-style: none;
   padding: 10px 30px;
   cursor: pointer;
+}
+
+.sidebar_link.active{
+  background: #f3f2f2;
 }
 .sidebar_a{
   text-decoration: none;
