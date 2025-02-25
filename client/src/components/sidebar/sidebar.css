@@ -7,18 +7,16 @@
   box-sizing: border-box;
 }
 
-.sidebar{
-    width: 15vw;
-    height: 80vh;
-    background: #fff;
+.sidebar {
+  width: 15vw;
+  height: 80vh;
+  background: #f3f2f2;
 }
-
-
 
 .sidebar .logo {
   display: flex;
   align-items: center;
-  padding: 15px; 
+  padding: 15px;
 }
 .sidebar .logo img {
   height: 35px;
@@ -29,29 +27,28 @@
   font-family: "Poppins", serif;
 }
 
-
-.sidebar_link{
+.sidebar_link {
   cursor: pointer;
   display: flex;
- 
-  
-gap: 10px;
-  
+  gap: 10px;
   list-style: none;
   padding: 10px 30px;
   cursor: pointer;
+  
 }
 
 .sidebar_link.active{
-  background: #f3f2f2;
+  background: #fff;
 }
-.sidebar_a{
+.none{
   text-decoration: none;
   color: black;
 }
-.co{
-background: #fff;
+.img_bar{
+  fill: #21a426;
 }
-
-
-
+.sidebar_a {
+  text-decoration: none;
+  color: #21a426;
+  text-decoration: none;
+}

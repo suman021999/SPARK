@@ -17,8 +17,8 @@ const Sidebar = () => {
       <div className="">
         {sidebar.map((link, index) => (
             <div  className={`sidebar_link  ${active===index?"active":""}`} onClick={()=>setActive(index)} key={index}>
-              <img src={link.img} alt="" />
-              <Link className="sidebar_a" to={link.href}>{link.label}</Link>
+              <img className={`none ${active===index?"img_bar":""}`} src={link.img} alt="" />
+              <Link className={`none ${active===index?"sidebar_a":""}`} to={link.href}>{link.label}</Link>
             </div>
         ))}
       </div>

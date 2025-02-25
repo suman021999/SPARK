@@ -1,8 +1,8 @@
 .dashboardPage{
     display:flex;
-    background: #f3f2f2;
+    background: #fff;
     gap: 10px;
-    height: 100vh;
+    min-height: 100%;
     width: 100%;
     
 }
