@@ -1,7 +1,8 @@
 import React from "react";
 import "./nav.css";
 import { GoShareAndroid } from "react-icons/go";
-const Nav = () => {
+const Nav = ({isVisible}) => {
+
   return (
     <>
       <section className="nav">
@@ -9,7 +10,7 @@ const Nav = () => {
           <h3>Hi, Jenny Wilson!</h3>
           <p>Congratulations . You got a great response today .</p>
         </div>
-        <div className="nav_share">
+        <div  className={` ${isVisible==true?'nav_share':'hidden_boxx'}`}>
           <GoShareAndroid />
           <p>Share</p>
         </div>

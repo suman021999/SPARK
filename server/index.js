@@ -7,6 +7,7 @@ const app=express()
 dotenv.config()
 database()
 
+
 app.use(cors({
     credentials:true
 }))

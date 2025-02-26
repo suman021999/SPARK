@@ -7,7 +7,10 @@
 }
 .nav .nav_share{
     display: flex;
-    background: #fff;
+    background: #e7e4e4;
     padding: 10px;
     border-radius: 25px;
+}
+.hidden_boxx{
+    display: none;
 }
