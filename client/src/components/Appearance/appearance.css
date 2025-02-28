@@ -68,74 +68,11 @@
     color: #fff;
 
 }
-.phone .phone_save{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 15px;   
-}
-  .p_link{
-    background: #28A263;
-    color: #fff;
-}
- .p_inital{
-    background: #C9C9C9;
-}
- .phone_save_container{
-    display: flex;
-    align-items: center;
-    background: #C9C9C9;
-    width: 210px;
-    height: 6vh;
-    border-radius: 35px;
-}
-
- .p_s_l{ 
-    cursor: pointer;
-    padding:10px 8PX;
-    margin: 0 5PX;
-    text-align: center;
-    border-radius: 35px;
-    width: 120px;
-}
 
 
 
-.phone .phone_links{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-}
-.phone .phone_links .phone_links_scroll{
-    display: flex;
-    gap: 10px;
-    flex-direction: column;
-    height: 150px;
-    width: 250px;
-    overflow-y: scroll;
-        
-}
-.phone_links_scroll_bar{
-    display: flex;
-    align-items: center;
-    padding: 5px;
-    justify-content: start;
-    background-color: #C9C9C9;
-    border-radius: 35px;
-    height: 60px;
-    gap: 20px;
-}
 
-.phone_links_scroll .phone_links_scroll_bar img{
-    height: 40px;
-    width: 40px ;
-    border-radius: 100%;
-}
 
-#tasklist::-webkit-scrollbar{
-    display: none;
-}
 
 
 
@@ -162,4 +99,77 @@ border-radius: 35px;
 }
 
 
+
+/* layout */
+.apperence_box{
+margin-left:400px;
+}
+.layout{
+    
+    display: flex;
+    flex-direction: column;
+}
+.layout_box{
+    margin-top: 10px;
+    border-radius: 25px;
+    height: 40vh;
+    width: 40vw;
+    background: #e3e1e144;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    
+}
+
+.layout_box .layout_box_templets{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20vh;
+    width: 10vw;
+    border-radius: 10px;
+    border:2px solid black ;
+    
+
+}
+
+
+.buttons_sEc{
+    height: 150vh;
+    width: 40vw;
+    background: #c7c7c744;
+    
+    border-radius: 25px;
+    padding: 20px;
+    
+    margin-bottom: 20px;
+}
+
+.buttons_box{
+    
+    margin-top: 20px;
+    justify-content: center;
+    display: grid;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    
+}
+.buttons_box_fill_box{
+    display: flex;
+    flex-direction: column;
+}
+.buttons_box_fill{
+    display: grid;
+    grid-template-columns: repeat(3,minmax(0,1fr));
+    gap: 20px;   
+    flex-wrap: wrap;  
+}
+
+ .fill{
+    color: #222;
+    margin-bottom: 10px;
+}
 

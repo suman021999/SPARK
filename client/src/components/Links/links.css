@@ -280,7 +280,7 @@ height: 80px;
 width: 80px;
 border-radius: 100%;
 }
-.banner_black h2, p{
+.banner_black .banner_black_h2, .banner_black_p{
     display: flex;
     align-items: center;
     color: #fff;
@@ -329,19 +329,23 @@ border-radius: 100%;
 .banner_black_tag{
     display: flex;
 }
-.profile_sec{
+.profile_sec_button_box{
     display: flex;
     flex-direction: column;
     align-items: end;
 }
-.profile_sec .profile_sec_button{
+.profile_sec_button{
     background: #29A263;
     padding:15px 10px;
     width: 10vw;
     margin: 20px 0;
     border-radius: 10px;
     border: none;
+    display: flex;
+    
 }
+
+
 
 .LinkCard{
     margin-top: 20px;
@@ -374,6 +378,6 @@ border-radius: 100%;
     display: flex;
     justify-content: space-between;
 }
-.link_delete{
+/* .link_delete{
     
-}
+} */

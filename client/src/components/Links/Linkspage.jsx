@@ -159,8 +159,8 @@ const Linkspage = () => {
                     src="https://images.unsplash.com/photo-1529419412599-7bb870e11810?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDk3MzR8MHwxfHNlYXJjaHwzfHxuYXR1cmV8ZW58MHx8fHwxNzQwNDc3NjI5fDA&ixlib=rb-4.0.3&q=80&w=1080"
                     alt=""
                   />
-                  <h2>@opopo_08</h2>
-                  <p>
+                  <h2 className="banner_black_h2">@opopo_08</h2>
+                  <p className="banner_black_p">
                     <img src="/public/logos.svg" alt="" />
                     /opopo_08
                   </p>
@@ -190,7 +190,7 @@ const Linkspage = () => {
                   </div>
                 </div>
               </div>
-              <button className="profile_sec_button">save</button>
+             <div className="profile_sec_button_box"> <button className="profile_sec_button">save</button></div>
               
             </div>
           </div>
