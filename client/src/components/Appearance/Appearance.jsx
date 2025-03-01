@@ -6,24 +6,26 @@ import {
   fillLine,
   fonts,
   HardShadow,
+  layouts,
   outLine,
   SoftShadow,
   Spacial,
-  themebox
+  themebox,
 } from "../../utils/constants";
 
 const appearancespage = () => {
   const [selectfont, setSelectfont] = useState("DM Sans");
   const [isFontOpen, setIsFontOpen] = useState(false);
-  const [Color, setColor] = useState('#222');
-  const [buttonColor, setButtonColor] = useState('#ffffff');
-  const [buttonFontColor, setButtonFontColor] = useState('#888888');
+  const [Color, setColor] = useState("#222");
+  const [buttonColor, setButtonColor] = useState("#ffffff");
+  const [buttonFontColor, setButtonFontColor] = useState("#888888");
   const [selectedTheme, setSelectedTheme] = useState(null);
   const [fillLineButton, setFillLineButton] = useState(null);
   const [outLineButton, setOutLineButton] = useState(null);
   const [hardShadowButton, setHardShadowButton] = useState(null);
   const [softShadowButton, setSoftShadowButton] = useState(null);
   const [spacialButton, setSpacialButton] = useState(null);
+  const [layaout, setLayaout] = useState(null);
 
 
   // Handle font selection
@@ -55,23 +57,30 @@ const appearancespage = () => {
             </div>
           </div>
 
-
-
-
           <div className="apperence_box">
-
             <div className="layout">
               <h2 className="layout_h2">Layout</h2>
-              <div className="layout_box">
-                <div className="layout_box_templets">
-                  <img src="/public/stack.svg" alt="" />
-                </div>
-                <div className="layout_box_templets">
-                  <img src="/public/grids.svg" alt="" />
-                </div>
-                <div className="layout_box_templets">
-                  <img src="/public/carosel.svg" alt="" />
-                </div>
+
+              <div  className="layout_box">
+
+              {layouts.map((layout)=>(
+                <div
+                key={layout.id}
+                className={`layout_box_templets  buttons_box_fill_button ${
+                  layaout === layout.id ? "buttons_box_fill_button1" : ""
+                }`}
+                onClick={() => setLayaout(layout.id)}
+                style={{
+                  cursor: "pointer",
+                  transition: "all 0.3s ease-in-out",
+                  border: layaout === layout.id ? "2px solid blue" : "none",
+                }}
+              >
+
+                <img src={layout.src} alt={layout.id} />
+              </div>
+              ))}
+
               </div>
             </div>
 
@@ -80,20 +89,24 @@ const appearancespage = () => {
 
               <div className="buttons_sEc">
                 <div className="buttons_box">
-
                   <div className="buttons_box_fill_box">
                     <p className="fill">Fill</p>
 
                     <div className="buttons_box_fill">
                       {fillLine.map((FillLine) => (
-                        <div key={FillLine.id} 
-                        style={{
-                          ...FillLine,
-                          cursor: "pointer",
-                          transition: "all 0.3s ease-in-out",
-                        }}
-                        className={`buttons_box_fill_button ${fillLineButton ===FillLine.id?'buttons_box_fill_button1':''}`}
-                        onClick={()=>setFillLineButton(FillLine.id)}
+                        <div
+                          key={FillLine.id}
+                          style={{
+                            ...FillLine,
+                            cursor: "pointer",
+                            transition: "all 0.3s ease-in-out",
+                          }}
+                          className={`buttons_box_fill_button ${
+                            fillLineButton === FillLine.id
+                              ? "buttons_box_fill_button1"
+                              : ""
+                          }`}
+                          onClick={() => setFillLineButton(FillLine.id)}
                         ></div>
                       ))}
                     </div>
@@ -103,10 +116,15 @@ const appearancespage = () => {
                     <p className="fill">Outline</p>
                     <div className="buttons_box_fill">
                       {outLine.map((OutLine) => (
-                        <div key={OutLine.id} style={OutLine}
-                        className={`buttons_box_fill_button ${outLineButton ===OutLine.id?'buttons_box_fill_button1':''}`}
-                        onClick={()=>setOutLineButton(OutLine.id)}
-                        
+                        <div
+                          key={OutLine.id}
+                          style={OutLine}
+                          className={`buttons_box_fill_button ${
+                            outLineButton === OutLine.id
+                              ? "buttons_box_fill_button1"
+                              : ""
+                          }`}
+                          onClick={() => setOutLineButton(OutLine.id)}
                         ></div>
                       ))}
                     </div>
@@ -114,40 +132,52 @@ const appearancespage = () => {
 
                   <div className="buttons_box_fill_box">
                     <p className="fill">Hard shadow</p>
-                    
-                    
+
                     <div className="buttons_box_fill">
                       {HardShadow.map((HardShadow) => (
-                        <div key={HardShadow.id} 
-                        style={{
-                          ...HardShadow,
-                          boxShadow:hardShadowButton === HardShadow.id ? "0 0 0 2px #3b82f6": HardShadow.boxShadow,
-                          cursor: "pointer",
-                          transition: "all 0.3s ease-in-out",
-                        }}
-                        className={`buttons_box_fill_button ${hardShadowButton ===HardShadow.id?'buttons_box_fill_button1':''}`}
-                        onClick={()=>setHardShadowButton(HardShadow.id)}
+                        <div
+                          key={HardShadow.id}
+                          style={{
+                            ...HardShadow,
+                            boxShadow:
+                              hardShadowButton === HardShadow.id
+                                ? "0 0 0 2px #3b82f6"
+                                : HardShadow.boxShadow,
+                            cursor: "pointer",
+                            transition: "all 0.3s ease-in-out",
+                          }}
+                          className={`buttons_box_fill_button ${
+                            hardShadowButton === HardShadow.id
+                              ? "buttons_box_fill_button1"
+                              : ""
+                          }`}
+                          onClick={() => setHardShadowButton(HardShadow.id)}
                         ></div>
                       ))}
                     </div>
-
                   </div>
 
                   <div className="buttons_box_fill_box">
                     <p className="fill">Soft shadow</p>
                     <div className="buttons_box_fill">
                       {SoftShadow.map((SoftShadow) => (
-                        <div key={SoftShadow.id} 
-                        style={{
-                          ...SoftShadow,
-                          boxShadow:softShadowButton === SoftShadow.id ? "0 0 0 2px #3b82f6": SoftShadow.boxShadow,
-                          cursor: "pointer",
-                          transition: "all 0.3s ease-in-out",
-
-                        }}
-                        className={`buttons_box_fill_button ${softShadowButton ===SoftShadow.id?'buttons_box_fill_button1':''}`}
-                        onClick={()=> setSoftShadowButton(SoftShadow.id)}
-                       
+                        <div
+                          key={SoftShadow.id}
+                          style={{
+                            ...SoftShadow,
+                            boxShadow:
+                              softShadowButton === SoftShadow.id
+                                ? "0 0 0 2px #3b82f6"
+                                : SoftShadow.boxShadow,
+                            cursor: "pointer",
+                            transition: "all 0.3s ease-in-out",
+                          }}
+                          className={`buttons_box_fill_button ${
+                            softShadowButton === SoftShadow.id
+                              ? "buttons_box_fill_button1"
+                              : ""
+                          }`}
+                          onClick={() => setSoftShadowButton(SoftShadow.id)}
                         ></div>
                       ))}
                     </div>
@@ -158,9 +188,15 @@ const appearancespage = () => {
 
                     <div className="buttons_box_fill">
                       {Spacial.map((Spacial) => (
-                        <div key={Spacial.id} style={Spacial}
-                        className={`buttons_box_fill_button ${spacialButton ===Spacial.id?'buttons_box_fill_button1':''}`}
-                        onClick={()=>setSpacialButton(Spacial.id)}
+                        <div
+                          key={Spacial.id}
+                          style={Spacial}
+                          className={`buttons_box_fill_button ${
+                            spacialButton === Spacial.id
+                              ? "buttons_box_fill_button1"
+                              : ""
+                          }`}
+                          onClick={() => setSpacialButton(Spacial.id)}
                         ></div>
                       ))}
                     </div>
@@ -172,69 +208,60 @@ const appearancespage = () => {
                 <div className="button_color">
                   <p className="button_color_text">Button color</p>
                   <div className="button_color_colerbox">
-
                     <div className="color_box">
-                      <div className="button_color_piker"  style={{backgroundColor:buttonColor}} 
-                      onClick={()=>document.getElementById('buttonColorPicker').click()}
+                      <div
+                        className="button_color_piker"
+                        style={{ backgroundColor: buttonColor }}
+                        onClick={() =>
+                          document.getElementById("buttonColorPicker").click()
+                        }
                       />
-                      
 
                       <input
-                      id='buttonColorPicker'
-                      className="button_color_colerbox_input"
-                      type="color"
-                      onChange={(e)=>setButtonColor(e.target.value)}
-                      name=""
-                      placeholder="Button color"
-                    />
-
-
+                        id="buttonColorPicker"
+                        className="button_color_colerbox_input"
+                        type="color"
+                        onChange={(e) => setButtonColor(e.target.value)}
+                        name=""
+                        placeholder="Button color"
+                      />
                     </div>
 
                     <div className="buttons_colors_textarea">
-                    <div>Button color</div>
-                    <div>{buttonColor}</div>
+                      <div>Button color</div>
+                      <div>{buttonColor}</div>
                     </div>
-                    
                   </div>
                 </div>
-
-
-
 
                 <div className="button_color">
                   <p className="button_color_text">Button font color</p>
                   <div className="button_color_colerbox">
-
                     <div className="color_box">
-                      <div className="button_color_piker"  style={{backgroundColor:buttonFontColor}} 
-                      onClick={()=>document.getElementById('buttonColorPicker').click()}
+                      <div
+                        className="button_color_piker"
+                        style={{ backgroundColor: buttonFontColor }}
+                        onClick={() =>
+                          document.getElementById("buttonColorPicker").click()
+                        }
                       />
-                      
 
                       <input
-                      id='buttonColorPicker'
-                      className="button_color_colerbox_input"
-                      type="color"
-                      onChange={(e)=>setButtonFontColor(e.target.value)}
-                      name=""
-                      placeholder="Button color"
-                    />
-
-
+                        id="buttonColorPicker"
+                        className="button_color_colerbox_input"
+                        type="color"
+                        onChange={(e) => setButtonFontColor(e.target.value)}
+                        name=""
+                        placeholder="Button color"
+                      />
                     </div>
 
                     <div className="buttons_colors_textarea">
-                    <div>Button font color</div>
-                    <div>{buttonFontColor}</div>
+                      <div>Button font color</div>
+                      <div>{buttonFontColor}</div>
                     </div>
-                    
                   </div>
                 </div>
-
-                
-
-               
               </div>
             </div>
 
@@ -271,92 +298,91 @@ const appearancespage = () => {
                   )}
                 </div>
 
-
                 {/* Color Selection */}
-
 
                 <div className="button_color_1">
                   <p className="button_color_text">Color</p>
                   <div className="button_color_colerbox_2">
-
                     <div className="color_box">
-                      <div className="button_color_piker"  style={{backgroundColor:Color}} 
-                      onClick={()=>document.getElementById('ColorPicker').click()}
+                      <div
+                        className="button_color_piker"
+                        style={{ backgroundColor: Color }}
+                        onClick={() =>
+                          document.getElementById("ColorPicker").click()
+                        }
                       />
-                      
 
                       <input
-                      id='ColorPicker'
-                      className="button_color_colerbox_input"
-                      type="color"
-                      onChange={(e)=>setColor(e.target.value)}
-                      name=""
-                      placeholder="Button color"
-                    />
-
-
+                        id="ColorPicker"
+                        className="button_color_colerbox_input"
+                        type="color"
+                        onChange={(e) => setColor(e.target.value)}
+                        name=""
+                        placeholder="Button color"
+                      />
                     </div>
 
                     <div className="buttons_colors_textarea">
-                    <div>color</div>
-                    <div>{Color}</div>
+                      <div>color</div>
+                      <div>{Color}</div>
                     </div>
-                    
                   </div>
                 </div>
-
-
-
-              
-
-
-                
               </div>
             </div>
-
 
             <div className="theam">
               <h2 className="theam_h2">Themes</h2>
               <div className="theam_sEc">
                 <div className="theam_box">
-                    <div className="theam_grp">
-
-
-                      {
-                        themebox.map((theam)=>(
-
-                          <div className="theam_Contain"  key={theam.id} > 
-
-                            <button  onClick={() => setSelectedTheme(theam.name)} className={`theam_box_container_button ${selectedTheme===theam.name?'theam_box_container_button1':''}`}>
-                              <div className={`theamboxs`} style={{ backgroundColor: theam.bgColor }}>
-                                  <div  
-                                  className={`theamboxs_1 ${theam.bgColor}`} 
-                                  style={{ backgroundColor: theam.barColor ,border: theam.barBorder }}></div> 
-                                  <div  
-                                  className={`theamboxs_1 ${theam.bgColor}`} 
-                                  style={{ backgroundColor: theam.barColor ,border: theam.barBorder }}></div> 
-                                  <div  
-                                  className={`theamboxs_1 ${theam.bgColor}`} 
-                                  style={{ backgroundColor: theam.barColor ,border: theam.barBorder }}></div>
-                                  
-                              </div>
-
-                            </button>
-
-                            <span className="text-sm font-medium">{theam.name}</span>
+                  <div className="theam_grp">
+                    {themebox.map((theam) => (
+                      <div className="theam_Contain" key={theam.id}>
+                        <button
+                          onClick={() => setSelectedTheme(theam.name)}
+                          className={`theam_box_container_button ${
+                            selectedTheme === theam.name
+                              ? "theam_box_container_button1"
+                              : ""
+                          }`}
+                        >
+                          <div
+                            className={`theamboxs`}
+                            style={{ backgroundColor: theam.bgColor }}
+                          >
+                            <div
+                              className={`theamboxs_1 ${theam.bgColor}`}
+                              style={{
+                                backgroundColor: theam.barColor,
+                                border: theam.barBorder,
+                              }}
+                            ></div>
+                            <div
+                              className={`theamboxs_1 ${theam.bgColor}`}
+                              style={{
+                                backgroundColor: theam.barColor,
+                                border: theam.barBorder,
+                              }}
+                            ></div>
+                            <div
+                              className={`theamboxs_1 ${theam.bgColor}`}
+                              style={{
+                                backgroundColor: theam.barColor,
+                                border: theam.barBorder,
+                              }}
+                            ></div>
                           </div>
-                        ))
-                      }
+                        </button>
 
-                      
-                    </div>
+                        <span className="text-sm font-medium">
+                          {theam.name}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-
               </div>
             </div>
-            
-            
-
           </div>
         </div>
       </section>

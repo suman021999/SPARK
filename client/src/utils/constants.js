@@ -168,7 +168,6 @@ export const Spacial = [
 
 
 export const themebox = [
-  // Air themes (top row)
   {
     id: "air-snow",
     name: "Air Snow",
@@ -200,7 +199,6 @@ export const themebox = [
     barColor:"#1e2939"
   },
 
-  // Mineral themes (bottom row)
   {
     id: "mineral-blue",
     name: "Mineral Blue",
@@ -229,4 +227,11 @@ export const themebox = [
     barBorder: "2px solid rgba(0, 0, 0, 0.21)",
     barColor: "",
   },
+];
+
+
+export const layouts = [
+  { id: "stack", src: "/public/stack.svg" },
+  { id: "grids", src: "/public/grids.svg" },
+  { id: "carousel", src: "/public/carosel.svg" },
 ];
