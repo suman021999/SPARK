@@ -10,6 +10,7 @@ import LiinkCard from "./LinkCard";
 const Linkspage = () => {
   const [toggle, setToggle] = useState("link");
   const [bgColor, setBgColor] = useState("#3B2E25");
+  const [color, setColor] = useState("#222");
   // const [name,setName]=useState()
 
   return (
@@ -159,7 +160,7 @@ const Linkspage = () => {
                     src="https://images.unsplash.com/photo-1529419412599-7bb870e11810?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDk3MzR8MHwxfHNlYXJjaHwzfHxuYXR1cmV8ZW58MHx8fHwxNzQwNDc3NjI5fDA&ixlib=rb-4.0.3&q=80&w=1080"
                     alt=""
                   />
-                  <h2 className="banner_black_h2">@opopo_08</h2>
+                  <h2 onChange={()=>setColor(color)}  className={`banner_black_h2 ${color=='#ffffffde'?'#222':''}`}>@opopo_08</h2>
                   <p className="banner_black_p">
                     <img src="/public/logos.svg" alt="" />
                     /opopo_08
