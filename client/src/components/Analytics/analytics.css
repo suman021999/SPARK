@@ -1,5 +1,58 @@
-.analytics{
-    height: 40vh;
-    background: #bd0f0f;
-    width: 100vw;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
+:root {
+  --poppins: "Poppins", serif;
 }
+
+.analytics{
+  height: 40vh;
+  margin: 0 10px;
+  width: 100%;
+  display: flex;
+  margin-left: 300px;
+  flex-direction: column;
+}
+
+.analytics_container{
+  display: flex;
+    flex-direction: column;
+    margin:0 28px ;
+}
+.analytics_text{
+  display: flex;
+  justify-content: space-between;
+    margin:0 28px ;
+}
+.analytics_scroll{
+  height: 30vh;
+  margin:5px 48px ;
+  display: flex;
+  
+}
+.analytics_scroll_card{
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  
+}
+.card_1{
+  height: 15vh;
+  border-radius: 5px;
+  background: #22D679;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left:10px ;
+  font-family: var(--poppins);
+}
+.card_2{
+  height: 15vh;
+  border-radius: 5px;
+  background: #DCFFEB;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left:10px ;
+  font-family: var(--poppins);
+}
+

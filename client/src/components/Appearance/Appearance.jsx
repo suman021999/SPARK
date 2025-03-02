@@ -58,6 +58,7 @@ const appearancespage = () => {
           </div>
 
           <div className="apperence_box">
+
             <div className="layout">
               <h2 className="layout_h2">Layout</h2>
 
@@ -71,8 +72,7 @@ const appearancespage = () => {
                 }`}
                 onClick={() => setLayaout(layout.id)}
                 style={{
-                  cursor: "pointer",
-                  transition: "all 0.3s ease-in-out",
+                  cursor: "pointer",       
                   border: layaout === layout.id ? "2px solid blue" : "none",
                 }}
               >
@@ -144,7 +144,6 @@ const appearancespage = () => {
                                 ? "0 0 0 2px #3b82f6"
                                 : HardShadow.boxShadow,
                             cursor: "pointer",
-                            transition: "all 0.3s ease-in-out",
                           }}
                           className={`buttons_box_fill_button ${
                             hardShadowButton === HardShadow.id
@@ -170,7 +169,6 @@ const appearancespage = () => {
                                 ? "0 0 0 2px #3b82f6"
                                 : SoftShadow.boxShadow,
                             cursor: "pointer",
-                            transition: "all 0.3s ease-in-out",
                           }}
                           className={`buttons_box_fill_button ${
                             softShadowButton === SoftShadow.id
@@ -383,6 +381,7 @@ const appearancespage = () => {
                 </div>
               </div>
             </div>
+            <div className="apperence_box_button_box"> <button className="apperence_box_button">save</button></div>
           </div>
         </div>
       </section>

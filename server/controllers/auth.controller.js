@@ -1,6 +1,6 @@
-import User  from "../models/user.models.js"
+import {User}  from "../models/user.models.js"
 import bcrypt from "bcrypt"
-// import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 
 
 
@@ -36,14 +36,33 @@ export const registerUser= async(req,res,next)=>{
 
 
 
-export const loginUser=(req,res)=>{
+export const loginUser=async(req,res,next)=>{
 
     try {
-       return res.status(200).json({message:'okk'})
+
+        const{email,password}=req.body
+        const user=await User.findOne({email})
+
+        if(!user){
+            return res.status(401).json({msg:"user not found"})
+        }
+        const isPasswordCorrect=await bcrypt.compare(password,user.password)
+        if(!isPasswordCorrect){
+            return res.status(401).json({msg:"inviled credentials"})
+        }
+
+        const payload={
+            id:user._id,
+            name:user.name
+           }
+           const token=jwt.sign(payload,process.env.SECRET_KEY)
+           return res.status(200).json({token,msg:"Login succesfully"})
+
     
        
-    } catch (error) {
-
+    } 
+    catch (error) {
+        next(err)
         console.log("error",error)
     }
        

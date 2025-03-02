@@ -8,8 +8,9 @@
 }
 
 .sidebar {
+  position:fixed;
   width: 15vw;
-  height: 80vh;
+  height: 100vh;
   background: #f3f2f2;
 }
 

@@ -1,5 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
 
+:root{
+    --poppins:"Poppins", serif;
+}
 
 *{
     margin: 0;
@@ -7,22 +10,17 @@
     box-sizing: border-box;
 }
 
-:root{
-    --poppins:"Poppins", serif;
-}
 
 .links{
     height: 40vh;
     margin: 0 10px;
     width: 100%;
+    margin-left: 300px;
 }
 .links_scroll {
     display: grid;
     grid-template-columns:  repeat(3, 1fr);
     gap: 6vw;
-    margin-top: 40px;
-    margin-left: 40px;
-    margin-right: 40px;
 }
 .links_scroll .phone{
     height:80vh;

@@ -15,7 +15,7 @@ const DashboardPage = () => {
           <Sidebar />
        
             <Routes>
-              <Route path="/" element={<Linkspage />} />
+              <Route path="/links" element={<Linkspage />} />
               <Route path="/appearance" element={<Appearance />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/settings" element={<Settings />} />

@@ -22,6 +22,11 @@ const Sidebar = () => {
             </div>
         ))}
       </div>
+
+      <div>
+        <img src="" alt="" />
+        <p>name</p>
+      </div>
     </div>
   );
 };
