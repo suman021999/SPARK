@@ -24,18 +24,31 @@ const userSchema = new Schema(
       trim: true,
       index: true,
     },
+    lastname: {
+      type: String,
+      required: true,
+      trim: true,
+      index: true,
+    },
     avatar: {
       type: String, //cloudeniry url
       required: true,
     },
-
     password: {
       type: String,
       required: [true, "password is requried"],
     },
-    refreshToken: {
-      type: String,
+    createdLinks:{
+      type:Schema.Types.ObjectId,
+      ref:'link',
+      required:false
     },
+    savedLinks:{
+      type:Schema.Types.ObjectId,
+      ref:'link',
+      required:false
+    },
+
   },
   { timestamps: true }
 );
