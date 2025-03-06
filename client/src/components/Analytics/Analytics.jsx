@@ -1,6 +1,9 @@
 import React from 'react'
 import "./analytics.css"
 import Nav from '../Navbar/Nav'
+
+
+
 const Analytics = () => {
   return (
     <>
@@ -31,8 +34,13 @@ const Analytics = () => {
             </div>
           </div>
 
+           <c/>
+          <div>
 
-          <div></div>
+       
+
+    
+          </div>
 
           <div>
             <div></div>

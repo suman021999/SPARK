@@ -9,9 +9,9 @@ export const registerUser= async(req,res,next)=>{
 
     try {
 
-        const{name,email,password}=req.body
+        const{name,email,password,confirm_password}=req.body
         console.log(req.body)
-        console.log(name,email,password,mobile)
+        console.log(name,email,password,confirm_password)
 
         const hashedPassword=bcrypt.hashSync(password,10)
 
@@ -42,11 +42,11 @@ export const loginUser=async(req,res,next)=>{
 
         const{email,password}=req.body
         const user=await User.findOne({email})
-
+        const isPasswordCorrect=bcrypt.compare(password, user.password)
         if(!user){
             return res.status(401).json({msg:"user not found"})
         }
-        const isPasswordCorrect=await bcrypt.compare(password,user.password)
+       
         if(!isPasswordCorrect){
             return res.status(401).json({msg:"inviled credentials"})
         }
@@ -68,10 +68,11 @@ export const loginUser=async(req,res,next)=>{
        
 } 
 
-export const logoutUser=async(req,res,next)=>{
-            try {
-                
-            } catch (error) {
-                
-            }
-}
+// Logout
+
+export const logout = (req, res) => {
+    return res.cookie("token", "", { expiresIn: new Date(Date.now()) }).json({
+      message: "user logged out successfully.",
+      success: true,
+    });
+  };

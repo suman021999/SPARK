@@ -30,6 +30,7 @@
 }
 .navbar button {
   display: flex;
+  cursor: pointer;
   border: none;
   background: #28a263;
   height: 40px;
@@ -385,21 +386,23 @@
   gap: 10px;
   width: 300px;
 }
-.auth .login{
-  height: 50px;
-  padding: 15px;
-  border: none;
-  background: #EFF0EC;
-  border-radius: 10px;
-}
-
-.auth .singin{
+.auth .singin {
   height: 50px;
   padding: 15px;
   border: none;
   background: #28a263;
   border-radius: 35px;
   color: #fff;
+  width: 40%;
+}
+
+.auth .login {
+  height: 50px;
+  padding: 15px;
+  border: none;
+  background: #EFF0EC;
+  border-radius: 10px;
+  width: 50%;
 }
 
 #contact_sec .contact .contact_pages .page .page_text{

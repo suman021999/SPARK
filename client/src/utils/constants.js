@@ -236,3 +236,9 @@ export const layouts = [
   { id: "carousel", src: "/public/carosel.svg" },
 ];
 
+export const socialApps = [
+  { name: "Instagram", icon: "📸" },
+  { name: "FaceBook", icon: "📘" },
+  { name: "YouTube", icon: "📺" },
+  { name: "X", icon: "❌" },
+];

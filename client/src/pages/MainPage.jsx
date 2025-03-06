@@ -8,12 +8,18 @@ import {BrowserRouter as Router, Routes,Route } from 'react-router-dom'
 const MainPage = () => {
   return (
     <>
-      {/* <Display/> */}
 
-      {/* <Login/> */}
-      {/* <Register/> */}
-      {/* <Namepage/> */}
-      <DashboardPage/>
+    <Router>
+      <Routes>
+        <Route path='/' element={<Display/>}/>
+        <Route path='/login' element={<Login/>}/>
+        <Route path='/register' element={<Register/>}/>
+        {/* <Namepage/> */}
+        {/* <DashboardPage/> */}
+      </Routes>
+    </Router>
+      
+      
     </>
   )
 }
