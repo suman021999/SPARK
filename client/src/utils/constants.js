@@ -242,3 +242,19 @@ export const socialApps = [
   { name: "YouTube", icon: "📺" },
   { name: "X", icon: "❌" },
 ];
+
+
+export const categories = [
+  { name: "Business", icon: "🏢" },
+  { name: "Creative", icon: "🎨" },
+  { name: "Education", icon: "📚" },
+  { name: "Entertainment", icon: "🎵" },
+  { name: "Fashion & Beauty", icon: "💄" },
+  { name: "Food & Beverage", icon: "🍕" },
+  { name: "Government & Politics", icon: "⚖️" },
+  { name: "Health & Wellness", icon: "🍎" },
+  { name: "Non-Profit", icon: "💗" },
+  { name: "Other", icon: "💗" },
+  { name: "Tech", icon: "💻" },
+  { name: "Travel & Tourism", icon: "✈️" }
+];

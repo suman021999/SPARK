@@ -1,20 +1,34 @@
-import React, { useEffect } from 'react'
+import React, {useState } from 'react'
 import "./auth.css"
 import logo from "../../../public/logo.svg"
  import Frame from "../../../public/Frame.png"
  import { useNavigate } from 'react-router-dom'
 import Register from './Register'
-import axios from "axios"
+import axios from 'axios';
 const Login = () => {
-
-  useEffect(()=>{
-    axios
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const handleLogin=async(evx)=>{
+    evx.preventDefault();
+    try {
+      const res=axios.post(`${import.meta.env.VITE_AUTH_URL}/login`,{
+        email: username,
+        password: password,
+      })
+      if (res.status === 200) {
+        localStorage.setItem('token', res.data.token); // Save token what is it
+        alert('Login Successful');
+        navigate('/dashboard'); // Redirect after login
+      }
       
-
-  },[])
+    } catch (error) {
+       alert(error.response?.data?.msg || 'Login failed');
+    }
+  }
 
   
-    const nevigate=useNavigate(<Register/>)
+    
   return (
     <>
       <section className='login'>
@@ -26,13 +40,22 @@ const Login = () => {
 
         <div className='login_box'>
             <h2>Sign in to your Spark</h2>
-            <form className='form'>
-                <input type="text" placeholder='spark/username' />
-                <input  type="password" placeholder='password' />
-                <button>login</button>
+            <form className='form' onSubmit={handleLogin}>
+                <input type="text"
+                 placeholder='spark/username' 
+                 value={username}
+                 onChange={(e) => setUsername(e.target.value)}
+                 />
+                <input  
+                type="password" 
+                placeholder='password' 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                />
+                <button type="submit">login</button>
             </form>
             <h4 className='underline_green'>Forgot password?</h4>
-            <p>Don't have an account?<span onClick={()=>nevigate('/register')} className='underline_green'>Sign up</span></p>           
+            <p>Don't have an account?<span  className='underline_green' onClick={() => navigate("/register")}>Sign up</span></p>           
         </div>
         
        

@@ -20,29 +20,21 @@ const Analytics = () => {
          <div className='analytics_scroll'>
           
           <div className='analytics_scroll_card'>
-            <div className='card_1'>
-                <p>Clicks on Links</p>
-                <h2>number</h2>
-            </div>
-            <div className='card_2'>
+            <div className='card'>
+              <p>Clicks on Links</p>
+              <h2>{0}</h2>
+              </div>
+            <div className='card'>
             <p>Click on Shop</p>
-            <h2>number</h2>
+            <h2>{334}</h2>
             </div>
-            <div className='card_2'>
+            <div className='card'>
             <p>CTA</p>
-            <h2>number</h2>
+            <h2>{222}</h2>
             </div>
           </div>
 
-           <c/>
-          <div>
-
-       
-
-    
-          </div>
-
-          <div>
+          <div className='charts'>
             <div></div>
             <div></div>
             <div></div>

@@ -1,69 +1,85 @@
 import {User}  from "../models/user.models.js"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
-import authmiddleware from '../middlewares/auth.middleware.js'
 
 
 
-export const registerUser= async(req,res,next)=>{
+export const registerUser= async(req,res)=>{
 
     try {
 
-        const{name,email,password,confirm_password}=req.body
-        console.log(req.body)
-        console.log(name,email,password,confirm_password)
+        const { firstName, lastName, email, password, confirmPassword } = req.body;
 
-        const hashedPassword=bcrypt.hashSync(password,10)
+        if(!firstName || !lastName || !email|| !password|| !confirmPassword){
+            return res.status(400).json({ msg: "All fields are required" });
+        }
 
+        if (password !== confirmPassword) {
+            return res.status(400).json({ msg: "Passwords do not match" });
+          }
+        
+          if (password.length < 8) {
+            return res.status(400).json({ msg: "Password must be at least 8 characters long" });
+        }
+
+        const existingUser = await User.findOne({ email });
+
+        if (existingUser) {
+          return res.status(400).json({ msg: "User already exists" });
+        }
+        
+        const hashedPassword = await bcrypt.hash(password, 10)
         const user=new User({
-            name,
+            firstName,
+            lastName,
             email,
-            phone,
-            password:hashedPassword,
+            username: email.split("@")[0],
+            password: hashedPassword,
         })
         await user.save()
 
-       return res.status(200).json({message:'okk'})
+        return res.status(201).json({ msg: "User registered successfully" });
     
        
     } 
-    catch (error) {
-        next(err)
-        console.log("error",error)
+    catch (err) {
+        // next(err)
+        console.log("error",err)
+        return res.status(500).json({ msg: "Internal Server Error" });
     }
        
 } 
 
 
 
-export const loginUser=async(req,res,next)=>{
+export const loginUser=async(req,res)=>{
 
     try {
 
         const{email,password}=req.body
+
         const user=await User.findOne({email})
-        const isPasswordCorrect=bcrypt.compare(password, user.password)
         if(!user){
             return res.status(401).json({msg:"user not found"})
         }
        
+
+        const isPasswordCorrect=await bcrypt.compare(password, user.password)
+        
         if(!isPasswordCorrect){
             return res.status(401).json({msg:"inviled credentials"})
         }
 
         const payload={
             id:user._id,
-            name:user.name
+            name: user.username,
            }
-           const token=jwt.sign(payload,process.env.SECRET_KEY)
-           return res.status(200).json({token,msg:"Login succesfully"})
-
-    
-       
+           const token=jwt.sign(payload,process.env.SECRET_KEY,{ expiresIn: "1h" })
+           return res.status(200).json({token,msg:"Login succesfully"})     
     } 
-    catch (error) {
-        next(err)
-        console.log("error",error)
+    
+    catch (err) {
+        console.log("error",err)
     }
        
 } 

@@ -18,31 +18,34 @@ const userSchema = new Schema(
       trim: true,
     },
 
-    fullname: {
+    firstName: {
       type: String,
       required: true,
       trim: true,
       index: true,
     },
-    lastname: {
+    lastName: {
       type: String,
       required: true,
       trim: true,
       index: true,
-    },
-    avatar: {
-      type: String, //cloudeniry url
-      required: true,
     },
     password: {
       type: String,
     },
     confirm_password: {
       type: String,
-      required: [true, "password is requried"],
     },
   },
   { timestamps: true }
 );
+
+
+// userSchema.pre("save", function (next) {
+//   if (this.confirmPassword !== this.password) {
+//     return next(new Error("Passwords do not match"));
+//   }
+//   next();
+// });
 
 export const User=mongoose.model('User',userSchema)

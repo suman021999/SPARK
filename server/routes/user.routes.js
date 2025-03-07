@@ -4,7 +4,7 @@ import { User } from '../models/user.models';
 
 import { uploadProfileImage } from "../controllers/user.controller.js";
 import { upload } from "../middlewares/upload.middleware.js";
-import { protect } from "../middlewares/auth.middleware.js"; // Assuming authentication middleware??
+import { authMiddleware } from '../middlewares/auth.middleware.js'; 
 
 const router=Router()
 
@@ -16,7 +16,7 @@ router.get("/avatar/:id", async (req, res) => {
       res.status(404).json({ error: "User not found" });
     }
   });
-  router.post("/upload-avatar", protect, upload.single("avatar"), uploadProfileImage);
+  router.post("/upload-avatar", authMiddleware, upload.single("avatar"), uploadProfileImage);
 router.route('/delete').delete(linkdelete)
 router.route('/update').put(linkupdate)
 

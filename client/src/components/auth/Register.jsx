@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import logo from "../../../public/logo.svg"
  import Frame from "../../../public/Frame.png"
+ import axios from "axios";
 import { useNavigate } from 'react-router-dom'
-import Login from './Login'
 const Register = () => {
 
  const [formData, setFormData] = useState({
@@ -14,7 +14,7 @@ const Register = () => {
   agreeToTerms: false,
 });
 const [errors, setErrors] = useState({});
-
+const navigate=useNavigate()
 const validatePassword = (password) => {
   let passwordErrors = "";
   if (!password) {
@@ -48,10 +48,36 @@ const handleChange = (e) => {
   validate(name, value);
 };
 
+const handleRegister = async (e) => {
+  e.preventDefault();
+  if (!formData.agreeToTerms) {
+    alert("You must agree to the terms before registering.");
+    return;
+  }
+  try {
+     const res=await axios.post(`${import.meta.env.VITE_AUTH_URL}/register`,{
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      password: formData.password,
+      confirmPassword: formData.confirmPassword,
+     })
+     
+     if (res.status === 201) {
+      alert("Registration Successful!");
+      navigate("/login"); // Redirect to login page
+    } else {
+      alert("Unexpected response. Please try again.");
+    }
+    return res
+  } catch (error) {
+    alert(error.response?.data?.msg || "Registration failed");
+  }
 
+}
  
 
-  const nevigate=useNavigate(<Login/>)
+  
   return (
     <>
       <section className='reg'>
@@ -66,40 +92,40 @@ const handleChange = (e) => {
 
                   <div className='account_create'>
                     <h5>Create an account</h5>
-                    <p onClick={()=>nevigate('/login')} className='underline_green'>Sign in instead</p>
+                    <p  className='underline_green' onClick={()=>navigate('/login')}>Sign in instead</p>
                   </div>
-                  <form className='form'>
+                  <form className='form' onSubmit={handleRegister}>
 
                     <div>
-                    <input value={formData.firstName} onChange={handleChange} type="text" placeholder='First name' />
+                    <input name="firstName" value={formData.firstName} onChange={handleChange} type="text" placeholder='First name' />
                       <p className='from_name'>{errors.firstName}</p>
                     </div>
 
                     <div>
-                    <input value={formData.lastName} onChange={handleChange}  type="text" placeholder='Last name' />
+                    <input name="lastName" value={formData.lastName} onChange={handleChange}  type="text" placeholder='Last name' />
                       <p className='from_name'>{errors.lastName}</p>
                     </div>
                     
                     <div>
-                    <input value={formData.email} onChange={handleChange}  type="text" placeholder='Email' />
+                    <input name="email" value={formData.email} onChange={handleChange}  type="text" placeholder='Email' />
                       <p className='from_name'>{errors.email}</p>
                     </div>
                     
                     <div>
-                    <input value={formData.password} onChange={handleChange}  type="text" placeholder='Password' />
+                    <input name="password" value={formData.password} onChange={handleChange}  type="text" placeholder='Password' />
                       <p className='from_name'>{errors.password}</p>
                     </div>  
 
                     <div>
-                    <input value={formData.confirmPassword} onChange={handleChange} type="text" placeholder='Confirm Password' />
+                    <input name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} type="text" placeholder='Confirm Password' />
                       <p className='from_name'>{errors.confirmPassword}</p>
                     </div>
   
                       <div className='checkbox'>
-                        <input checked={formData.agreeToTerms} onChange={handleChange} type="checkbox" name="agreeToTerms" id="" />
+                        <input name="agreeToTerms" checked={formData.agreeToTerms} onChange={handleChange} type="checkbox" id="" />
                         <p>By creating an account, I agree to our <span className='checkbox_black'>Terms of use</span> and <span className='checkbox_black'>Privacy Policy</span></p>
                         </div>
-                      <button >Create an account</button>
+                      <button type='submit'>Create an account</button>
                   </form>
                         
               </div>
@@ -112,4 +138,4 @@ const handleChange = (e) => {
   )
 }
 
-export default Register
+export default Register;

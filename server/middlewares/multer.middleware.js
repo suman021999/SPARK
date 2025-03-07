@@ -1,10 +1,8 @@
 import multer from "multer";
-import path from "path";
 
-// Configure Multer storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/"); // Store files in an `uploads` folder
+    cb(null, "uploads/");
   },
   filename: (req, file, cb) => {
     cb(null, `${Date.now()}-${file.originalname}`);
@@ -14,3 +12,5 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 export { upload };
+
+

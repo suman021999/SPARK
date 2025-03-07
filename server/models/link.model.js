@@ -12,6 +12,10 @@ const linkSchema = new Schema(
             required:true,
             
         },
+        avatar: {
+            type: String, //cloudeniry url
+            required: true,
+          },
         createdLinks:{
             type:Schema.Types.ObjectId,
             ref:'link',

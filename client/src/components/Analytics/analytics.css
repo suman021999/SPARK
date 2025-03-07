@@ -35,7 +35,7 @@
   gap: 20px;
   
 }
-.card_1{
+.card:hover{
   height: 15vh;
   border-radius: 5px;
   background: #22D679;
@@ -44,8 +44,9 @@
   justify-content: center;
   padding-left:10px ;
   font-family: var(--poppins);
+  color: #ffff;
 }
-.card_2{
+.card{
   height: 15vh;
   border-radius: 5px;
   background: #DCFFEB;
