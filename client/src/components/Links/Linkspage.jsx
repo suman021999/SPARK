@@ -11,7 +11,54 @@ const Linkspage = () => {
   const [toggle, setToggle] = useState("link");
   const [bgColor, setBgColor] = useState("#3B2E25");
   const [color, setColor] = useState("#222");
-  // const [name,setName]=useState()
+
+
+  // const [profileImage, setProfileImage] = useState(null);
+  // const [profileTitle, setProfileTitle] = useState("@opopo_08");
+  // const [bio, setBio] = useState("Bio");
+  // const [uploading, setUploading] = useState(false);
+
+
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     setProfileImage(URL.createObjectURL(file));
+  //     uploadImage(file);
+  //   }
+  // };
+
+  // const uploadImage = async (file) => {
+  //   setUploading(true);
+  //   const formData = new FormData();
+  //   formData.append("image", file);
+    
+  //   try {
+  //     const response = await axios.post("https://your-backend-url.com/upload", formData, {
+  //       headers: { "Content-Type": "multipart/form-data" },
+  //     });
+  //     console.log("Image uploaded successfully:", response.data);
+  //   } catch (error) {
+  //     console.error("Error uploading image:", error);
+  //   } finally {
+  //     setUploading(false);
+  //   }
+  // };
+ 
+  // const handleBioChange = async (e) => {
+  //   setBio(e.target.value);
+  // };
+
+  // const saveProfile = async () => {
+  //   try {
+  //     await axios.post("https://your-backend-url.com/update-profile", {
+  //       profileTitle,
+  //       bio,
+  //     });
+  //     alert("Profile updated successfully!");
+  //   } catch (error) {
+  //     console.error("Error updating profile:", error);
+  //   }
+  // };
 
   return (
     <>

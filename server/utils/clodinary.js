@@ -1,29 +1,57 @@
-import { v2 as cloudinary } from 'cloudinary';
-import fs from "fs"
+import { v2 as cloudinary } from "cloudinary";
+import fs from "fs";
+import User from "../models/user.models.js";
 
-    cloudinary.config({ 
-        cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
-        api_key:process.env.CLOUDINARY_API_KEY, 
-        api_secret:process.env.CLOUDINARY_API_SECRET
-    });
-    
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
-const uploadOnCloudinary=async(localFilePath)=>{
-    try {
-
-        if(!localFilePath) return null
-         const res=await cloudinary.uploader.upload(localFilePath,
-            {
-                resource_type:"auto" //video 
-            }
-        )
-        console.log("uploade",res.url)
-        return res
-        
-    } catch (err) {
-        fs.unlinkSync(localFilePath) //remove save temporery file as the upload opration fail
-        return null
+const uploadOnCloudinary = async (localFilePath, userId) => {
+  try {
+    if (!localFilePath || !userId) {
+      throw new Error("Missing file path or user ID");
     }
-}
 
-export {uploadOnCloudinary}
+    if (!fs.existsSync(localFilePath)) {
+      throw new Error("File does not exist at given path");
+    }
+
+    // Upload file to Cloudinary
+    const res = await cloudinary.uploader.upload(localFilePath, {
+      resource_type: "auto",
+    });
+    console.log("Uploaded to Cloudinary:", res.url);
+
+    // Update user's profile image in MongoDB
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { profileImage: res.url },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedUser) {
+      throw new Error("User not found or update failed");
+    }
+
+    console.log("Updated User:", updatedUser);
+
+    // Remove the local file
+    fs.unlinkSync(localFilePath);
+
+    return res;
+  } 
+  
+  
+  
+  catch (err) {
+    if (fs.existsSync(localFilePath)) {
+      fs.unlinkSync(localFilePath);
+    }
+
+    return null;
+  }
+};
+
+export { uploadOnCloudinary };

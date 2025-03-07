@@ -12,6 +12,16 @@ const linkSchema = new Schema(
             required:true,
             
         },
+        createdLinks:{
+            type:Schema.Types.ObjectId,
+            ref:'link',
+            required:false
+          },
+        savedLinks:{
+            type:Schema.Types.ObjectId,
+            ref:'link',
+            required:false
+          },
         createdBy:{
             type:Schema.Types.ObjectId,
             ref:'user',

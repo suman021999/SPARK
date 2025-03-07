@@ -1,8 +1,4 @@
 import { useState } from "react";
-import { Switch } from "@/components/ui/switch";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Copy, Trash2 } from "lucide-react";
 import { socialApps } from "../../utils/constants";
 
 

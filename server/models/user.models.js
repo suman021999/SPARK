@@ -41,17 +41,6 @@ const userSchema = new Schema(
       type: String,
       required: [true, "password is requried"],
     },
-    createdLinks:{
-      type:Schema.Types.ObjectId,
-      ref:'link',
-      required:false
-    },
-    savedLinks:{
-      type:Schema.Types.ObjectId,
-      ref:'link',
-      required:false
-    },
-
   },
   { timestamps: true }
 );
