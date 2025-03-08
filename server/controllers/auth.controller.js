@@ -43,7 +43,6 @@ export const registerUser= async(req,res)=>{
        
     } 
     catch (err) {
-        // next(err)
         console.log("error",err)
         return res.status(500).json({ msg: "Internal Server Error" });
     }
@@ -56,18 +55,16 @@ export const loginUser=async(req,res)=>{
 
     try {
 
-        const{email,password}=req.body
+        const { username, password } = req.body;
 
-        const user=await User.findOne({email})
+        const user = await User.findOne({ username });
         if(!user){
             return res.status(401).json({msg:"user not found"})
         }
        
-
-        const isPasswordCorrect=await bcrypt.compare(password, user.password)
-        
-        if(!isPasswordCorrect){
-            return res.status(401).json({msg:"inviled credentials"})
+        const isPasswordCorrect = await bcrypt.compare(password, user.password);
+        if (!isPasswordCorrect) {
+          return res.status(401).json({ msg: "Invalid credentials" });
         }
 
         const payload={
@@ -75,11 +72,13 @@ export const loginUser=async(req,res)=>{
             name: user.username,
            }
            const token=jwt.sign(payload,process.env.SECRET_KEY,{ expiresIn: "1h" })
+
            return res.status(200).json({token,msg:"Login succesfully"})     
     } 
     
     catch (err) {
         console.log("error",err)
+        return res.status(500).json({ msg: "Internal Server Error" });
     }
        
 } 

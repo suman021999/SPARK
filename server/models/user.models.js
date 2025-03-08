@@ -40,12 +40,4 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
-
-// userSchema.pre("save", function (next) {
-//   if (this.confirmPassword !== this.password) {
-//     return next(new Error("Passwords do not match"));
-//   }
-//   next();
-// });
-
 export const User=mongoose.model('User',userSchema)

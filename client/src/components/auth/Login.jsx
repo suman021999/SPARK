@@ -12,14 +12,14 @@ const Login = () => {
   const handleLogin=async(evx)=>{
     evx.preventDefault();
     try {
-      const res=axios.post(`${import.meta.env.VITE_AUTH_URL}/login`,{
-        email: username,
-        password: password,
+      const res=await axios.post(`${import.meta.env.VITE_AUTH_URL}/login`,{
+        username,
+        password,
       })
       if (res.status === 200) {
-        localStorage.setItem('token', res.data.token); // Save token what is it
-        alert('Login Successful');
-        navigate('/dashboard'); // Redirect after login
+        localStorage.setItem("token", res.data.token);
+        alert("Login Successful");
+        navigate("/namepage");
       }
       
     } catch (error) {
