@@ -3,12 +3,16 @@ import "./auth.css"
 import logo from "../../../public/logo.svg"
  import Frame from "../../../public/Frame.png"
  import { useNavigate } from 'react-router-dom'
-import Register from './Register'
+ import { FaEyeSlash } from "react-icons/fa";
+ import { FaEye } from "react-icons/fa";
+
 import axios from 'axios';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+
   const handleLogin=async(evx)=>{
     evx.preventDefault();
     try {
@@ -16,12 +20,16 @@ const Login = () => {
         username,
         password,
       })
+      
       if (res.status === 200) {
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("user", JSON.stringify(res.data.user))
+
+        console.log("Stored User in localStorage:", localStorage.getItem("user"))
+
         alert("Login Successful");
         navigate("/namepage");
       }
-      
     } catch (error) {
        alert(error.response?.data?.msg || 'Login failed');
     }
@@ -41,20 +49,39 @@ const Login = () => {
         <div className='login_box'>
             <h2>Sign in to your Spark</h2>
             <form className='form' onSubmit={handleLogin}>
-                <input type="text"
+              <div className='from_input_div'>
+              <input type="text"
                  placeholder='spark/username' 
                  value={username}
                  onChange={(e) => setUsername(e.target.value)}
                  />
-                <input  
-                type="password" 
+              </div>
+                
+
+                 <div className='from_input_div'>
+                 <input  
+                  type={showPassword ? "text" : "password"}
                 placeholder='password' 
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 />
+                 <span  onClick={() => setShowPassword(!showPassword)}>
+                {showPassword ? <FaEyeSlash/> : <FaEye />}
+                </span>
+                </div>
+               
+
                 <button type="submit">login</button>
             </form>
-            <h4 className='underline_green'>Forgot password?</h4>
+
+            {/* <h4
+              className='underline_green'
+              onClick={() => navigate("/forgot-password")}
+              style={{ cursor: "pointer", color: "green" }}
+            >
+              Forgot password?
+            </h4> */}
+
             <p>Don't have an account?<span  className='underline_green' onClick={() => navigate("/register")}>Sign up</span></p>           
         </div>
         

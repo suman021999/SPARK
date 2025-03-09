@@ -14,11 +14,11 @@ const MainPage = () => {
         <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/namepage' element={<Namepage/>}/>
-        
+        <Route path='/dashboard' element={<DashboardPage/>}/>
       </Routes>
     </Router> 
-      {/* <Route path='/namepage' element={<Namepage/>}/>
-     <DashboardPage/>
+      {/* 
+     
     */}
     </>
   )

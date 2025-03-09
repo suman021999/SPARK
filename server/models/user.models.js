@@ -36,7 +36,30 @@ const userSchema = new Schema(
     confirm_password: {
       type: String,
     },
+    bio: {
+      type: String, 
+      trim: true,
+    },
+    category: {
+      type: String,
+      enum: [
+        "Business",
+        "Creative",
+        "Education",
+        "Entertainment",
+        "Fashion & Beauty",
+        "Food & Beverage",
+        "Government & Politics",
+        "Health & Wellness",
+        "Non-Profit",
+        "Other",
+        "Tech",
+        "Travel & Tourism",
+      ],
+    },
   },
+
+
   { timestamps: true }
 );
 

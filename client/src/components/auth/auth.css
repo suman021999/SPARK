@@ -289,14 +289,20 @@ color: #676B5F;
   gap: 10px;
   
 }
-.name_from .name_box .form input{
-      width: 40vw;
-      border-radius:10px ;
-      padding: 10px;
-      border: none;
-      background: #EFF0EC;
-      outline: none;
+.from_input_div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40vw;
+  border-radius:10px ;
+  padding: 10px;
+  border: none;
+  background: #EFF0EC;
+  outline: none;
 }
+
+
+
 .name .form  button{
   width: 40vw;
   border-radius:35px ;
@@ -358,6 +364,7 @@ color: #676B5F;
 }
 .name_box_button{
   padding: 15px 0px;
+  cursor: pointer;
   background: #28A263;
   border-radius: 35px;
   border: none;

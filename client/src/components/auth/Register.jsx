@@ -112,12 +112,12 @@ const handleRegister = async (e) => {
                     </div>
                     
                     <div>
-                    <input name="password" value={formData.password} onChange={handleChange}  type="text" placeholder='Password' />
+                    <input name="password"  value={formData.password} onChange={handleChange}  type="password" placeholder='Password' />
                       <p className='from_name'>{errors.password}</p>
                     </div>  
 
                     <div>
-                    <input name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} type="text" placeholder='Confirm Password' />
+                    <input name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} type="password" placeholder='Confirm Password' />
                       <p className='from_name'>{errors.confirmPassword}</p>
                     </div>
   

@@ -62,7 +62,7 @@ export const loginUser=async(req,res)=>{
             return res.status(401).json({msg:"user not found"})
         }
        
-        const isPasswordCorrect = await bcrypt.compare(password, user.password);
+        const isPasswordCorrect = await bcrypt.compare(password, user.password || "");
         if (!isPasswordCorrect) {
           return res.status(401).json({ msg: "Invalid credentials" });
         }
@@ -73,7 +73,9 @@ export const loginUser=async(req,res)=>{
            }
            const token=jwt.sign(payload,process.env.SECRET_KEY,{ expiresIn: "1h" })
 
-           return res.status(200).json({token,msg:"Login succesfully"})     
+          //  return res.status(200).json({token,msg:"Login succesfully"})     
+           return res.status(200).json({token,user,msg:"Login succesfully"})     
+          
     } 
     
     catch (err) {
@@ -82,6 +84,34 @@ export const loginUser=async(req,res)=>{
     }
        
 } 
+// namepage
+
+export const updateUserProfile = async (req, res) => {
+
+    const { userId } = req.params;
+    console.log("Received userId:", userId);
+
+    const { bio, category } = req.body;
+    console.log("Received Data:", { bio, category })
+
+    try {
+      const user = await User.findByIdAndUpdate(
+        userId,
+        { bio, category },
+        { new: true, runValidators: true }
+      );
+  
+      if (!user) {return res.status(404).json({ msg: "User not found" })}
+
+      console.log("Updated User:", user);
+
+        res.status(200).json({ msg: "Profile updated successfully", user });
+
+    } catch (error) {
+      res.status(500).json({ msg: "Server error", error: error.message });
+    }
+  };
+
 
 // Logout
 
@@ -91,3 +121,13 @@ export const logout = (req, res) => {
       success: true,
     });
   };
+
+
+
+
+
+
+
+
+
+
