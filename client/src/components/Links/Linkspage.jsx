@@ -4,6 +4,7 @@ import Nav from "../Navbar/Nav";
 import logo from "../../../public/logos.svg";
 import { presetColors } from "../../utils/constants";
 import LiinkCard from "./LinkCard";
+import Sidebar from "../sidebar/Sidebar";
 
 
 

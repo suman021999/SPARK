@@ -12,6 +12,7 @@ import {
   Spacial,
   themebox,
 } from "../../utils/constants";
+import Sidebar from "../sidebar/Sidebar";
 
 const appearancespage = () => {
   const [selectfont, setSelectfont] = useState("DM Sans");

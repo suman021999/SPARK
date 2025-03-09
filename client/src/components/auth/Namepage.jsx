@@ -56,7 +56,7 @@ const Namepage = () => {
           // console.log("User Stored in localStorage:", localStorage.getItem("user"))
         }
         alert(res.data.msg);
-        // navigate('/dashboard');
+        navigate('/dashboard');
       } catch (error) {
         console.error("Error updating profile:", error);
         alert("Failed to update profile");

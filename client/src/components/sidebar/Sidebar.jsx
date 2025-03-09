@@ -6,7 +6,7 @@ import { sidebar } from "../../utils/constants";
 
 const Sidebar = () => {
   const [active,setActive]=useState()
-  console.log(active)
+  // console.log(active)
   return (
     <div className="sidebar">
       <div className="logo">
@@ -24,7 +24,7 @@ const Sidebar = () => {
       </div>
 
       <div>
-        <img src="" alt="" />
+        {/* <img src="" alt="" /> */}
         <p>name</p>
       </div>
     </div>
