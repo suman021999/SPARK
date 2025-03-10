@@ -5,7 +5,7 @@ import logo from "../../../public/logos.svg";
 import { presetColors } from "../../utils/constants";
 import LiinkCard from "./LinkCard";
 import Sidebar from "../sidebar/Sidebar";
-
+import axios from 'axios'
 
 
 const Linkspage = () => {
@@ -13,53 +13,69 @@ const Linkspage = () => {
   const [bgColor, setBgColor] = useState("#3B2E25");
   const [color, setColor] = useState("#222");
 
+  const [avatar, setAvatar] = useState(null);
+  const [profileTitle, setProfileTitle] = useState("@opopo_08");
+  const [bio, setBio] = useState("Bio");
+  const [uploading, setUploading] = useState(false);
 
-  // const [profileImage, setProfileImage] = useState(null);
-  // const [profileTitle, setProfileTitle] = useState("@opopo_08");
-  // const [bio, setBio] = useState("Bio");
-  // const [uploading, setUploading] = useState(false);
 
+  const handlePhotoChange=async(evx)=>{
+    const file=evx.target.files[0]
+    if(!file)return
 
-  // const handleImageChange = (e) => {
-  //   const file = e.target.files[0];
-  //   if (file) {
-  //     setProfileImage(URL.createObjectURL(file));
-  //     uploadImage(file);
-  //   }
-  // };
+    const fromData=new FormData()
+    fromData.append("avatar",file)
 
-  // const uploadImage = async (file) => {
-  //   setUploading(true);
-  //   const formData = new FormData();
-  //   formData.append("image", file);
-    
-  //   try {
-  //     const response = await axios.post("https://your-backend-url.com/upload", formData, {
-  //       headers: { "Content-Type": "multipart/form-data" },
-  //     });
-  //     console.log("Image uploaded successfully:", response.data);
-  //   } catch (error) {
-  //     console.error("Error uploading image:", error);
-  //   } finally {
-  //     setUploading(false);
-  //   }
-  // };
- 
-  // const handleBioChange = async (e) => {
-  //   setBio(e.target.value);
-  // };
+    try {
+      setUploading(true)
+      const res=await axios.post(`${import.meta.env.VITE_USER_URL}/upload-profile`,
+        fromData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            
+          },
+        }
+      )
+      
+      if(res.data.success){
+        setAvatar(res.data.avatar);
+      }
+      else {
+        console.error("Upload failed:", res.data.error);
+      }
 
-  // const saveProfile = async () => {
-  //   try {
-  //     await axios.post("https://your-backend-url.com/update-profile", {
-  //       profileTitle,
-  //       bio,
-  //     });
-  //     alert("Profile updated successfully!");
-  //   } catch (error) {
-  //     console.error("Error updating profile:", error);
-  //   }
-  // };
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+    finally {
+      setUploading(false);
+    }
+
+  }
+
+  // Handle Profile Image Removal
+  const handleRemoveImage =async () => {
+    try {
+      const res=await axios.put(`${import.meta.env.VITE_USER_URL}/remove-profile`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+      if (res.data.success) {
+        setAvatar(null); // Clear image from state
+        alert("Profile image removed successfully!");
+      }
+    } catch (error) {
+      console.error("Error removing profile image:", error);
+      alert("Failed to remove profile image.");
+    }
+  };
+
 
   return (
     <>
@@ -142,30 +158,43 @@ const Linkspage = () => {
               <h2>profile</h2>
 
               <div className="profile_box">
+
                 <div className="image_piker">
                   <img
-                    src="https://images.unsplash.com/photo-1583089892943-e02e5b017b6a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDk3MzR8MHwxfHNlYXJjaHwzfHxnb2R8ZW58MHx8fHwxNzQwNDg1NDUwfDA&ixlib=rb-4.0.3&q=80&w=1080"
-                    alt=""
+                    src={avatar || "default-profile.png"}
+                    alt="Profile"
                   />
 
                   <div className="image_piker_button">
-                    <button className="image_piker_upload">
-                      Pick an image
+                  <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handlePhotoChange}
+                        style={{ display: "none" }}
+                        id="fileInput"
+                      />
+                    <button className="image_piker_upload"
+                    onClick={()=>document.getElementById("fileInput").click()}
+                    >
+                      {uploading ? "Uploading..." : "Pick an image"}
                     </button>
-                    <button className="image_piker_remove">remove</button>
+                    <button className="image_piker_remove" 
+                    onClick={handleRemoveImage}>Remove</button>
                   </div>
                 </div>
 
                 <div className="profile_title">
                   <p className="profile_title_text">Profile Title</p>
-                  <h2>@24251</h2>
+                  <h2>{"@24251"}</h2>
                 </div>
 
                 <div className="profile_bio">
                   <h2>bio</h2>
-                  <p>bio</p>
+                  <p>{"bio"}</p>
                 </div>
               </div>
+
+
 
               <div className="profile_links">
 

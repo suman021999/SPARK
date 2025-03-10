@@ -1,6 +1,8 @@
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
-import User from "../models/user.models.js";
+import dotenv from "dotenv";
+// import {Link} from "../models/link.model.js";
+dotenv.config();
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -20,16 +22,17 @@ const uploadOnCloudinary = async (localFilePath, userId) => {
 
     // Upload file to Cloudinary
     const res = await cloudinary.uploader.upload(localFilePath, {
+      folder:"profile_images",
       resource_type: "auto",
     });
     console.log("Uploaded to Cloudinary:", res.url);
 
     // Update user's profile image in MongoDB
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      { profileImage: res.url },
-      { new: true, runValidators: true }
-    );
+    // const updatedUser = await Link.findByIdAndUpdate(
+    //   userId,
+    //   { avatar: res.url },
+    //   { new: true, runValidators: true }
+    // );
 
     if (!updatedUser) {
       throw new Error("User not found or update failed");
@@ -40,7 +43,7 @@ const uploadOnCloudinary = async (localFilePath, userId) => {
     // Remove the local file
     fs.unlinkSync(localFilePath);
 
-    return res;
+    return res.url;
   } 
   
   

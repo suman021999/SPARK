@@ -19,8 +19,9 @@
 }
 .links_scroll {
     display: grid;
-    grid-template-columns:  repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 6vw;
+    margin-top: 40px;
 }
 .links_scroll .phone{
     height:80vh;
@@ -198,8 +199,8 @@ border-radius: 35px;
     padding: 10px;
     border-radius: 35px;
     border: 2px solid #E0E2D9;
+    cursor: pointer;
 }
-
 .image_piker_upload{
     background: #28A263 !important;
     border:none !important;

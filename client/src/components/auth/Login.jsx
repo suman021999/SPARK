@@ -27,7 +27,7 @@ const Login = () => {
 
         // console.log("Stored User in localStorage:", localStorage.getItem("user"))
 
-        alert("Login Successful");
+        // alert("Login Successful");
         navigate("/namepage");
       }
     } catch (error) {

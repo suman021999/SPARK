@@ -55,7 +55,7 @@ const Namepage = () => {
           localStorage.setItem("user", JSON.stringify(res.data.user));
           // console.log("User Stored in localStorage:", localStorage.getItem("user"))
         }
-        alert(res.data.msg);
+        // alert(res.data.msg);
         navigate('/dashboard');
       } catch (error) {
         console.error("Error updating profile:", error);
