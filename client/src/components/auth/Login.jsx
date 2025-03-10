@@ -25,6 +25,10 @@ const Login = () => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("user", JSON.stringify(res.data.user))
 
+      localStorage.setItem("userId", res.data.user._id);
+
+      // console.log("Stored userId:", localStorage.getItem("userId")); // Debugging
+
         // console.log("Stored User in localStorage:", localStorage.getItem("user"))
 
         // alert("Login Successful");

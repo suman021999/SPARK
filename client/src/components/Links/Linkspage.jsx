@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./links.css";
 import Nav from "../Navbar/Nav";
 import logo from "../../../public/logos.svg";
@@ -19,41 +19,50 @@ const Linkspage = () => {
   const [uploading, setUploading] = useState(false);
 
 
-  const handlePhotoChange=async(evx)=>{
-    const file=evx.target.files[0]
-    if(!file)return
 
-    const fromData=new FormData()
-    fromData.append("avatar",file)
+  const handlePhotoChange = async (evx) => {
+    const file = evx.target.files[0];
+    if (!file) return;
+  
+    const userId = localStorage.getItem("userId");
 
+    console.log("Retrieved userId:", userId);
+  
+    if (!userId) {
+      console.error("User ID is missing");
+      return;
+    }
+  
+    const formData = new FormData();
+    formData.append("avatar", file);
+    formData.append("userId", userId); 
+  
     try {
-      setUploading(true)
-      const res=await axios.post(`${import.meta.env.VITE_USER_URL}/upload-profile`,
-        fromData,
+      setUploading(true);
+  
+      const res = await axios.post(
+        `${import.meta.env.VITE_USER_URL}/upload-profile`,
+        formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
-            
           },
         }
-      )
-      
-      if(res.data.success){
+      );
+  
+      if (res.data.success) {
         setAvatar(res.data.avatar);
-      }
-      else {
+      } else {
         console.error("Upload failed:", res.data.error);
       }
-
     } catch (error) {
       console.error("Error uploading image:", error);
-    }
-    finally {
+    } finally {
       setUploading(false);
     }
-
-  }
+  };
+  
 
   // Handle Profile Image Removal
   const handleRemoveImage =async () => {
@@ -179,7 +188,7 @@ const Linkspage = () => {
                       {uploading ? "Uploading..." : "Pick an image"}
                     </button>
                     <button className="image_piker_remove" 
-                    onClick={handleRemoveImage}>Remove</button>
+                    onClick={handleRemoveImage}>remove</button>
                   </div>
                 </div>
 
