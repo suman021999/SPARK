@@ -1,7 +1,6 @@
-
-import {Link} from '../models/link.model.js'
 import {User} from '../models/user.models.js'
 import { uploadOnCloudinary } from "../utils/clodinary.js"
+
 
 
 
@@ -11,30 +10,29 @@ import { uploadOnCloudinary } from "../utils/clodinary.js"
 export const uploadProfileImage = async (req, res) => {
   try {
     console.log("Received request to upload profile image");
+
     if (!req.file) {
-      console.error("No file received");
       return res.status(400).json({ error: "No file uploaded" });
     }
 
     console.log("File received:", req.file);
 
-    const userId = req.user.id; 
-
+    const userId = req.body.userId;
     if (!userId) {
-      console.error("User ID not found in request");
       return res.status(401).json({ error: "Unauthorized" });
     }
 
-    const result = await uploadOnCloudinary(req.file.path);
+    // Upload image buffer directly to Cloudinary
+    const imageUrl = await uploadOnCloudinary(req.file.buffer, userId);
 
-    if (!result ||!result.url) {
+    if (!imageUrl) {
       return res.status(500).json({ error: "Cloudinary upload failed" });
     }
 
     const updatedUser = await User.findByIdAndUpdate(
       userId,
-      { avatar: result.url },
-      { new: true } 
+      { avatar: imageUrl },
+      { new: true }
     );
 
     if (!updatedUser) {
@@ -44,13 +42,14 @@ export const uploadProfileImage = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Profile image updated",
-      avatar: result.url,
+      avatar: imageUrl,
     });
   } catch (error) {
     console.error("Error uploading image:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
 
 
 
@@ -62,7 +61,7 @@ export const removeProfileImage = async (req, res) => {
 
     const updatedUser = await User.findByIdAndUpdate(
       userId,
-      { avatar: null }, // Set avatar to null
+      { avatar: result.url },
       { new: true }
     );
 

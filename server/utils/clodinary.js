@@ -1,7 +1,8 @@
 import { v2 as cloudinary } from "cloudinary";
+import { User } from "../models/user.models.js";
+import streamifier from "streamifier";
 import fs from "fs";
 import dotenv from "dotenv";
-// import {Link} from "../models/link.model.js";
 dotenv.config();
 
 cloudinary.config({
@@ -10,49 +11,45 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const uploadOnCloudinary = async (localFilePath, userId) => {
+// Upload function (Direct Upload to Cloudinary)
+const uploadOnCloudinary = async (buffer, userId) => {
   try {
-    if (!localFilePath || !userId) {
-      throw new Error("Missing file path or user ID");
+    if (!buffer || !userId) {
+      throw new Error("Missing file buffer or user ID");
     }
 
-    if (!fs.existsSync(localFilePath)) {
-      throw new Error("File does not exist at given path");
-    }
-
-    // Upload file to Cloudinary
-    const res = await cloudinary.uploader.upload(localFilePath, {
-      folder:"profile_images",
-      resource_type: "auto",
+    // Convert buffer to a stream and upload to Cloudinary
+    const result = await new Promise((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        {
+          folder: "avatars",
+          resource_type: "auto",
+        },
+        (error, uploadedFile) => {
+          if (error) reject(error);
+          else resolve(uploadedFile);
+        }
+      );
+      streamifier.createReadStream(buffer).pipe(stream);
     });
-    console.log("Uploaded to Cloudinary:", res.url);
+
+    console.log("Uploaded to Cloudinary:", result.url);
 
     // Update user's profile image in MongoDB
-    // const updatedUser = await Link.findByIdAndUpdate(
-    //   userId,
-    //   { avatar: res.url },
-    //   { new: true, runValidators: true }
-    // );
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { avatar: result.url },
+      { new: true, runValidators: true }
+    );
 
     if (!updatedUser) {
       throw new Error("User not found or update failed");
     }
 
     console.log("Updated User:", updatedUser);
-
-    // Remove the local file
-    fs.unlinkSync(localFilePath);
-
-    return res.url;
-  } 
-  
-  
-  
-  catch (err) {
-    if (fs.existsSync(localFilePath)) {
-      fs.unlinkSync(localFilePath);
-    }
-
+    return result.url;
+  } catch (err) {
+    console.error("Upload error:", err);
     return null;
   }
 };

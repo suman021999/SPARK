@@ -36,6 +36,10 @@ const userSchema = new Schema(
     confirm_password: {
       type: String,
     },
+    avatar: {
+      type: String, 
+      required: false,
+    },
     bio: {
       type: String, 
       trim: true,
