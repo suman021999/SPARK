@@ -1,7 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import { User } from "../models/user.models.js";
 import streamifier from "streamifier";
-import fs from "fs";
 import dotenv from "dotenv";
 dotenv.config();
 

@@ -43,7 +43,14 @@ const userSchema = new Schema(
     bio: {
       type: String, 
       trim: true,
+      default: "" 
     },
+    profileTitle: { 
+      trim: true,
+      type: String, 
+      default: "" 
+    },
+
     category: {
       type: String,
       enum: [

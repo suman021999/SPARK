@@ -1,64 +1,116 @@
-import { useState } from "react";
-import { socialApps } from "../../utils/constants";
+import React, { useState } from "react";
+import "./links.css"
+import { FaCopy, FaTrash } from "react-icons/fa"; 
+
+const LinkCard = ({ isOpen,onClose }) => {
+  const [title, setTitle] = useState(""); 
+  const [isToggleOn, setIsToggleOn] = useState(false)
+  const [linkUrl, setLinkUrl] = useState("")
+  if (!isOpen) return null;
+
+  const handleOutsideClick = (e) => {
+    if (e.target.classList.contains("linkcard_modal-overlay")) {
+      onClose()
+    }
+  };
+
+  // const handleSaveTitle = () => {
+  //   setIsEditing(false);
+  //   console.log("Saved Title:", title); 
+  // };
+
+  const handleToggle = () => {
+    setIsToggleOn(!isToggleOn); 
+    console.log(setIsToggleOn(!isToggleOn) )
+  };
 
 
 
-const  LinkCard=()=> {
-  const [link, setLink] = useState({ title: "", url: "", enabled: false });
+
+
+  const handleCopy = () => {
+    if (linkUrl.trim() !== "") {
+      navigator.clipboard.writeText(linkUrl);
+      alert("Link copied! ✅");
+    } else {
+      alert("Please enter a URL to copy. ❌");
+    }
+  };
+
+  const handleDelete = () => {
+    setLinkUrl("") 
+  };
 
   return (
-    <div className="p-6 bg-white rounded-2xl shadow-lg w-full max-w-lg">
-      <div className="flex gap-4 mb-4">
-        <Button variant="default" className="bg-green-600 text-white">
-          Add Link
-        </Button>
-        <Button variant="outline">Add Shop</Button>
-      </div>
-      <h3 className="text-lg font-semibold mb-2">Enter URL</h3>
-      <div className="bg-gray-100 p-4 rounded-lg">
-        <div className="mb-2">
-          <Input
-            value={link.title}
-            onChange={(e) => setLink({ ...link, title: e.target.value })}
-            placeholder="Link title"
-          />
-        </div>
-        <div className="mb-2">
-          <Input
-            value={link.url}
-            onChange={(e) => setLink({ ...link, url: e.target.value })}
-            placeholder="Link URL"
-          />
-        </div>
-        <div className="flex items-center justify-between">
-          <Switch
-            checked={link.enabled}
-            onCheckedChange={(checked) => setLink({ ...link, enabled: checked })}
-          />
-          <div className="flex gap-2">
-            <Button variant="ghost" size="icon">
-              <Copy className="w-5 h-5" />
-            </Button>
-            <Button variant="ghost" size="icon">
-              <Trash2 className="w-5 h-5 text-red-500" />
-            </Button>
+    <div className="linkcard_modal-overlay" onClick={handleOutsideClick}>
+      <div className="linkcard_modal-content" >
+        <h2 className="linkcard_modal-content_h2">Enter URL</h2>
+
+        <div className="linkcard_modal-content_linktitle"> 
+
+
+       
+
+
+          <input type="text" placeholder="Link title ✏️" className="linkcard_modal-input"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+           />
+        <div className={`toggle-switch ${isToggleOn ? "on" : ""}`} onClick={handleToggle}>
+            <div className="toggle-thumb"></div>
           </div>
         </div>
-      </div>
-      <h3 className="text-lg font-semibold mt-4 mb-2">Applications</h3>
-      <div className="flex gap-4">
-        {socialApps.map((app) => (
-          <div
-            key={app.name}
-            className="flex flex-col items-center bg-gray-200 p-2 rounded-lg w-16 text-center"
-          >
-            <span className="text-xl">{app.icon}</span>
-            <span className="text-xs mt-1">{app.name}</span>
-          </div>
-        ))}
+
+
+            <div className="linkcard_modal-content_linkurl">
+            <input type="text" placeholder="Link URL" className="linkcard_modal-input" />
+            <button className="icon-button" onClick={handleCopy}>
+            <FaCopy />
+          </button>
+
+         
+          <button className="icon-button delete" onClick={handleDelete}>
+            <FaTrash />
+          </button>
+            </div>
+       
+
+        <h3>Applications</h3>
+
+        <div className="linkcard_app-icons_box_container">
+
+        <div className="linkcard_app-icons_box">
+         <div className="linkcard_app-icons_border"><img className="linkcard_app-icons" src="/public/instagram.svg" alt="" /></div>
+          <span>Instagram</span>
+        </div>
+
+        <div className="linkcard_app-icons_box">
+         <div className="linkcard_app-icons_border"><img className="linkcard_app-icons" src="/public/facebook.svg" alt="" /></div>
+         <span>Facebook</span>
+        </div>
+
+        <div className="linkcard_app-icons_box">
+         <div className="linkcard_app-icons_border"><img className="linkcard_app-icons" src="/public/youtube.svg" alt="" /></div>
+         <span>YouTube</span>
+        </div>
+
+
+        <div className="linkcard_app-icons_box">
+         <div className="linkcard_app-icons_border"><img className="linkcard_app-icons" src="/public/twitter.svg" alt="" /></div>
+         <span>X</span>
+        </div>
+    
+        </div>
+
+
+        
+          
+        
+
       </div>
     </div>
   );
-}
+};
 
-export default LinkCard
+export default LinkCard;
+

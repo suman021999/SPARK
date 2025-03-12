@@ -3,31 +3,30 @@ import "./links.css";
 import Nav from "../Navbar/Nav";
 import logo from "../../../public/logos.svg";
 import { presetColors } from "../../utils/constants";
-import LiinkCard from "./LinkCard";
-import Sidebar from "../sidebar/Sidebar";
 import axios from 'axios'
+import LinkCard from "./LinkCard";
 
 
 const Linkspage = () => {
-  const [toggle, setToggle] = useState("link");
+  const [toggle, setToggle] = useState("link"); 
+  const [isModalOpen, setIsModalOpen] = useState(false);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
   const [bgColor, setBgColor] = useState("#3B2E25");
   const [color, setColor] = useState("#222");
-
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const [avatar, setAvatar] = useState(null);
-  const [profileTitle, setProfileTitle] = useState("@opopo_08");
-  const [bio, setBio] = useState("Bio");
+  const [profileTitle, setProfileTitle] = useState("");
+  const [bio, setBio] = useState("");
   const [uploading, setUploading] = useState(false);
 
 
-
+// upload images
   const handlePhotoChange = async (evx) => {
     const file = evx.target.files[0];
     if (!file) return;
   
     const userId = localStorage.getItem("userId");
 
-    console.log("Retrieved userId:", userId);
-  
     if (!userId) {
       console.error("User ID is missing");
       return;
@@ -39,6 +38,7 @@ const Linkspage = () => {
   
     try {
       setUploading(true);
+      console.log(setUploading)
   
       const res = await axios.post(
         `${import.meta.env.VITE_USER_URL}/upload-profile`,
@@ -65,6 +65,7 @@ const Linkspage = () => {
   
 
   // Handle Profile Image Removal
+  
   const handleRemoveImage =async () => {
     try {
       const res=await axios.put(`${import.meta.env.VITE_USER_URL}/remove-profile`,
@@ -76,14 +77,31 @@ const Linkspage = () => {
         }
       )
       if (res.data.success) {
-        setAvatar(null); // Clear image from state
-        alert("Profile image removed successfully!");
+        setAvatar(null); 
+        // alert("Profile image removed successfully!");
       }
     } catch (error) {
       console.error("Error removing profile image:", error);
-      alert("Failed to remove profile image.");
+      // alert("Failed to remove profile image.");
     }
   };
+
+
+
+ 
+
+  // const handleUpdate = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const res = await axios.put(`${import.meta.env.VITE_USER_URL}/update-profile/${userId}`,
+  //       { profileTitle, bio }
+  //     );
+  //     setMessage(res.data.message);
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  //   setLoading(false);
+  // };
 
 
   return (
@@ -97,8 +115,8 @@ const Linkspage = () => {
           <div className="phone">
 
             <div style={{ background: `${bgColor}` }} className="phone_profile">
-              <img
-                src="https://images.unsplash.com/photo-1529419412599-7bb870e11810?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDk3MzR8MHwxfHNlYXJjaHwzfHxuYXR1cmV8ZW58MHx8fHwxNzQwNDc3NjI5fDA&ixlib=rb-4.0.3&q=80&w=1080"
+              <img className="image_piker"
+                src={avatar || "default-profile.png"}
                 alt=""
               />
               <p>@anujoy</p>
@@ -171,7 +189,7 @@ const Linkspage = () => {
                 <div className="image_piker">
                   <img
                     src={avatar || "default-profile.png"}
-                    alt="Profile"
+                    alt=""
                   />
 
                   <div className="image_piker_button">
@@ -190,18 +208,35 @@ const Linkspage = () => {
                     <button className="image_piker_remove" 
                     onClick={handleRemoveImage}>remove</button>
                   </div>
-                </div>
 
-                <div className="profile_title">
-                  <p className="profile_title_text">Profile Title</p>
-                  <h2>{"@24251"}</h2>
                 </div>
+                   
+                <div className="profile_title_profile" >
+                <label  htmlFor="profileTitle">Profile Title</label>
+                  <input 
+                  className="profile_title"
+                   type="text"
+                  //  value={profileTitle}
+                  //  onChange={(e) => setProfileTitle(e.target.value)}
+                    // placeholder="dfsdf"
+                    id="profileTitle"
+                     />
+                  
+                  </div>
+                  <div className="profile_title_grp_bio" >
+                  <label  htmlFor="profilebio">bio</label>
+                  <textarea
+                   className="profile_bio" 
+                   type="text" 
+                  //  value={bio}
+                  //  onChange={(e) => setBio(e.target.value)}
+                   name="" 
+                   id="profilebio" />
+                  </div>
 
-                <div className="profile_bio">
-                  <h2>bio</h2>
-                  <p>{"bio"}</p>
+                 
+
                 </div>
-              </div>
 
 
 
@@ -215,7 +250,7 @@ const Linkspage = () => {
                         toggle === "link" ? "p_link" : "p_inital"
                       }`}
                     >
-                       link
+                       Add link
                     </div>
                     <div
                       onClick={() => setToggle("shop")}
@@ -223,17 +258,22 @@ const Linkspage = () => {
                         toggle === "shop" ? "p_link" : "p_inital"
                       }`}
                     >
-                       Shop
+                       Add Shop
                     </div>
                   </div>
                 </div>
 
-                <button className="profile_links_add">+Add</button>
-                {/* <LiinkCard/> */}
-                {
 
-                }
-              </div>
+                 {/* "+Add" Button */}
+                 {toggle === "link" && (
+                    <button className="profile_links_add" onClick={() => setIsModalOpen(true)}>
+                      +Add
+                    </button>
+                  )}
+
+                  {/* LinkCard Modal */}
+                  {isModalOpen && <LinkCard isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />}
+                 </div>
 
               <div className="profile_banner">
 
@@ -243,7 +283,7 @@ const Linkspage = () => {
                 >
                   <img
                     className="banner_black_logo"
-                    src="https://images.unsplash.com/photo-1529419412599-7bb870e11810?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDk3MzR8MHwxfHNlYXJjaHwzfHxuYXR1cmV8ZW58MHx8fHwxNzQwNDc3NjI5fDA&ixlib=rb-4.0.3&q=80&w=1080"
+                    src={avatar || "default-profile.png"}
                     alt=""
                   />
                   <h2 onChange={()=>setColor(color)}  className={`banner_black_h2 ${color=='#ffffffde'?'#222':''}`}>@opopo_08</h2>

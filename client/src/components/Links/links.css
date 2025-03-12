@@ -169,8 +169,8 @@ border-radius: 35px;
 .profile .profile_box{
     margin-top: 10px;
     border-radius: 25px;
-    height: 40vh;
-    width: 40vw;
+    /* height: 40vh; */
+    /* width: 40vw; */
     background: #e3e1e144;
     display: flex;
     
@@ -188,6 +188,9 @@ border-radius: 35px;
     height: 80px;
     width: 80px ;
     border-radius: 100%;
+    outline: 2px solid #a5a6a9;
+    outline-offset: 4px;
+    
 }
  .image_piker_button{
     display: flex;
@@ -205,32 +208,37 @@ border-radius: 35px;
     background: #28A263 !important;
     border:none !important;
 }
-.profile_title{
-    margin-top: 20px;
-    display: flex;
+
+/* profile_title_grp */
+
+.profile_title_profile{
     background: #a0a39b46;
     border-radius: 10px;
     padding: 10px;
-    height: 45px;
+    height: 55px;
+    margin-top: 25px;
+    display: flex;
     flex-direction: column;
-    justify-content: center;
-}
-.profile_title p{
-    font-size: 15px;
-    color: #676B5F;
-}.profile_title h2{
-    font-size: 10px;
 }
 
-.profile_bio{
-    margin-top: 20px;
-    display: flex;
+.profile_title,.profile_bio{
+    background: transparent;
+    border: none;
+    outline: none;
+}
+.profile_title_grp_bio{
     background: #a0a39b46;
     border-radius: 10px;
     padding: 10px;
-    height: 10vh;
+    margin-top: 15px;
+    display: flex;
     flex-direction: column;
-    justify-content: center;
+    height: 12vh !important;
+    width: 100%;
+}
+.profile_bio{
+    height: 12vh ;
+    resize: none;
 }
 
 
@@ -347,37 +355,123 @@ border-radius: 100%;
 
 
 
-.LinkCard{
-    margin-top: 20px;
+/* linkcard */
+
+.linkcard_modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .linkcard_modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 600px;
+    height: 40vh;
+    position: relative;
+  }
+  .linkcard_modal-content_h2{
+    font-family: var(--poppins);
+    font-size: 18px;
+  }
+  .linkcard_modal-content_linktitle{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+/* Toggle Switch */
+.toggle-switch {
+    width: 40px;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+  }
+
+  .toggle-switch.on {
+    background-color: #4CAF50;
+  }
+  
+  .toggle-thumb {
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 2px;
+    transform: translateY(-50%);
+    transition: left 0.3s ease-in-out;
+  }
+  
+  .toggle-switch.on .toggle-thumb {
+    left: 22px;
+  }
+/* link */
+  .linkcard_modal-content_linkurl{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #d2d0d0;
+    transition: color 0.3s;
+  }
+
+  
+  .linkcard_modal-input {
+    width: 100%;
+    margin: 10px 0;
+    background:#a0a39b46;
+
+    padding: 8px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+  }
+  .linkcard_app-icons_box_container{
+    display: flex;
+    gap: 10px;
+  }
+  .linkcard_app-icons_box{
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    height: 20vh;
-    border-radius: 25px;
-    background: #a0a39b46;
-}
-.LinkCard h2{
-    font-family: var(--poppins);
-    font-size: 14px;
-    font-weight: 600;
-    color: #767676;
-    margin-bottom: 10px;
-}
-
-.LinkCard .link_connection{
+    justify-content: center;
+    align-items: center;
+  }
+  .linkcard_app-icons_border{
     display: flex;
-    justify-content: space-between;
-}
-.LinkCard .link_connection a{
-    text-decoration: none;
-    color: #767676;
-    margin-bottom: 20px;
-}
-
-.link_review{
-    display: flex;
-    justify-content: space-between;
-}
-/* .link_delete{
+    align-items: center;
+    justify-content: center;
+    background: #eee;
+    border-radius: 8px;
+    height: 8vh;
+    width:5vw;
+  }
+  .linkcard_app-icons{
     
-} */
+    height: 25px;
+    width: 25px;
+  }
+  .linkcard_app-icons span {
+    
+    margin: 5px;
+    padding: 5px 10px;
+    
+    border-radius: 5px;
+  }
+  
