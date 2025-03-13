@@ -67,9 +67,6 @@ export const uploadProfileImage = async (req, res) => {
   }
 };
 
-
-
-
 // remove Profile Image Controller
 
 export const removeProfileImage = async (req, res) => {
@@ -105,29 +102,30 @@ export const removeProfileImage = async (req, res) => {
 
 
 
-
-// Create a new link
 export const createLink = async (req, res) => {
   try {
-    const { url, title, userId } = req.body;
+    const { url, title } = req.body;
+    const userId = req.user.id; 
 
-    if (!url || !title || !userId) {
-      return res.status(400).json({ message: "All fields are required" });
+    if (!url || !title) {
+      return res.status(400).json({ message: "Title and URL are required" });
     }
 
-    const newLink = new Link({ url, title, userId, createdBy: userId });
+    const newLink = new Link({ userId, url, title });
     await newLink.save();
 
     res.status(201).json({ message: "Link created successfully", link: newLink });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error });
+    console.error("Error creating link:", error);
+    res.status(500).json({ message: "Server error" });
   }
 };
+
 
 // Get all links for a user
 export const getUserLinks = async (req, res) => {
   try {
-    const { userId } = req.params;
+    const userId = req.user.id; // Extract from the decoded token
 
     if (!userId) {
       return res.status(400).json({ message: "User ID is required" });
@@ -139,6 +137,7 @@ export const getUserLinks = async (req, res) => {
     res.status(500).json({ message: "Server error", error });
   }
 };
+
 
 // Get a single link by ID
 export const getLinkById = async (req, res) => {
