@@ -34,10 +34,11 @@ const Linkspage = () => {
 
     const formData = new FormData();
     formData.append("avatar", file);
+    formData.append("userId", userId)
 
     try {
       setUploading(true);
-      console.log(setUploading);
+      console.log("setUploading....");
 
       const res = await axios.post(
         `${import.meta.env.VITE_USER_URL}/upload-profile`,
@@ -51,7 +52,9 @@ const Linkspage = () => {
       );
 
       if (res.data.success) {
+        // const imageUrl = res.data.avatar
         setAvatar(res.data.avatar);
+        localStorage.setItem("avatar", res.data.avatar)
       } else {
         console.error("Upload failed:", res.data.error);
       }
@@ -61,6 +64,14 @@ const Linkspage = () => {
       setUploading(false);
     }
   };
+
+  // Restore avatar on component mount
+useEffect(() => {
+  const storedAvatar = localStorage.getItem("avatar");
+  if (storedAvatar) {
+    setAvatar(storedAvatar);
+  }
+}, []);
 
   // Handle Profile Image Removal
 
