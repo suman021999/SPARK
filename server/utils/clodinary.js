@@ -54,3 +54,26 @@ const uploadOnCloudinary = async (buffer, userId) => {
 };
 
 export { uploadOnCloudinary };
+
+
+
+
+export const deleteFromCloudinary = async (imageUrl) => {
+  try {
+    if (!imageUrl) throw new Error("Image URL is required for deletion");
+    const parts = imageUrl.split("/");
+    const filename = parts.pop().split(".")[0];
+    const folder = parts[parts.length - 1] === "avatars" ? "avatars/" : "";
+
+    const publicId = `${folder}${filename}`;
+    const result = await cloudinary.uploader.destroy(publicId);
+    if (result.result !== "ok") {
+      throw new Error("Failed to delete image from Cloudinary");
+    }
+
+    return true;
+  } catch (error) {
+    console.error("Error deleting image from Cloudinary:", error);
+    return false;
+  }
+};

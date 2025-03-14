@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState,useEffect} from "react";
 import "./links.css";
 import Nav from "../Navbar/Nav";
 import logo from "../../../public/logos.svg";
@@ -19,6 +19,15 @@ const Linkspage = () => {
   const [uploading, setUploading] = useState(false);
   const [userLinks, setUserLinks] = useState([]);
   const userId = localStorage.getItem("userId");
+
+
+   // Restore avatar on component mount
+   useEffect(() => {
+    const storedAvatar = localStorage.getItem("avatar");
+    if (storedAvatar) {
+      setAvatar(storedAvatar);
+    }
+  }, []);
 
   // upload images
   const handlePhotoChange = async (evx) => {
@@ -52,7 +61,6 @@ const Linkspage = () => {
       );
 
       if (res.data.success) {
-        // const imageUrl = res.data.avatar
         setAvatar(res.data.avatar);
         localStorage.setItem("avatar", res.data.avatar)
       } else {
@@ -65,21 +73,21 @@ const Linkspage = () => {
     }
   };
 
-  // Restore avatar on component mount
-useEffect(() => {
-  const storedAvatar = localStorage.getItem("avatar");
-  if (storedAvatar) {
-    setAvatar(storedAvatar);
-  }
-}, []);
+
 
   // Handle Profile Image Removal
 
   const handleRemoveImage = async () => {
+
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      console.error("User ID is missing");
+      return;
+    }
+    
     try {
-      const res = await axios.put(
-        `${import.meta.env.VITE_USER_URL}/remove-profile`,
-        {},
+      const res = await axios.put(`${import.meta.env.VITE_USER_URL}/remove-profile`,
+        {userId},
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -88,11 +96,10 @@ useEffect(() => {
       );
       if (res.data.success) {
         setAvatar(null);
-        // alert("Profile image removed successfully!");
+        localStorage.removeItem("avatar")
       }
     } catch (error) {
       console.error("Error removing profile image:", error);
-      // alert("Failed to remove profile image.");
     }
   };
 
@@ -112,24 +119,23 @@ useEffect(() => {
   // };
 
   // Fetch user links when page loads
-  useEffect(() => {
-    const fetchUserLinks = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_USER_URL}/links/${userId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
-        setUserLinks(response.data);
-      } catch (error) {
-        console.error("Error fetching links:", error);
-      }
-    };
-    fetchUserLinks();
-  }, [userId]);
+  
+  const fetchUserLinks = async () => {
+    if (!userId) return;
+    try {
+      const res = await axios.get(
+        `${import.meta.env.VITE_USER_URL}/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setUserLinks(Array.isArray(res.data) ? res.data : []);
+    } catch (error) {
+      console.error("Error fetching links:", error);
+    }
+  };
 
   return (
     <>
@@ -289,7 +295,10 @@ useEffect(() => {
                 {isModalOpen && (
                   <LinkCard
                     isOpen={isModalOpen}
-                    onClose={() => setIsModalOpen(false)}
+                    onClose={() => {
+                      setIsModalOpen(false);
+                      fetchUserLinks();
+                    }}
                     setUserLinks={setUserLinks} 
                   />
                 )}
@@ -297,7 +306,7 @@ useEffect(() => {
                 {/* Display Links */}
                 <div className="saved-links">
                   {userLinks.length === 0 ? (
-                    <p>No links saved yet.</p>
+                    "ccccccccccccccccccccc"
                   ) : (
                     userLinks.map((link) => (
                       <div key={link._id} className="saved-link">

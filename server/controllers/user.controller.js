@@ -1,5 +1,5 @@
 import {User} from '../models/user.models.js'
-import { uploadOnCloudinary } from "../utils/clodinary.js"
+import { uploadOnCloudinary,deleteFromCloudinary } from "../utils/clodinary.js"
 import { Link } from "../models/link.model.js";
 
 
@@ -71,17 +71,28 @@ export const uploadProfileImage = async (req, res) => {
 
 export const removeProfileImage = async (req, res) => {
   try {
+    // const userId = req.body;
     const userId = req.user.id;
 
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      { avatar: null },
-      { new: true }
-    );
-
-    if (!updatedUser) {
-      return res.status(404).json({ error: "User not found" });
+    if (!userId) {
+      return res.status(400).json({ error: "User ID is required" });
     }
+
+  // Find the user
+  const user = await User.findById(userId);
+  if (!user) {
+    return res.status(404).json({ error: "User not found" });
+  }
+
+  
+ // Delete the current profile image from Cloudinary if it exists
+ if (user.avatar) {
+  const deleted = await deleteFromCloudinary(user.avatar);
+  if (!deleted) return res.status(500).json({ error: "Cloudinary deletion failed" });
+}
+
+ // Remove avatar from user profile
+ await User.findByIdAndUpdate(userId, { avatar: null });
 
     res.status(200).json({
       success: true,
@@ -105,7 +116,12 @@ export const removeProfileImage = async (req, res) => {
 export const createLink = async (req, res) => {
   try {
     const { url, title } = req.body;
-    const userId = req.user.id; 
+    const userId = req.user?.id; 
+
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized: No user ID found" });
+    }
+
 
     if (!url || !title) {
       return res.status(400).json({ message: "Title and URL are required" });
@@ -122,21 +138,23 @@ export const createLink = async (req, res) => {
 };
 
 
-// Get all links for a user
+// Get all links for a use
+
 export const getUserLinks = async (req, res) => {
   try {
-    const userId = req.user.id; // Extract from the decoded token
-
-    if (!userId) {
-      return res.status(400).json({ message: "User ID is required" });
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ message: "Unauthorized: No user ID found" });
     }
-
+    const userId = req.user.id;
     const links = await Link.find({ userId });
+
     res.status(200).json(links);
   } catch (error) {
+    console.error("Error fetching user links:", error);
     res.status(500).json({ message: "Server error", error });
   }
 };
+
 
 
 // Get a single link by ID
@@ -160,7 +178,11 @@ export const updateLink = async (req, res) => {
   try {
     const { linkId } = req.params;
     const { url, title } = req.body;
+    const userId = req.user?.id; 
 
+        if (!userId) {
+          return res.status(401).json({ message: "Unauthorized: No user ID found" });
+        }
     const updatedLink = await Link.findByIdAndUpdate(
       linkId,
       { url, title },
@@ -177,22 +199,28 @@ export const updateLink = async (req, res) => {
   }
 };
 
-// Delete a link
-export const deleteLink = async (req, res) => {
-  try {
-    const { linkId } = req.params;
 
-    const deletedLink = await Link.findByIdAndDelete(linkId);
 
-    if (!deletedLink) {
-      return res.status(404).json({ message: "Link not found" });
-    }
 
-    res.status(200).json({ message: "Link deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ message: "Server error", error });
-  }
-};
+
+
+
+// // Delete a link
+// export const deleteLink = async (req, res) => {
+//   try {
+//     const { linkId } = req.params;
+
+//     const deletedLink = await Link.findByIdAndDelete(linkId);
+
+//     if (!deletedLink) {
+//       return res.status(404).json({ message: "Link not found" });
+//     }
+
+//     res.status(200).json({ message: "Link deleted successfully" });
+//   } catch (error) {
+//     res.status(500).json({ message: "Server error", error });
+//   }
+// };
 
 
 
