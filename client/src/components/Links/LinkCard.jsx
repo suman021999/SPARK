@@ -11,6 +11,29 @@ const LinkCard = ({ isOpen, onClose, setUserLinks, userLinks }) => {
 
   if (!isOpen) return null;
 
+
+  const handleToggle = () => {
+    setIsToggleOn(!isToggleOn);
+    console.log(setIsToggleOn(!isToggleOn));
+  };
+
+  const handleOutsideClick = (e) => {
+    if (e.target.classList.contains("linkcard_modal-overlay")) {
+      onClose();
+    }
+  };
+
+   // copy
+    const handleCopy = (url) => {
+      navigator.clipboard.writeText(url);
+      alert("Link copied! ✅");
+    };
+
+ 
+
+
+
+  
   const handleSave = async () => {
     if (!title || !linkUrl) {
       alert("Please enter both a title and URL!");
@@ -21,8 +44,7 @@ const LinkCard = ({ isOpen, onClose, setUserLinks, userLinks }) => {
       const payload = { url: linkUrl, title };
 
       if (editingLinkId) {
-        await axios.put(
-          `${import.meta.env.VITE_USER_URL}/update/${editingLinkId}`,
+        await axios.put(`${import.meta.env.VITE_USER_URL}/update/${editingLinkId}`,
           payload,
           { 
             headers: {
@@ -43,10 +65,11 @@ const LinkCard = ({ isOpen, onClose, setUserLinks, userLinks }) => {
 
              } }
         );
-        setUserLinks([...userLinks, res.data]);
+        // setUserLinks([...userLinks, res.data]);
+        setUserLinks((prevLinks) => (Array.isArray(prevLinks) ? [...prevLinks, res.data.link] : [res.data.link]));
         alert("Link saved successfully ✅");
       }
-
+      onClose()
       setTitle("");
       setLinkUrl("");
       setEditingLinkId(null);
@@ -57,36 +80,7 @@ const LinkCard = ({ isOpen, onClose, setUserLinks, userLinks }) => {
     }
   };
 
-  const handleToggle = () => {
-    setIsToggleOn(!isToggleOn);
-    console.log(setIsToggleOn(!isToggleOn));
-  };
 
-  const handleOutsideClick = (e) => {
-    if (e.target.classList.contains("linkcard_modal-overlay")) {
-      onClose();
-    }
-  };
-
-  // 📌 Delete a link
-  // const handleDelete = async (id) => {
-  //   try {
-  //     await axios.delete(`${import.meta.env.VITE_USER_URL}/links/${id}`, {
-  //       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-  //     });
-  //     alert("Link deleted successfully ✅");
-  //     setUserLinks(userLinks.filter((link) => link._id !== id));
-  //   } catch (error) {
-  //     console.error("Error deleting link:", error.response?.data || error.message);
-  //     alert("Failed to delete link ❌");
-  //   }
-  // };
-
-  // copy
-  const handleCopy = (url) => {
-    navigator.clipboard.writeText(url);
-    alert("Link copied! ✅");
-  };
 
   return (
     <div className="linkcard_modal-overlay" onClick={handleOutsideClick}>
@@ -181,3 +175,19 @@ const LinkCard = ({ isOpen, onClose, setUserLinks, userLinks }) => {
 };
 
 export default LinkCard;
+
+
+
+ // 📌 Delete a link
+  // const handleDelete = async (id) => {
+  //   try {
+  //     await axios.delete(`${import.meta.env.VITE_USER_URL}/links/${id}`, {
+  //       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+  //     });
+  //     alert("Link deleted successfully ✅");
+  //     setUserLinks(userLinks.filter((link) => link._id !== id));
+  //   } catch (error) {
+  //     console.error("Error deleting link:", error.response?.data || error.message);
+  //     alert("Failed to delete link ❌");
+  //   }
+  // };

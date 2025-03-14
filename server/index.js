@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // router
 app.use('/api/v1/auth',authRouter)
-app.use("/api", crudRoutes);        // CRUD routes
+app.use("/api/v1/links", crudRoutes);        // CRUD routes
 
 const port=process.env.PORT||3000
 

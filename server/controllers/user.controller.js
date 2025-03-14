@@ -66,9 +66,7 @@ export const uploadProfileImage = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
 // remove Profile Image Controller
-
 export const removeProfileImage = async (req, res) => {
   try {
     // const userId = req.body;
@@ -78,20 +76,16 @@ export const removeProfileImage = async (req, res) => {
       return res.status(400).json({ error: "User ID is required" });
     }
 
-  // Find the user
   const user = await User.findById(userId);
   if (!user) {
     return res.status(404).json({ error: "User not found" });
   }
 
-  
- // Delete the current profile image from Cloudinary if it exists
  if (user.avatar) {
   const deleted = await deleteFromCloudinary(user.avatar);
   if (!deleted) return res.status(500).json({ error: "Cloudinary deletion failed" });
 }
 
- // Remove avatar from user profile
  await User.findByIdAndUpdate(userId, { avatar: null });
 
     res.status(200).json({
@@ -105,16 +99,11 @@ export const removeProfileImage = async (req, res) => {
 };
 
 
-
-
-
-
-
-
-
+// createlink
 
 export const createLink = async (req, res) => {
   try {
+    
     const { url, title } = req.body;
     const userId = req.user?.id; 
 

@@ -18,7 +18,7 @@ const Linkspage = () => {
   const [bio, setBio] = useState("");
   const [uploading, setUploading] = useState(false);
   const [userLinks, setUserLinks] = useState([]);
-  const userId = localStorage.getItem("userId");
+  
 
 
    // Restore avatar on component mount
@@ -72,11 +72,7 @@ const Linkspage = () => {
       setUploading(false);
     }
   };
-
-
-
   // Handle Profile Image Removal
-
   const handleRemoveImage = async () => {
 
     const userId = localStorage.getItem("userId");
@@ -121,6 +117,7 @@ const Linkspage = () => {
   // Fetch user links when page loads
   
   const fetchUserLinks = async () => {
+    const userId = localStorage.getItem("userId");
     if (!userId) return;
     try {
       const res = await axios.get(
@@ -300,6 +297,7 @@ const Linkspage = () => {
                       fetchUserLinks();
                     }}
                     setUserLinks={setUserLinks} 
+                    userLinks={userLinks}
                   />
                 )}
 
