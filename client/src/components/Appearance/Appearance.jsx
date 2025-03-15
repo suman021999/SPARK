@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {  useContext, useState } from "react";
 import "./appearance.css";
 import Nav from "../Navbar/Nav";
 import logo from "../../../public/logos.svg";
@@ -12,7 +12,9 @@ import {
   Spacial,
   themebox,
 } from "../../utils/constants";
-import Sidebar from "../sidebar/Sidebar";
+import Phone from "../phone/Phone";
+import { PhoneContext } from "../../hooks/PhoneContext";
+
 
 const appearancespage = () => {
   const [selectfont, setSelectfont] = useState("DM Sans");
@@ -27,6 +29,7 @@ const appearancespage = () => {
   const [softShadowButton, setSoftShadowButton] = useState(null);
   const [spacialButton, setSpacialButton] = useState(null);
   const [layaout, setLayaout] = useState(null);
+ const { avatar, setAvatar, bgColor, setBgColor, toggle, setToggle } = useContext(PhoneContext)
 
 
   // Handle font selection
@@ -40,23 +43,9 @@ const appearancespage = () => {
       <section className="apperences">
         <Nav isVisible={false} />
         <div className="apperences_scroll">
-          <div className="phone">
-            <div className="phone_profile">
-              <img
-                src="https://images.unsplash.com/photo-1529419412599-7bb870e11810?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDk3MzR8MHwxfHNlYXJjaHwzfHxuYXR1cmV8ZW58MHx8fHwxNzQwNDc3NjI5fDA&ixlib=rb-4.0.3&q=80&w=1080"
-                alt=""
-              />
-              <p>@anujoy</p>
-            </div>
-
-            <div className="phone_button">
-              <button>Get Connected</button>
-            </div>
-            <div className="logo">
-              <h2>SPARK</h2>
-              <img src={logo} alt="" />
-            </div>
-          </div>
+          
+        {/* phone */}
+           <Phone avatar={avatar} toggle={toggle} bgColor={bgColor} />
 
           <div className="apperence_box">
 

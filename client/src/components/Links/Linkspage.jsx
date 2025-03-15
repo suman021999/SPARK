@@ -1,25 +1,24 @@
-import React, { useState,useEffect} from "react";
+import React, { useState,useEffect, useContext} from "react";
 import "./links.css";
 import Nav from "../Navbar/Nav";
 import logo from "../../../public/logos.svg";
 import { presetColors } from "../../utils/constants";
 import axios from "axios";
 import LinkCard from "./LinkCard";
+import Phone from "../phone/Phone";
+import { PhoneContext } from "../../hooks/PhoneContext";
 
 const Linkspage = () => {
-  const [toggle, setToggle] = useState("link");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [bgColor, setBgColor] = useState("#3B2E25");
   const [color, setColor] = useState("#222");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [avatar, setAvatar] = useState(null);
   const [profileTitle, setProfileTitle] = useState("");
   const [bio, setBio] = useState("");
   const [uploading, setUploading] = useState(false);
   const [userLinks, setUserLinks] = useState([]);
   
-
+  const { avatar, setAvatar, bgColor, setBgColor, toggle, setToggle } = useContext(PhoneContext)
 
    // Restore avatar on component mount
    useEffect(() => {
@@ -28,6 +27,10 @@ const Linkspage = () => {
       setAvatar(storedAvatar);
     }
   }, []);
+
+
+
+
 
   // upload images
   const handlePhotoChange = async (evx) => {
@@ -115,20 +118,42 @@ const Linkspage = () => {
   // };
 
   // Fetch user links when page loads
+
+  // useEffect(() => {
+  //   const storedLinks = JSON.parse(localStorage.getItem("userLinks"));
+  //   if (storedLinks) {
+  //     setUserLinks(storedLinks);
+  //   } else {
+  //     fetchUserLinks();
+  //   }
+  // }, []);
+
+
+  useEffect(() => {
+    const storedLinks = JSON.parse(localStorage.getItem("userLinks"));
+    if (storedLinks && storedLinks.length > 0) {
+      setUserLinks(storedLinks); // ✅ Load stored links first
+    } else {
+      fetchUserLinks(); // ✅ Fetch if no stored links
+    }
+  }, []);
   
   const fetchUserLinks = async () => {
     const userId = localStorage.getItem("userId");
     if (!userId) return;
     try {
-      const res = await axios.get(
-        `${import.meta.env.VITE_USER_URL}/${userId}`,
+      const res = await axios.get(`${import.meta.env.VITE_USER_URL}/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
-      setUserLinks(Array.isArray(res.data) ? res.data : []);
+      const links = Array.isArray(res.data) ? res.data : [];
+      setUserLinks(links);
+      localStorage.setItem("userLinks", JSON.stringify(links));
+      // setUserLinks(Array.isArray(res.data) ? res.data : []);
+
     } catch (error) {
       console.error("Error fetching links:", error);
     }
@@ -139,65 +164,9 @@ const Linkspage = () => {
       <section className="links">
         <Nav isVisible={true} />
         <div className="links_scroll">
-          <div className="phone">
-            <div style={{ background: `${bgColor}` }} className="phone_profile">
-              <img
-                className="image_piker"
-                src={avatar || "default-profile.png"}
-                alt=""
-              />
-              <p>@anujoy</p>
-            </div>
-
-            <div className="phone_save">
-              <div className="phone_save_container">
-                <div
-                  onClick={() => setToggle("link")}
-                  className={`p_s_l  ${
-                    toggle === "link" ? "p_link" : "p_inital"
-                  }`}
-                >
-                  link
-                </div>
-                <div
-                  onClick={() => setToggle("shop")}
-                  className={`p_s_l ${
-                    toggle === "shop" ? "p_link" : "p_inital"
-                  }`}
-                >
-                  Shop
-                </div>
-              </div>
-            </div>
-
-            <div className="phone_links">
-              <div id="tasklist" className="phone_links_scroll">
-                <div className="phone_links_scroll_bar">
-                  <img
-                    src="https://images.unsplash.com/photo-1529419412599-7bb870e11810?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDk3MzR8MHwxfHNlYXJjaHwzfHxuYXR1cmV8ZW58MHx8fHwxNzQwNDc3NjI5fDA&ixlib=rb-4.0.3&q=80&w=1080"
-                    alt=""
-                  />
-                  <p>Latest YouTube Video</p>
-                </div>
-
-                <div className="phone_links_scroll_bar">
-                  <img
-                    src="https://images.unsplash.com/photo-1529419412599-7bb870e11810?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDk3MzR8MHwxfHNlYXJjaHwzfHxuYXR1cmV8ZW58MHx8fHwxNzQwNDc3NjI5fDA&ixlib=rb-4.0.3&q=80&w=1080"
-                    alt=""
-                  />
-                  <p>Latest YouTube Video</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="phone_button">
-              <button>Get Connected</button>
-            </div>
-            <div className="logo">
-              <h2>SPARK</h2>
-              <img src={logo} alt="" />
-            </div>
-          </div>
+          
+          {/* phone */}
+          <Phone avatar={avatar} toggle={toggle} bgColor={bgColor} />
 
           <div className="profile">
             <div className="profile_sec">

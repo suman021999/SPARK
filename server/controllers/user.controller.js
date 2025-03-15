@@ -102,6 +102,7 @@ export const removeProfileImage = async (req, res) => {
 // createlink
 
 export const createLink = async (req, res) => {
+  console.log(req.user?.id,"userID")
   try {
     
     const { url, title } = req.body;
@@ -110,6 +111,7 @@ export const createLink = async (req, res) => {
     if (!userId) {
       return res.status(401).json({ message: "Unauthorized: No user ID found" });
     }
+    
 
 
     if (!url || !title) {
@@ -148,6 +150,7 @@ export const getUserLinks = async (req, res) => {
 
 // Get a single link by ID
 export const getLinkById = async (req, res) => {
+
   try {
     const { linkId } = req.params;
     const link = await Link.findById(linkId);
