@@ -172,6 +172,26 @@ export const updateLink = async (req, res) => {
   }
 };
 
+export const linkClick= async (req, res) => {
+  try {
+    const { id } = req.params;
+  
+    const updatedLink = await Link.findByIdAndUpdate(
+      id,
+      { $inc: { clicks: 1 } }, // Increment clicks by 1
+      { new: true }
+    );
+  
+    if (!updatedLink) {
+      return res.status(404).json({ message: 'Link not found' });
+    }
+  
+    res.status(200).json(updatedLink);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+}
+
 
 
 // shop------------
@@ -267,6 +287,28 @@ export const updateShop = async (req, res) => {
 
 
 
+export const shopClick= async (req, res) => {
+  try {
+    const { id } = req.params;
+  
+    const updatedShop = await Shop.findByIdAndUpdate(
+      id,
+      { $inc: { clicks: 1 } }, // Increment clicks by 1
+      { new: true }
+    );
+  
+    if (!updatedShop) {
+      return res.status(404).json({ message: 'Link not found' });
+    }
+  
+    res.status(200).json(updatedShop);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+}
+
+
+
 
 
 // // Delete a link
@@ -285,6 +327,11 @@ export const updateShop = async (req, res) => {
 //     res.status(500).json({ message: "Server error", error });
 //   }
 // };
+
+
+
+
+
 
 
 

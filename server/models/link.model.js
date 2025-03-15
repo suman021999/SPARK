@@ -19,10 +19,6 @@ const linkSchema = new Schema(
       type: Number,
       default: 0, // Track the number of times the link is clicked
     },
-    isActive: {
-      type: Boolean,
-      default: true, // Allow enabling/disabling links
-    }
   },
   { timestamps: true }
 );

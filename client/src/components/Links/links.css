@@ -269,8 +269,22 @@ border-radius: 35px;
     margin: 10px 0;
     height: 20vh;
 }
-.phone_save_container_saved-link_url_div{
-
+.edit_link_shop_flex{
+display: flex;
+justify-content: space-between;
+}
+.edit_link_shop_flex_div{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.edit_link_shop_flex_input{
+padding: 10px;
+border-radius: 15px;
+border: none;
+outline: none;
+margin:0 10px ;
+background-color: #ccc;
 }
 .phone_save_container_saved-link_url{
     text-decoration: none;
