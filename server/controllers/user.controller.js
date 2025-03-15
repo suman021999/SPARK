@@ -5,21 +5,21 @@ import { Link } from "../models/link.model.js";
 
 // router.put("/update-profile/:userId",
 
-// export const uploadProfiletext= async (req, res) => {
-//   try {
-//     const { profileTitle, bio } = req.body;
+export const uploadProfiletext= async (req, res) => {
+  try {
+    const { profileTitle, bio } = req.body;
 
-//     const updatedUser = await User.findByIdAndUpdate(
-//       req.params.userId,
-//       { profileTitle, bio },
-//       { new: true }
-//     );
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.userId,
+      { profileTitle, bio },
+      { new: true }
+    );
 
-//     res.json({ success: true, message: "Profile updated", user: updatedUser });
-//   } catch (error) {
-//     res.status(500).json({ success: false, message: error.message });
-//   }
-// }
+    res.json({ success: true, message: "Profile updated", user: updatedUser });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+}
 
 
 // Upload Profile Image Controller

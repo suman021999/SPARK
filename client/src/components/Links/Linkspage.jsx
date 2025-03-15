@@ -20,17 +20,12 @@ const Linkspage = () => {
   
   const { avatar, setAvatar, bgColor, setBgColor, toggle, setToggle } = useContext(PhoneContext)
 
-   // Restore avatar on component mount
    useEffect(() => {
     const storedAvatar = localStorage.getItem("avatar");
     if (storedAvatar) {
       setAvatar(storedAvatar);
     }
   }, []);
-
-
-
-
 
   // upload images
   const handlePhotoChange = async (evx) => {
@@ -102,39 +97,34 @@ const Linkspage = () => {
     }
   };
 
+
   //Handl bio and profiletitle
 
-  // const handleUpdate = async () => {
-  //   setLoading(true);
-  //   try {
-  //     const res = await axios.put(`${import.meta.env.VITE_USER_URL}/update-profile/${userId}`,
-  //       { profileTitle, bio }
-  //     );
-  //     setMessage(res.data.message);
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  //   setLoading(false);
-  // };
+  const handleUpdate = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.put(`${import.meta.env.VITE_USER_URL}/update-profile/${userId}`,
+        { profileTitle, bio }
+      );
+      setMessage(res.data.message);
+    } catch (error) {
+      console.log(error)
+    }
+    setLoading(false);
+  };
 
   // Fetch user links when page loads
 
-  // useEffect(() => {
-  //   const storedLinks = JSON.parse(localStorage.getItem("userLinks"));
-  //   if (storedLinks) {
-  //     setUserLinks(storedLinks);
-  //   } else {
-  //     fetchUserLinks();
-  //   }
-  // }, []);
+
 
 
   useEffect(() => {
     const storedLinks = JSON.parse(localStorage.getItem("userLinks"));
+    console.log("Stored Links:", storedLinks);
     if (storedLinks && storedLinks.length > 0) {
-      setUserLinks(storedLinks); // ✅ Load stored links first
+      setUserLinks(storedLinks);
     } else {
-      fetchUserLinks(); // ✅ Fetch if no stored links
+      fetchUserLinks();
     }
   }, []);
   
@@ -149,15 +139,17 @@ const Linkspage = () => {
           },
         }
       );
-      const links = Array.isArray(res.data) ? res.data : [];
-      setUserLinks(links);
-      localStorage.setItem("userLinks", JSON.stringify(links));
-      // setUserLinks(Array.isArray(res.data) ? res.data : []);
+      console.log("Fetched Data:", res.data);
+    const links = Array.isArray(res.data) ? res.data : [];
+
+    setUserLinks(links);
+    localStorage.setItem("userLinks", JSON.stringify(links));
 
     } catch (error) {
       console.error("Error fetching links:", error);
     }
   };
+
 
   return (
     <>
@@ -273,7 +265,7 @@ const Linkspage = () => {
                 {/* Display Links */}
                 <div className="saved-links">
                   {userLinks.length === 0 ? (
-                    "ccccccccccccccccccccc"
+                    ""
                   ) : (
                     userLinks.map((link) => (
                       <div key={link._id} className="saved-link">
