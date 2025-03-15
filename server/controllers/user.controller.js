@@ -1,28 +1,7 @@
 import {User} from '../models/user.models.js'
 import { uploadOnCloudinary,deleteFromCloudinary } from "../utils/clodinary.js"
 import { Link } from "../models/link.model.js";
-
 import {Shop} from '../models/shop.model.js'
-
-
-
-// router.put("/update-profile/:userId",
-
-export const uploadProfiletext= async (req, res) => {
-  try {
-    const { profileTitle, bio } = req.body;
-
-    const updatedUser = await User.findByIdAndUpdate(
-      req.params.userId,
-      { profileTitle, bio },
-      { new: true }
-    );
-
-    res.json({ success: true, message: "Profile updated", user: updatedUser });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-}
 
 
 // Upload Profile Image Controller
@@ -102,6 +81,8 @@ export const removeProfileImage = async (req, res) => {
 };
 
 
+// link
+
 // createlink
 
 export const createLink = async (req, res) => {
@@ -170,9 +151,9 @@ export const updateLink = async (req, res) => {
   try {
     const { linkId } = req.params;
     const { url, title } = req.body;
-    const userId = req.user?.id; 
+    // const userId = req.user?.id; 
 
-        if (!userId) {
+        if (!linkId) {
           return res.status(401).json({ message: "Unauthorized: No user ID found" });
         }
     const updatedLink = await Link.findByIdAndUpdate(
@@ -264,9 +245,8 @@ export const updateShop = async (req, res) => {
   try {
     const { shopId } = req.params;
     const { url, title } = req.body;
-    const userId = req.user?.id; 
 
-        if (!userId) {
+        if (!shopId) {
           return res.status(401).json({ message: "Unauthorized: No user ID found" });
         }
     const updatedShop = await Shop.findByIdAndUpdate(
@@ -279,7 +259,7 @@ export const updateShop = async (req, res) => {
       return res.status(404).json({ message: "Link not found" });
     }
 
-    res.status(200).json({ message: "Link updated successfully", link: updatedShop});
+    res.status(200).json({ message: "Link updated successfully", shop: updatedShop});
   } catch (error) {
     res.status(500).json({ message: "Server error", error });
   }

@@ -65,7 +65,6 @@ const LinkCard = ({ isOpen, onClose, setUserLinks}) => {
 
              } }
         );
-        // setUserLinks([...userLinks, res.data]);
         setUserLinks((prevLinks) => (Array.isArray(prevLinks) ? [...prevLinks, res.data.link] : [res.data.link]));
         alert("Link saved successfully ✅");
       }

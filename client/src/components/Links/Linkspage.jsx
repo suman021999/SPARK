@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./links.css";
 import Nav from "../Navbar/Nav";
-import logo from "../../../public/logos.svg";
 import {  presetColors } from "../../utils/constants";
 import axios from "axios";
 import LinkCard from "./LinkCard";
@@ -10,15 +9,17 @@ import { PhoneContext } from "../../hooks/PhoneContext";
 import ShopCard from "./ShopCard";
 
 const Linkspage = () => {
-  const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
   const [bio, setBio] = useState("");
   const [uploading, setUploading] = useState(false);
-
   const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
   const [isShopModalOpen, setIsShopModalOpen] = useState(false);
   const [userLinks, setUserLinks] = useState([]);
   const [userShop, setUserShop] = useState([]);
+
+  const [editingLinkId, setEditingLinkId] = useState(null);
+  const [editingShopId, setEditingShopId] = useState(null);
+  const [editedTitle, setEditedTitle] = useState("");
+  const [editedUrl, setEditedUrl] = useState("");
   
 
   const { avatar, setAvatar, bgColor, setBgColor, toggle, setToggle,textColor,profileTitle, setProfileTitle } =
@@ -101,26 +102,6 @@ const Linkspage = () => {
     }
   };
 
-  //Handl bio and profiletitle
-
-  const handleUpdate = async () => {
-    setLoading(true);
-    const userId = localStorage.getItem("userId");
-    if (!userId) {
-      console.error("User ID is missing");
-      return;
-    }
-    try {
-      const res = await axios.put(
-        `${import.meta.env.VITE_USER_URL}/update-profile/${userId}`,
-        { profileTitle, bio }
-      );
-      setMessage(res.data.message);
-    } catch (error) {
-      console.log(error);
-    }
-    setLoading(false);
-  };
 
   // Fetch user links when page loads
 
@@ -187,6 +168,66 @@ const Linkspage = () => {
       console.error("Error fetching links:", error);
     }
   };
+
+
+
+ 
+  
+  // Start editing a link
+  const startEditingLink = (link) => {
+    setEditingLinkId(link._id);
+    setEditedTitle(link.title);
+    setEditedUrl(link.url);
+  };
+  
+  // Start editing a shop
+  const startEditingShop = (shop) => {
+    setEditingShopId(shop._id);
+    setEditedTitle(shop.title);
+    setEditedUrl(shop.url);
+  };
+  
+  // Update Link Function
+  const handleUpdateLink = async (linkId) => {
+    try {
+      await axios.put(
+        `${import.meta.env.VITE_USER_URL}/links/update/${linkId}`,
+        { title: editedTitle, url: editedUrl },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      fetchUserLinks(); 
+      setEditingLinkId(null);
+    } catch (error) {
+      console.error("Error updating link:", error);
+    }
+  };
+  
+  // Update Shop Function
+  const handleUpdateShop = async (shopId) => {
+    try {
+      await axios.put(
+        `${import.meta.env.VITE_USER_URL}/shop/update/${shopId}`,
+        { title: editedTitle, url: editedUrl },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      fetchUserShop(); 
+      setEditingShopId(null);
+    } catch (error) {
+      console.error("Error updating shop:", error);
+    }
+  };
+
+
+
+
 
   return (
     <>
@@ -261,6 +302,8 @@ const Linkspage = () => {
               <div className="profile_links">
                 <div className="profile_save">
                   <div className="phone_save_container">
+
+
                     <div
                       onClick={() => {
                         setToggle("link");
@@ -339,9 +382,30 @@ const Linkspage = () => {
                     {userLinks.length === 0
                       ? ""
                       : userLinks.map((link) => (
-                          <div
+
+
+                        <div key={link._id} className="phone_save_container_saved-link">
+                          {/* Edit Mode */}
+                          {editingLinkId===link._id?(
+                            <div>
+                            <input
+                              type="text"
+                              value={editedTitle}
+                              onChange={(e) => setEditedTitle(e.target.value)}
+                            />
+                            <input
+                              type="text"
+                              value={editedUrl}
+                              onChange={(e) => setEditedUrl(e.target.value)}
+                            />
+                            <button onClick={() => handleUpdateLink(link._id)}>Save</button>
+                            <button onClick={() => setEditingLinkId(null)}>Cancel</button>
+                          </div>
+                          ):(
+                            // Display Mode
+                            <>
+                            <div
                             key={link._id}
-                            className="phone_save_container_saved-link"
                           >
                             <div>{link.title}</div>
                             <div className="phone_save_container_saved-link_url_div">
@@ -354,7 +418,15 @@ const Linkspage = () => {
                                 {link.url}
                               </a>
                             </div>
+                            <button onClick={() => startEditingLink(link)}>✏️</button>
                           </div>
+                            </>
+                          )}
+                        </div>
+
+                          
+
+                          
                         ))}
                   </div>
                 )}
@@ -366,9 +438,28 @@ const Linkspage = () => {
                     {userShop.length === 0
                       ? ""
                       : userShop.map((shop) => (
-                          <div
+
+                        <div key={shop._id} className="phone_save_container_saved-link">
+                          {/* Edit Mode */}
+                          {editingShopId===shop._id?(
+                             <div>
+                             <input
+                               type="text"
+                               value={editedTitle}
+                               onChange={(e) => setEditedTitle(e.target.value)}
+                             />
+                             <input
+                               type="text"
+                               value={editedUrl}
+                               onChange={(e) => setEditedUrl(e.target.value)}
+                             />
+                             <button onClick={() => handleUpdateShop(shop._id)}>Save</button>
+                             <button onClick={() => setEditingShopId(null)}>Cancel</button>
+                           </div>
+                          ):(
+                              <>
+                              <div
                             key={shop._id}
-                            className="phone_save_container_saved-link"
                           >
                             <div>{shop.title}</div>
                             <div className="phone_save_container_saved-link_url_div">
@@ -381,7 +472,14 @@ const Linkspage = () => {
                                 {shop.url}
                               </a>
                             </div>
+                            <button onClick={() => startEditingShop(shop)}>✏️</button>
                           </div>
+                              </>
+                              )}
+
+                        </div>
+
+                          
                         ))}
                   </div>
                 )}
