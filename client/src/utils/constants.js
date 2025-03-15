@@ -6,6 +6,7 @@ export const sidebar = [
 ];
 
 export const presetColors = ["#3B2E25", "#ffffffde", "#000000"];
+
 export const fonts = [
   "DM Sans",
   "Times New Roman",

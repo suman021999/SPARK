@@ -2,6 +2,9 @@ import {User} from '../models/user.models.js'
 import { uploadOnCloudinary,deleteFromCloudinary } from "../utils/clodinary.js"
 import { Link } from "../models/link.model.js";
 
+import {Shop} from '../models/shop.model.js'
+
+
 
 // router.put("/update-profile/:userId",
 
@@ -102,7 +105,6 @@ export const removeProfileImage = async (req, res) => {
 // createlink
 
 export const createLink = async (req, res) => {
-  console.log(req.user?.id,"userID")
   try {
     
     const { url, title } = req.body;
@@ -145,8 +147,6 @@ export const getUserLinks = async (req, res) => {
     res.status(500).json({ message: "Server error", error });
   }
 };
-
-
 
 // Get a single link by ID
 export const getLinkById = async (req, res) => {
@@ -192,6 +192,98 @@ export const updateLink = async (req, res) => {
 };
 
 
+
+// shop------------
+
+
+// createShop
+
+export const createShop = async (req, res) => {
+  
+  try {
+    
+    const { url, title } = req.body;
+    const userId = req.user?.id; 
+
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized: No user ID found" });
+    }
+    
+
+
+    if (!url || !title) {
+      return res.status(400).json({ message: "Title and URL are required" });
+    }
+
+    const newShop = new Shop({ userId, url, title });
+    await newShop.save();
+
+    res.status(201).json({ message: "Link created successfully", shop: newShop });
+  } catch (error) {
+    console.error("Error creating link:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// Get all links for a use
+
+export const getUserShops = async (req, res) => {
+  try {
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ message: "Unauthorized: No user ID found" });
+    }
+    const userId = req.user.id;
+    const shops = await Shop.find({ userId });
+
+    res.status(200).json(shops);
+  } catch (error) {
+    console.error("Error fetching user links:", error);
+    res.status(500).json({ message: "Server error", error });
+  }
+};
+
+// Get a single link by ID
+export const getShopById = async (req, res) => {
+
+  try {
+    const { shopId } = req.params;
+    const shop = await Shop.findById(shopId);
+
+    if (!shop) {
+      return res.status(404).json({ message: "Link not found" });
+    }
+
+    res.status(200).json(shop);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+};
+
+// Update a link
+export const updateShop = async (req, res) => {
+  try {
+    const { shopId } = req.params;
+    const { url, title } = req.body;
+    const userId = req.user?.id; 
+
+        if (!userId) {
+          return res.status(401).json({ message: "Unauthorized: No user ID found" });
+        }
+    const updatedShop = await Shop.findByIdAndUpdate(
+      shopId,
+      { url, title },
+      { new: true }
+    );
+
+    if (!updatedShop) {
+      return res.status(404).json({ message: "Link not found" });
+    }
+
+    res.status(200).json({ message: "Link updated successfully", link: updatedShop});
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+};
 
 
 

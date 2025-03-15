@@ -5,7 +5,9 @@ import { PhoneContext } from '../../hooks/PhoneContext';
 
 const Phone = () => {
 
-  const { avatar, bgColor, toggle } = useContext(PhoneContext);
+  const { avatar, bgColor, toggle,setToggle,textColor,profileTitle} = useContext(PhoneContext);
+
+ 
   return (
      <>
       <div className="phone">
@@ -15,7 +17,7 @@ const Phone = () => {
                      src={avatar || "default-profile.png"}
                      alt=""
                    />
-                   <p>@anujoy</p>
+                   <p style={{ color: textColor }}>{profileTitle}</p>
                  </div>
      
                  <div className="phone_save">

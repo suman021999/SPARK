@@ -245,9 +245,10 @@ border-radius: 35px;
 .profile .profile_links{
     margin-top: 10px;
     border-radius: 25px;
-    min-height: 60vh;
+    min-height: 10vh;
     width: 40vw;
     background: #e3e1e144;
+    /* background: #a0141444; */
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -261,6 +262,21 @@ border-radius: 35px;
     border: none;
 }
 
+.phone_save_container_saved-link{
+    background: #a0a39b46;
+    padding: 20px;
+    border-radius: 35px;
+    margin: 10px 0;
+    height: 20vh;
+}
+.phone_save_container_saved-link_url_div{
+
+}
+.phone_save_container_saved-link_url{
+    text-decoration: none;
+    color: #767676;
+    
+}
 
 .profile_banner{
     margin-top: 10px;
@@ -290,7 +306,6 @@ border-radius: 100%;
 .banner_black .banner_black_h2, .banner_black_p{
     display: flex;
     align-items: center;
-    color: #fff;
 }
 .banner_black_color_box{
     display: flex;
@@ -474,4 +489,3 @@ border-radius: 100%;
     
     border-radius: 5px;
   }
-  

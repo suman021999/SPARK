@@ -3,7 +3,7 @@ import "./links.css";
 import { FaCopy, FaTrash } from "react-icons/fa";
 import axios from "axios";
 
-const LinkCard = ({ isOpen, onClose, setUserLinks, userLinks }) => {
+const LinkCard = ({ isOpen, onClose, setUserLinks}) => {
   const [title, setTitle] = useState("");
   const [linkUrl, setLinkUrl] = useState("");
   const [isToggleOn, setIsToggleOn] = useState(false);
@@ -44,7 +44,7 @@ const LinkCard = ({ isOpen, onClose, setUserLinks, userLinks }) => {
       const payload = { url: linkUrl, title };
 
       if (editingLinkId) {
-        await axios.put(`${import.meta.env.VITE_USER_URL}/update/${editingLinkId}`,
+        await axios.put(`${import.meta.env.VITE_USER_URL}/links/update/${editingLinkId}`,
           payload,
           { 
             headers: {
@@ -56,7 +56,7 @@ const LinkCard = ({ isOpen, onClose, setUserLinks, userLinks }) => {
         alert("Link updated successfully ✅");
       } 
       else {
-        const res = await axios.post(`${import.meta.env.VITE_USER_URL}/create`,
+        const res = await axios.post(`${import.meta.env.VITE_USER_URL}/links/create`,
           payload,
           {
              headers: { 

@@ -1,26 +1,30 @@
-import React, { useState,useEffect, useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./links.css";
 import Nav from "../Navbar/Nav";
 import logo from "../../../public/logos.svg";
-import { presetColors } from "../../utils/constants";
+import {  presetColors } from "../../utils/constants";
 import axios from "axios";
 import LinkCard from "./LinkCard";
 import Phone from "../phone/Phone";
 import { PhoneContext } from "../../hooks/PhoneContext";
+import ShopCard from "./ShopCard";
 
 const Linkspage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [color, setColor] = useState("#222");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [profileTitle, setProfileTitle] = useState("");
   const [bio, setBio] = useState("");
   const [uploading, setUploading] = useState(false);
-  const [userLinks, setUserLinks] = useState([]);
-  
-  const { avatar, setAvatar, bgColor, setBgColor, toggle, setToggle } = useContext(PhoneContext)
 
-   useEffect(() => {
+  const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
+  const [isShopModalOpen, setIsShopModalOpen] = useState(false);
+  const [userLinks, setUserLinks] = useState([]);
+  const [userShop, setUserShop] = useState([]);
+  
+
+  const { avatar, setAvatar, bgColor, setBgColor, toggle, setToggle,textColor,profileTitle, setProfileTitle } =
+    useContext(PhoneContext);
+
+  useEffect(() => {
     const storedAvatar = localStorage.getItem("avatar");
     if (storedAvatar) {
       setAvatar(storedAvatar);
@@ -41,7 +45,7 @@ const Linkspage = () => {
 
     const formData = new FormData();
     formData.append("avatar", file);
-    formData.append("userId", userId)
+    formData.append("userId", userId);
 
     try {
       setUploading(true);
@@ -60,7 +64,7 @@ const Linkspage = () => {
 
       if (res.data.success) {
         setAvatar(res.data.avatar);
-        localStorage.setItem("avatar", res.data.avatar)
+        localStorage.setItem("avatar", res.data.avatar);
       } else {
         console.error("Upload failed:", res.data.error);
       }
@@ -72,16 +76,16 @@ const Linkspage = () => {
   };
   // Handle Profile Image Removal
   const handleRemoveImage = async () => {
-
     const userId = localStorage.getItem("userId");
     if (!userId) {
       console.error("User ID is missing");
       return;
     }
-    
+
     try {
-      const res = await axios.put(`${import.meta.env.VITE_USER_URL}/remove-profile`,
-        {userId},
+      const res = await axios.put(
+        `${import.meta.env.VITE_USER_URL}/remove-profile`,
+        { userId },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -90,33 +94,35 @@ const Linkspage = () => {
       );
       if (res.data.success) {
         setAvatar(null);
-        localStorage.removeItem("avatar")
+        localStorage.removeItem("avatar");
       }
     } catch (error) {
       console.error("Error removing profile image:", error);
     }
   };
 
-
   //Handl bio and profiletitle
 
   const handleUpdate = async () => {
     setLoading(true);
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      console.error("User ID is missing");
+      return;
+    }
     try {
-      const res = await axios.put(`${import.meta.env.VITE_USER_URL}/update-profile/${userId}`,
+      const res = await axios.put(
+        `${import.meta.env.VITE_USER_URL}/update-profile/${userId}`,
         { profileTitle, bio }
       );
       setMessage(res.data.message);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
     setLoading(false);
   };
 
   // Fetch user links when page loads
-
-
-
 
   useEffect(() => {
     const storedLinks = JSON.parse(localStorage.getItem("userLinks"));
@@ -127,12 +133,13 @@ const Linkspage = () => {
       fetchUserLinks();
     }
   }, []);
-  
+
   const fetchUserLinks = async () => {
     const userId = localStorage.getItem("userId");
     if (!userId) return;
     try {
-      const res = await axios.get(`${import.meta.env.VITE_USER_URL}/${userId}`,
+      const res = await axios.get(
+        `${import.meta.env.VITE_USER_URL}/links/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -140,25 +147,59 @@ const Linkspage = () => {
         }
       );
       console.log("Fetched Data:", res.data);
-    const links = Array.isArray(res.data) ? res.data : [];
+      const links = Array.isArray(res.data) ? res.data : [];
 
-    setUserLinks(links);
-    localStorage.setItem("userLinks", JSON.stringify(links));
-
+      setUserLinks(links);
+      localStorage.setItem("userLinks", JSON.stringify(links));
     } catch (error) {
       console.error("Error fetching links:", error);
     }
   };
+  // Fetch user shops when page loads
+  useEffect(() => {
+    const storedShops = JSON.parse(localStorage.getItem("userShops"));
+    console.log("Stored Shops:", storedShops);
+    if (storedShops && storedShops.length > 0) {
+      setUserShop(storedShops);
+    } else {
+      fetchUserShop();
+    }
+  }, []);
 
+  const fetchUserShop = async () => {
+    const userId = localStorage.getItem("userId");
+    if (!userId) return;
+    try {
+      const res = await axios.get(
+        `${import.meta.env.VITE_USER_URL}/shop/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log("Fetched Data:", res.data);
+      const shops = Array.isArray(res.data) ? res.data : [];
+
+      setUserShop(shops);
+      localStorage.setItem("userShop", JSON.stringify(shops));
+    } catch (error) {
+      console.error("Error fetching links:", error);
+    }
+  };
 
   return (
     <>
       <section className="links">
         <Nav isVisible={true} />
         <div className="links_scroll">
-          
           {/* phone */}
-          <Phone avatar={avatar} toggle={toggle} bgColor={bgColor} />
+          <Phone
+            avatar={avatar}
+            toggle={toggle}
+            bgColor={bgColor}
+            setToggle={setToggle}
+          />
 
           <div className="profile">
             <div className="profile_sec">
@@ -195,12 +236,12 @@ const Linkspage = () => {
 
                 <div className="profile_title_profile">
                   <label htmlFor="profileTitle">Profile Title</label>
+
                   <input
                     className="profile_title"
                     type="text"
-                    //  value={profileTitle}
-                    //  onChange={(e) => setProfileTitle(e.target.value)}
-                    // placeholder="dfsdf"
+                    value={profileTitle}
+                    onChange={(e) => setProfileTitle(e.target.value)}
                     id="profileTitle"
                   />
                 </div>
@@ -209,8 +250,8 @@ const Linkspage = () => {
                   <textarea
                     className="profile_bio"
                     type="text"
-                    //  value={bio}
-                    //  onChange={(e) => setBio(e.target.value)}
+                    value={bio}
+                    onChange={(e) => setBio(e.target.value)}
                     name=""
                     id="profilebio"
                   />
@@ -221,7 +262,10 @@ const Linkspage = () => {
                 <div className="profile_save">
                   <div className="phone_save_container">
                     <div
-                      onClick={() => setToggle("link")}
+                      onClick={() => {
+                        setToggle("link");
+                        setIsShopModalOpen(false);
+                      }}
                       className={`p_s_l  ${
                         toggle === "link" ? "p_link" : "p_inital"
                       }`}
@@ -229,7 +273,10 @@ const Linkspage = () => {
                       Add link
                     </div>
                     <div
-                      onClick={() => setToggle("shop")}
+                      onClick={() => {
+                        setToggle("shop");
+                        setIsLinkModalOpen(false);
+                      }}
                       className={`p_s_l ${
                         toggle === "shop" ? "p_link" : "p_inital"
                       }`}
@@ -239,54 +286,106 @@ const Linkspage = () => {
                   </div>
                 </div>
 
-                {/* "+Add" Button */}
+                {/* "+Add" Button for Link */}
                 {toggle === "link" && (
                   <button
                     className="profile_links_add"
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={() => setIsLinkModalOpen(true)}
+                  >
+                    +Add
+                  </button>
+                )}
+
+                {/* "+Add" Button for Shop */}
+                {toggle === "shop" && (
+                  <button
+                    className="profile_links_add"
+                    onClick={() => setIsShopModalOpen(true)}
                   >
                     +Add
                   </button>
                 )}
 
                 {/* LinkCard Modal */}
-                {isModalOpen && (
+                {isLinkModalOpen && (
                   <LinkCard
-                    isOpen={isModalOpen}
+                    isOpen={isLinkModalOpen}
                     onClose={() => {
-                      setIsModalOpen(false);
+                      setIsLinkModalOpen(false);
                       fetchUserLinks();
                     }}
-                    setUserLinks={setUserLinks} 
+                    setUserLinks={setUserLinks}
                     userLinks={userLinks}
                   />
                 )}
 
-                {/* Display Links */}
-                <div className="saved-links">
-                  {userLinks.length === 0 ? (
-                    ""
-                  ) : (
-                    userLinks.map((link) => (
-                      <div key={link._id} className="saved-link">
-                        <span>
-                          {link.title} -{" "}
-                          <a
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                {/* ShopCard Modal */}
+                {isShopModalOpen && (
+                  <ShopCard
+                    isOpen={isShopModalOpen}
+                    onClose={() => {
+                      setIsShopModalOpen(false);
+                      fetchUserShop();
+                    }}
+                    setUserShop={setUserShop}
+                    userShop={userShop}
+                  />
+                )}
+
+                {/* Display Saved Links */}
+
+                {toggle === "link" && (
+                  <div className="saved-links">
+                    {userLinks.length === 0
+                      ? ""
+                      : userLinks.map((link) => (
+                          <div
+                            key={link._id}
+                            className="phone_save_container_saved-link"
                           >
-                            {link.url}
-                          </a>
-                        </span>
-                      </div>
-                    ))
-                  )}
-                </div>
+                            <div>{link.title}</div>
+                            <div className="phone_save_container_saved-link_url_div">
+                              <a
+                                className="phone_save_container_saved-link_url"
+                                href={link.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                {link.url}
+                              </a>
+                            </div>
+                          </div>
+                        ))}
+                  </div>
+                )}
+
+                {/* Display Saved Shops */}
+
+                {toggle === "shop" && (
+                  <div className="saved-links">
+                    {userShop.length === 0
+                      ? ""
+                      : userShop.map((shop) => (
+                          <div
+                            key={shop._id}
+                            className="phone_save_container_saved-link"
+                          >
+                            <div>{shop.title}</div>
+                            <div className="phone_save_container_saved-link_url_div">
+                              <a
+                                className="phone_save_container_saved-link_url"
+                                href={shop.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                {shop.url}
+                              </a>
+                            </div>
+                          </div>
+                        ))}
+                  </div>
+                )}
               </div>
-
-
-
 
               <div className="profile_banner">
                 <div
@@ -299,16 +398,16 @@ const Linkspage = () => {
                     alt=""
                   />
                   <h2
-                    onChange={() => setColor(color)}
-                    className={`banner_black_h2 ${
-                      color == "#ffffffde" ? "#222" : ""
-                    }`}
+                   
+                   style={{ color: textColor }}
+                    className="banner_black_h2"
+                      
                   >
-                    @opopo_08
+                   {profileTitle}
                   </h2>
-                  <p className="banner_black_p">
+                  <p className="banner_black_p" style={{ color: textColor }}>
                     <img src="/public/logos.svg" alt="" />
-                    /opopo_08
+                    {`/${profileTitle}`}
                   </p>
                 </div>
 
@@ -323,6 +422,8 @@ const Linkspage = () => {
                         onClick={() => setBgColor(color)}
                       ></button>
                     ))}
+
+                  
                   </div>
 
                   <div className="banner_black_tag">
@@ -337,7 +438,10 @@ const Linkspage = () => {
                     />
                   </div>
                 </div>
+                
               </div>
+
+
               <div className="profile_sec_button_box">
                 {" "}
                 <button className="profile_sec_button">save</button>
