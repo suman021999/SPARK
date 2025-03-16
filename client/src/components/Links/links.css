@@ -26,6 +26,7 @@
 
 
 
+
 /* profile */
 .profile{
     margin-left:400px;
@@ -385,3 +386,8 @@ border-radius: 100%;
     
     border-radius: 5px;
   }
+.toggle-switch_delete{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

@@ -3,13 +3,25 @@ import "./links.css";
 import { FaCopy, FaTrash } from "react-icons/fa";
 import axios from "axios";
 
-const ShopModal = ({ isOpen, onClose, setUserShop}) => {
+const ShopModal = ({ isOpen, onClose, setUserShop,editShop = null}) => {
   const [title, setTitle] = useState("");
   const [shopUrl, setShopUrl] = useState("");
   const [isToggleOn, setIsToggleOn] = useState(false);
   const [editingLinkId, setEditingLinkId] = useState(null);
 
   if (!isOpen) return null;
+
+    useEffect(() => {
+      if (editShop) {
+        setTitle(editShop.title || "");
+        setShopUrl(editShop.url || "");
+        setEditingLinkId(editShop._id);
+      } else {
+        setTitle("");
+        setShopUrl("");
+        setEditingLinkId(null);
+      }
+    }, [editShop]);
 
 
   const handleToggle = () => {

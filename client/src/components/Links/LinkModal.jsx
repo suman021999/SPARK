@@ -1,15 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./links.css";
-import { FaCopy, FaTrash } from "react-icons/fa";
+import { FiCopy } from "react-icons/fi";
+import { RiDeleteBin6Line } from "react-icons/ri"
 import axios from "axios";
 
-const LinkModal = ({ isOpen, onClose, setUserLinks}) => {
+const LinkModal = ({ isOpen, onClose, setUserLinks,editLink = null}) => {
   const [title, setTitle] = useState("");
   const [linkUrl, setLinkUrl] = useState("");
   const [isToggleOn, setIsToggleOn] = useState(false);
   const [editingLinkId, setEditingLinkId] = useState(null);
 
   if (!isOpen) return null;
+
+
+  useEffect(() => {
+    if (editLink) {
+      setTitle(editLink.title || "");
+      setLinkUrl(editLink.url || "");
+      setEditingLinkId(editLink._id);
+      
+    } else {
+      setTitle("");
+      setLinkUrl("");
+      setEditingLinkId(null);
+      
+    }
+  }, [editLink]);
 
 
   const handleAppClick = (appName) => {
@@ -116,11 +132,11 @@ const LinkModal = ({ isOpen, onClose, setUserLinks}) => {
           />
 
           <button className="icon-button" onClick={() => handleCopy(linkUrl)}>
-            <FaCopy />
+          <FiCopy />
           </button>
 
           <button className="icon-button delete" onClick={() => setLinkUrl("")}>
-            <FaTrash />
+          <RiDeleteBin6Line />
           </button>
         </div>
 
@@ -184,16 +200,4 @@ const LinkModal = ({ isOpen, onClose, setUserLinks}) => {
 
 export default LinkModal;
 
-// 📌 Delete a link
-// const handleDelete = async (id) => {
-//   try {
-//     await axios.delete(`${import.meta.env.VITE_USER_URL}/links/${id}`, {
-//       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-//     });
-//     alert("Link deleted successfully ✅");
-//     setUserLinks(userLinks.filter((link) => link._id !== id));
-//   } catch (error) {
-//     console.error("Error deleting link:", error.response?.data || error.message);
-//     alert("Failed to delete link ❌");
-//   }
-// };
+

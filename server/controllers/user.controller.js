@@ -192,6 +192,19 @@ export const linkClick= async (req, res) => {
   }
 }
 
+// Delete a link
+export const deleteLink = async (req, res) => {
+  try {
+    const { linkId } = req.params;
+    const deletedLink = await Link.findByIdAndDelete(linkId);
+    if (!deletedLink) {
+      return res.status(404).json({ message: "Link not found" });
+    }
+    res.status(200).json({ message: "Link deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+};
 
 
 // shop------------
@@ -307,28 +320,19 @@ export const shopClick= async (req, res) => {
   }
 }
 
-
-
-
-
-// // Delete a link
-// export const deleteLink = async (req, res) => {
-//   try {
-//     const { linkId } = req.params;
-
-//     const deletedLink = await Link.findByIdAndDelete(linkId);
-
-//     if (!deletedLink) {
-//       return res.status(404).json({ message: "Link not found" });
-//     }
-
-//     res.status(200).json({ message: "Link deleted successfully" });
-//   } catch (error) {
-//     res.status(500).json({ message: "Server error", error });
-//   }
-// };
-
-
+// Delete a shop
+export const deleteShop = async (req, res) => {
+  try {
+    const { shopId } = req.params;
+    const deletedShop = await Shop.findByIdAndDelete(shopId);
+    if (!deletedShop) {
+      return res.status(404).json({ message: "Shop not found" });
+    }
+    res.status(200).json({ message: "Link deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+};
 
 
 
