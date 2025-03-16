@@ -1,15 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./links.css";
 import { FaCopy, FaTrash } from "react-icons/fa";
 import axios from "axios";
 
-const LinkCard = ({ isOpen, onClose, setUserLinks }) => {
+const LinkModal = ({ isOpen, onClose, setUserLinks}) => {
   const [title, setTitle] = useState("");
   const [linkUrl, setLinkUrl] = useState("");
   const [isToggleOn, setIsToggleOn] = useState(false);
   const [editingLinkId, setEditingLinkId] = useState(null);
 
   if (!isOpen) return null;
+
+
+  const handleAppClick = (appName) => {
+    setTitle(appName);
+  }
 
   const handleToggle = () => {
     setIsToggleOn(!isToggleOn);
@@ -29,7 +34,7 @@ const LinkCard = ({ isOpen, onClose, setUserLinks }) => {
   };
 
   const handleSave = async () => {
-    if (!title || !linkUrl) {
+    if (!title || !linkUrl ) {
       alert("Please enter both a title and URL!");
       return;
     }
@@ -65,12 +70,13 @@ const LinkCard = ({ isOpen, onClose, setUserLinks }) => {
             ? [...prevLinks, res.data.link]
             : [res.data.link]
         );
-        alert("Link saved successfully ✅");
+        // alert("Link saved successfully ✅");
       }
       onClose();
       setTitle("");
       setLinkUrl("");
       setEditingLinkId(null);
+      
     } catch (error) {
       console.error("Error saving link:", error);
       alert("Failed to save link ❌");
@@ -78,6 +84,7 @@ const LinkCard = ({ isOpen, onClose, setUserLinks }) => {
   };
 
   return (
+    
     <div className="linkcard_modal-overlay" onClick={handleOutsideClick}>
       <div className="linkcard_modal-content">
         <h2 className="linkcard_modal-content_h2">Enter URL</h2>
@@ -117,10 +124,14 @@ const LinkCard = ({ isOpen, onClose, setUserLinks }) => {
           </button>
         </div>
 
+
+
         <h3>Applications</h3>
 
         <div className="linkcard_app-icons_box_container">
-          <div className="linkcard_app-icons_box">
+          
+          <div className="linkcard_app-icons_box" onClick={() => handleAppClick("Instagram")}>
+
             <div className="linkcard_app-icons_border">
               <img
                 className="linkcard_app-icons"
@@ -129,10 +140,11 @@ const LinkCard = ({ isOpen, onClose, setUserLinks }) => {
               />
             </div>
             <span>Instagram</span>
+
           </div>
 
-          <div className="linkcard_app-icons_box">
-            <div className="linkcard_app-icons_border">
+          <div className="linkcard_app-icons_box" onClick={() => handleAppClick("Facebook")}>
+            <div className="linkcard_app-icons_border" >
               <img
                 className="linkcard_app-icons"
                 src="/public/facebook.svg"
@@ -142,7 +154,7 @@ const LinkCard = ({ isOpen, onClose, setUserLinks }) => {
             <span>Facebook</span>
           </div>
 
-          <div className="linkcard_app-icons_box">
+          <div className="linkcard_app-icons_box" onClick={() => handleAppClick("YouTube")}>
             <div className="linkcard_app-icons_border">
               <img
                 className="linkcard_app-icons"
@@ -153,7 +165,7 @@ const LinkCard = ({ isOpen, onClose, setUserLinks }) => {
             <span>YouTube</span>
           </div>
 
-          <div className="linkcard_app-icons_box">
+          <div className="linkcard_app-icons_box" onClick={() => handleAppClick("X")}>
             <div className="linkcard_app-icons_border">
               <img
                 className="linkcard_app-icons"
@@ -164,12 +176,13 @@ const LinkCard = ({ isOpen, onClose, setUserLinks }) => {
             <span>X</span>
           </div>
         </div>
+
       </div>
     </div>
   );
 };
 
-export default LinkCard;
+export default LinkModal;
 
 // 📌 Delete a link
 // const handleDelete = async (id) => {

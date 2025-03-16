@@ -3,7 +3,7 @@ import "./links.css";
 import { FaCopy, FaTrash } from "react-icons/fa";
 import axios from "axios";
 
-const ShopCard = ({ isOpen, onClose, setUserShop}) => {
+const ShopModal = ({ isOpen, onClose, setUserShop}) => {
   const [title, setTitle] = useState("");
   const [shopUrl, setShopUrl] = useState("");
   const [isToggleOn, setIsToggleOn] = useState(false);
@@ -125,4 +125,4 @@ const ShopCard = ({ isOpen, onClose, setUserShop}) => {
   );
 };
 
-export default ShopCard;
+export default ShopModal;

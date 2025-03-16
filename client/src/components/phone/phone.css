@@ -1,0 +1,135 @@
+.phone{
+    height:80vh;
+    width: 20vw;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    border-radius: 35px;
+    border: 8px solid black;
+    position: fixed;
+}
+.phone .phone_profile{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    border-radius: 25px;
+    border: 2px solid #b4acac47;
+    margin-bottom: 20px;
+    
+}
+.phone .phone_profile img{
+    margin-top: 20px;
+    height: 80px;
+    width: 80px ;
+    border-radius: 100%;
+}
+.phone_text{
+    font-size: 24px;
+    font-weight: bold;
+    font-family: var(--poppins);
+    margin-top: 10px;
+    color: #fff;
+
+}
+
+.phone_bio{
+    font-size: 16px !important;
+    font-weight: bold;
+    font-family: var(--poppins);
+    margin-top: 10px;
+    color: #fff;
+}
+.phone .phone_save{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;   
+}
+  .p_link{
+    background: #28A263;
+    color: #fff;
+}
+ .p_inital{
+    background: #C9C9C9;
+}
+ .phone_save_container{
+    display: flex;
+    align-items: center;
+    background: #C9C9C9;
+    width: 210px;
+    height: 6vh;
+    border-radius: 35px;
+}
+
+ .p_s_l{ 
+    cursor: pointer;
+    padding:10px 8PX;
+    margin: 0 5PX;
+    text-align: center;
+    border-radius: 35px;
+    width: 120px;
+}
+
+
+
+.phone .phone_links{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+.phone .phone_links .phone_links_scroll{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    height: 150px;
+    width: 250px;
+    overflow-y: scroll;
+        
+}
+.phone_links_scroll_bar{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    justify-content: start;
+    background-color: #C9C9C9;
+    border-radius: 35px;
+    height: 60px;
+    gap: 20px;
+}
+
+.phone_links_scroll .phone_links_scroll_bar img{
+    height: 40px;
+    width: 40px ;
+    border-radius: 100%;
+}
+
+#tasklist::-webkit-scrollbar{
+    display: none;
+}
+
+
+
+
+.phone .phone_button{
+    margin-top: 7vh;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: center;
+}
+.phone .phone_button button{
+padding: 10px;
+border-radius: 35px;
+    background: #28A263;
+    border: none;
+    color: #fff;
+    width: 15vw;
+}
+.links_scroll .phone .logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--poppins)
+}

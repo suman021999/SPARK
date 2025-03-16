@@ -3,13 +3,12 @@ import "./links.css";
 import Nav from "../Navbar/Nav";
 import { presetColors } from "../../utils/constants";
 import axios from "axios";
-import LinkCard from "./LinkCard";
 import Phone from "../phone/Phone";
 import { PhoneContext } from "../../hooks/PhoneContext";
-import ShopCard from "./ShopCard";
+import LinkModal from "./LinkModal";
+import ShopModal from "./ShopModal";
 
 const Linkspage = () => {
-  const [bio, setBio] = useState("");
   const [uploading, setUploading] = useState(false);
   const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
   const [isShopModalOpen, setIsShopModalOpen] = useState(false);
@@ -31,6 +30,8 @@ const Linkspage = () => {
     textColor,
     profileTitle,
     setProfileTitle,
+    bio, 
+    setBio
   } = useContext(PhoneContext);
 
   useEffect(() => {
@@ -176,21 +177,28 @@ const Linkspage = () => {
     }
   };
 
-  // Start editing a link
-  const startEditingLink = (link) => {
-    setEditingLinkId(link._id);
-    setEditedTitle(link.title);
-    setEditedUrl(link.url);
-  };
+  // // // Start editing a link
+  // const startEditingLink = (link) => {
+  //   setEditingLinkId(link._id);
+  //   setEditedUrl(link.url);
+  // };
+  // const startEditingTitle = (link) => {
+  //   setEditingLinkId(link._id);
+  //   setEditedTitle(link.title);
+  // }
 
-  // Start editing a shop
+
+
+
+
+  // // Start editing a shop
   const startEditingShop = (shop) => {
     setEditingShopId(shop._id);
     setEditedTitle(shop.title);
     setEditedUrl(shop.url);
   };
 
-  // Update Link Function
+  // // Update Link Function
   const handleUpdateLink = async (linkId) => {
     try {
       await axios.put(
@@ -209,7 +217,7 @@ const Linkspage = () => {
     }
   };
 
-  // Update Shop Function
+  // // Update Shop Function
   const handleUpdateShop = async (shopId) => {
     try {
       await axios.put(
@@ -227,6 +235,11 @@ const Linkspage = () => {
       console.error("Error updating shop:", error);
     }
   };
+
+  
+
+
+
 
  // Handle Link Click & Update UI
  const handleLinkClick = async (linkId) => {
@@ -333,6 +346,7 @@ const handleShopClick = async (shopId) => {
               <div className="profile_links">
                 <div className="profile_save">
                   <div className="phone_save_container">
+                    
                     <div
                       onClick={() => {
                         setToggle("link");
@@ -380,20 +394,22 @@ const handleShopClick = async (shopId) => {
 
                 {/* LinkCard Modal */}
                 {isLinkModalOpen && (
-                  <LinkCard
+                  <LinkModal
                     isOpen={isLinkModalOpen}
                     onClose={() => {
                       setIsLinkModalOpen(false);
                       fetchUserLinks();
                     }}
+                    
                     setUserLinks={setUserLinks}
                     userLinks={userLinks}
+          
                   />
                 )}
 
                 {/* ShopCard Modal */}
                 {isShopModalOpen && (
-                  <ShopCard
+                  <ShopModal
                     isOpen={isShopModalOpen}
                     onClose={() => {
                       setIsShopModalOpen(false);
@@ -410,78 +426,60 @@ const handleShopClick = async (shopId) => {
                   <div className="saved-links">
                     {userLinks.length === 0
                       ? ""
-                      : userLinks.map((link) => (
-                          <div
-                            key={link._id}
-                            className="phone_save_container_saved-link"
-                          >
-                            {/* Edit Mode */}
-                            {editingLinkId === link._id ? (
-                              <div className="edit_link_shop_flex">
-                                <div className="edit_link_shop_flex_div" onClick={() => handleLinkClick(link._id)}>
-                                <input
-                                className="edit_link_shop_flex_input"
-                                  type="text"
-                                  value={editedTitle}
-                                  onChange={(e) =>
-                                    setEditedTitle(e.target.value)
-                                  }
-                                />
-                                <input
-                                className="edit_link_shop_flex_input"
-                                  type="text"
-                                  value={editedUrl}
-                                  onChange={(e) => setEditedUrl(e.target.value)}
-                                />
-                                </div>
-                                
+                      :
+                       userLinks.map((link) => (
+                          <div key={link._id}
+                            className="phone_save_container_saved-link">
 
-                                <div
-                                  className={`toggle-switch ${
-                                    editingLinkId === link._id ? "" : "on"
-                                  }`}
-                                  onClick={() => handleUpdateLink(link._id)}
-                                >
-                                  <div className="toggle-thumb"></div>
-                                </div>
-                              </div>
-                            ) : (
-                              // Display Mode
-                              <>
-                                <div key={link._id} className="edit_link_shop_flex">
-                                  <div>
-                                  <div>{link.title}</div>
-                                  <div className="phone_save_container_saved-link_url_div" >
-                                    <div onClick={() => handleLinkClick(link._id)}>
-                                    <a
-                                      className="phone_save_container_saved-link_url"
-                                      href={link.url}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      
-                                    >
-                                      {link.url}
-                                    </a>
-                                    </div>
-                                  </div>
-                                  <div className="click-count">Clicks: {link.clicks}</div>
-                                  </div>
-                                 
-                                  <div
-                                    className={`toggle-switch ${
-                                      editingLinkId === link._id ? "" : "on"
-                                    }`}
-                                    onClick={() => startEditingLink(link)}
-                                  >
-                                    <div className="toggle-thumb"></div>
-                                  </div>
-                                </div>
-                              </>
-                            )}
+                               <div key={link._id} className="edit_link_shop_flex">
+                                 <div className="edit_link_shop_flex_container">
+
+                                  
+                                   <div className="phone_save_container_saved-link_url_text"
+                                    
+                                    onClick={() => setIsLinkModalOpen(true)}
+                                     >
+                                   <div>
+                                     {link.title}
+                                   </div>
+                                   <img onClick={() => handleLinkClick(link._id)} src="/public/pen.png" alt="" />
+                                   </div>
+                                
+                                 <div className="phone_save_container_saved-link_url_div" >
+                                   <div className="phone_save_container_saved-link_url_link" onClick={() => handleLinkClick(link._id)}>
+                                   <a
+                                     className="phone_save_container_saved-link_url"
+                                     href={link.url}
+                                     target="_blank"
+                                     rel="noopener noreferrer"
+                                     
+                                   >
+                                     {link.url}
+                                   </a>
+                                   <img  src="/public/pen.png" alt="" onClick={() => setIsLinkModalOpen(true)}/>
+                                   </div>
+                                 </div>
+
+
+                                 <div className="click-count">
+                                 <img src="/public/click.svg" alt="" />
+                                 Clicks: {link.clicks}
+                                 </div>
+                                 </div>
+                                
+                                 <div
+                                   className="toggle-switch on">
+                                   <div className="toggle-thumb"></div>
+                                 </div>
+
+                               </div>
+                             
                           </div>
                         ))}
                   </div>
                 )}
+
+
 
                 {/* Display Saved Shops */}
 
@@ -545,7 +543,9 @@ const handleShopClick = async (shopId) => {
                                     </a>
                                     </div>
                                   </div>
-                                  <div className="click-count">Clicks: {shop.clicks}</div>
+                                  <div className="click-count">
+                                    <img src="/public/click.svg" alt="" />
+                                    Clicks: {shop.clicks}</div>
                                   </div>
                                   
                                   <div
@@ -565,6 +565,7 @@ const handleShopClick = async (shopId) => {
                 )}
               </div>
 
+
               <div className="profile_banner">
                 <div
                   style={{ background: `${bgColor}` }}
@@ -580,7 +581,7 @@ const handleShopClick = async (shopId) => {
                   </h2>
                   <p className="banner_black_p" style={{ color: textColor }}>
                     <img src="/public/logos.svg" alt="" />
-                    {`/${profileTitle}`}
+                    {`/${bio}`}
                   </p>
                 </div>
 
@@ -603,7 +604,6 @@ const handleShopClick = async (shopId) => {
                       className="banner_black_icon"
                     ></div>
                     <input
-                      type="text"
                       value={bgColor}
                       onChange={(e) => setBgColor(e.target.value)}
                     />

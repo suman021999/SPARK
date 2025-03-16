@@ -1,17 +1,17 @@
-import React, {useState } from 'react'
+import React, {useContext, useState } from 'react'
 import "./auth.css"
 import logo from "../../../public/logo.svg"
- import Frame from "../../../public/Frame.png"
- import { useNavigate } from 'react-router-dom'
- import { FaEyeSlash } from "react-icons/fa";
- import { FaEye } from "react-icons/fa";
-
+import Frame from "../../../public/Frame.png"
+import { useNavigate } from 'react-router-dom'
+import { FaEyeSlash } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
 import axios from 'axios';
+import { PhoneContext } from '../../hooks/PhoneContext'
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
+const [password, setPassword] = useState('');
+const [showPassword, setShowPassword] = useState(false);
+const navigate = useNavigate();
+const{username, setUsername}=useContext(PhoneContext)
 
   const handleLogin=async(evx)=>{
     evx.preventDefault();
@@ -24,14 +24,7 @@ const Login = () => {
       if (res.status === 200) {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("user", JSON.stringify(res.data.user))
-
-      localStorage.setItem("userId", res.data.user._id);
-
-      // console.log("Stored userId:", localStorage.getItem("userId")); // Debugging
-
-        // console.log("Stored User in localStorage:", localStorage.getItem("user"))
-
-        // alert("Login Successful");
+        localStorage.setItem("userId", res.data.user._id);
         navigate("/namepage");
       }
     } catch (error) {

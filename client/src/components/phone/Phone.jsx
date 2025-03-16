@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
-import "../Links/links.css"
+import "./phone.css"
 import logo from "../../../public/logos.svg";
 import { PhoneContext } from '../../hooks/PhoneContext';
 
 const Phone = () => {
 
-  const { avatar, bgColor, toggle,setToggle,textColor,profileTitle} = useContext(PhoneContext);
+  const { avatar, bgColor, toggle,setToggle,textColor,profileTitle,username,bio} = useContext(PhoneContext);
 
  
   return (
@@ -17,7 +17,13 @@ const Phone = () => {
                      src={avatar || "default-profile.png"}
                      alt=""
                    />
-                   <p style={{ color: textColor }}>{profileTitle}</p>
+                   <p className='phone_text' style={{ color: textColor }}>
+                    {profileTitle.trim() ? profileTitle : username}
+                    </p>
+
+                    <p className='phone_bio' style={{ color: textColor }}>
+                    {bio}
+                    </p>
                  </div>
      
                  <div className="phone_save">
