@@ -16,18 +16,18 @@ const ShopModal = ({ isOpen, onClose, setUserShop,editShop = null}) => {
         setTitle(editShop.title || "");
         setShopUrl(editShop.url || "");
         setEditingLinkId(editShop._id);
-      } else {
-        setTitle("");
-        setShopUrl("");
-        setEditingLinkId(null);
+        setIsToggleOn((prev) => (prev ? false : prev))
       }
     }, [editShop]);
 
 
-  const handleToggle = () => {
-    setIsToggleOn(!isToggleOn);
-    console.log(setIsToggleOn(!isToggleOn));
-  };
+    const handleToggle = () => {
+      setIsToggleOn((prevState) => {
+        const newState = !prevState;
+        console.log("Toggle State:", newState);
+        return newState;
+      });
+    };
 
   const handleOutsideClick = (e) => {
     if (e.target.classList.contains("linkcard_modal-overlay")) {

@@ -14,32 +14,20 @@ const Namepage = () => {
 
   const handleUpdateProfile = async () => {
     const token = localStorage.getItem("token");
-
     if (!token) {
       alert("Authentication token missing. Please log in again.");
       return;
     }
-
-
     const storedUser = localStorage.getItem("user");
-    // console.log("Stored User:", storedUser);
-  
       if (!storedUser) { alert("User not found. Please log in again.");
         return navigate('/login')
       }
-  
       const parsedUser = JSON.parse(storedUser);
       const userId = parsedUser?.id || parsedUser?._id;
-  
-      // console.log("Extracted User ID:", userId);
-  
       if (!userId) {alert("User ID missing. Please log in again."); return;}
-      
       if (!bio || !selectedCategory) {alert("Please fill out all fields.");return;}
-  
       try {
         const res = await axios.put(`${import.meta.env.VITE_AUTH_URL}/update-profile/${userId}`,
-          
           { bio, category: selectedCategory },
           {
             headers: { 
@@ -49,13 +37,9 @@ const Namepage = () => {
             
           }
         );
-  
-        // console.log("API Response:", res.data);
         if (res.data.user) {
           localStorage.setItem("user", JSON.stringify(res.data.user));
-          // console.log("User Stored in localStorage:", localStorage.getItem("user"))
         }
-        // alert(res.data.msg);
         navigate('/dashboard');
       } catch (error) {
         console.error("Error updating profile:", error);
@@ -99,16 +83,14 @@ const Namepage = () => {
 
                            onClick={() => setSelectedCategory(catagory.name)}
                             >
-                              {catagory.icon} {catagory.name}
+                              {catagory.img} {catagory.name}
                             </button>
                           ))
                         }
                     </div>
 
-                  <button className='name_box_button'  onClick={handleUpdateProfile}  >Continue</button>         
+                  <button className='name_box_button'  onClick={handleUpdateProfile}>Continue</button>         
               </div>
-              
-             
               </div>
               <img className='name_img' src={Frame} alt=""  />
             </section>

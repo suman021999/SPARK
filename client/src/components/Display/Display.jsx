@@ -9,7 +9,7 @@ const Display = () => {
   return (
     <>
       <div className='display'>
-            <Navbar/>
+           <Navbar/>
            <Front/>
            <Review/>
            <LinkConnected/>

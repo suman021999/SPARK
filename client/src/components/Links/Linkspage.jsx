@@ -13,8 +13,7 @@ const Linkspage = () => {
   const [uploading, setUploading] = useState(false);
   const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
   const [isShopModalOpen, setIsShopModalOpen] = useState(false);
-  const [userLinks, setUserLinks] = useState([]);
-  const [userShop, setUserShop] = useState([]);
+  // const [userShop, setUserShop] = useState([]);
 
   const [currentEditLink, setCurrentEditLink] = useState(null);
   const [currentEditshop, setCurrentEditShop] = useState(null);
@@ -30,7 +29,11 @@ const Linkspage = () => {
     profileTitle,
     setProfileTitle,
     bio, 
-    setBio
+    setBio,
+    userLinks, 
+    setUserLinks,
+    userShop, 
+    setUserShop
   } = useContext(PhoneContext);
 
   useEffect(() => {
@@ -114,7 +117,6 @@ const Linkspage = () => {
 
   useEffect(() => {
     const storedLinks = JSON.parse(localStorage.getItem("userLinks"));
-    // console.log("Stored Links:", storedLinks);
     if (storedLinks && storedLinks.length > 0) {
       setUserLinks(storedLinks);
     } else {
@@ -146,7 +148,6 @@ const Linkspage = () => {
   // Fetch user shops when page loads
   useEffect(() => {
     const storedShops = JSON.parse(localStorage.getItem("userShops"));
-    // console.log("Stored Shops:", storedShops);
     if (storedShops && storedShops.length > 0) {
       setUserShop(storedShops);
     } else {
@@ -166,7 +167,6 @@ const Linkspage = () => {
           },
         }
       );
-      // console.log("Fetched Data:", res.data);
       const shops = Array.isArray(res.data) ? res.data : [];
 
       setUserShop(shops);
@@ -212,14 +212,11 @@ const handleShopClick = async (shopId) => {
 
 const handleDeleteLink = async (linkId) => {
   if (!linkId) return;
-  
-  // const confirmDelete = window.confirm("Are you sure you want to delete this link?");
-  // if (!confirmDelete) return;
-
   try {
     await axios.delete(`${import.meta.env.VITE_USER_URL}/links/delete/${linkId}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
     });
+    fetchUserLinks()
 
     setUserLinks((prevLinks) => prevLinks.filter((link) => link._id !== linkId));
     alert("Link deleted successfully ✅");
@@ -231,22 +228,18 @@ const handleDeleteLink = async (linkId) => {
 
 const handleDeleteShop = async (shopId) => {
   if (!shopId) return;
-  
-  // const confirmDelete = window.confirm("Are you sure you want to delete this shop?");
-  // if (!confirmDelete) return;
-
   try {
     await axios.delete(`${import.meta.env.VITE_USER_URL}/shop/delete/${shopId}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
     });
-
+    fetchUserShop()
     setUserShop((prevShops) => prevShops.filter((shop) => shop._id !== shopId));
     alert("Shop deleted successfully ✅");
   } catch (error) {
     console.error("Error deleting shop:", error.response?.data || error.message);
     alert("Failed to delete shop ❌");
   }
-};
+}
 
 
 
@@ -442,10 +435,12 @@ const handleDeleteShop = async (shopId) => {
                                    >
                                      {link.url}
                                    </a>
+                                   
                                    <img  src="/public/pen.png" alt=""  onClick={() =>{ 
                                       setCurrentEditLink(link);
                                       setIsLinkModalOpen(true)
                                     }}/>
+
                                    </div>
                                  </div>
 
@@ -471,8 +466,6 @@ const handleDeleteShop = async (shopId) => {
                         ))}
                   </div>
                 )}
-
-
 
                 {/* Display Saved Shops */}
 
@@ -509,7 +502,7 @@ const handleDeleteShop = async (shopId) => {
                                       href={shop.url}
                                       target="_blank"
                                       rel="noopener noreferrer"
-                                      onClick={() => handleShopClick(shop._id)}  
+                                      
                                     >
                                       {shop.url}
                                     </a>
@@ -540,6 +533,8 @@ const handleDeleteShop = async (shopId) => {
                         ))}
                   </div>
                 )}
+
+
               </div>
 
 

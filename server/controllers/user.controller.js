@@ -8,22 +8,14 @@ import {Shop} from '../models/shop.model.js'
 
 export const uploadProfileImage = async (req, res) => {
   try {
-    // console.log("Received request to upload profile image");
-
     if (!req.file) {
       return res.status(400).json({ error: "No file uploaded" });
     }
-
-    // console.log("File received:", req.file);
-
     const userId = req.body.userId;
     if (!userId) {
       return res.status(401).json({ error: "Unauthorized" });
     }
-
-    // Upload image buffer directly to Cloudinary
     const imageUrl = await uploadOnCloudinary(req.file.buffer, userId);
-
     if (!imageUrl) {
       return res.status(500).json({ error: "Cloudinary upload failed" });
     }
@@ -33,7 +25,6 @@ export const uploadProfileImage = async (req, res) => {
       { avatar: imageUrl },
       { new: true }
     );
-
     if (!updatedUser) {
       return res.status(404).json({ error: "User not found" });
     }
@@ -47,27 +38,24 @@ export const uploadProfileImage = async (req, res) => {
     console.error("Error uploading image:", error);
     res.status(500).json({ error: "Internal server error" });
   }
-};
+}
+
+
 // remove Profile Image Controller
 export const removeProfileImage = async (req, res) => {
   try {
-    // const userId = req.body;
     const userId = req.user.id;
-
     if (!userId) {
       return res.status(400).json({ error: "User ID is required" });
     }
-
   const user = await User.findById(userId);
   if (!user) {
     return res.status(404).json({ error: "User not found" });
   }
-
  if (user.avatar) {
   const deleted = await deleteFromCloudinary(user.avatar);
   if (!deleted) return res.status(500).json({ error: "Cloudinary deletion failed" });
 }
-
  await User.findByIdAndUpdate(userId, { avatar: null });
 
     res.status(200).json({
@@ -75,7 +63,6 @@ export const removeProfileImage = async (req, res) => {
       message: "Profile image removed",
     });
   } catch (error) {
-    console.error("Error removing profile image:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -87,26 +74,18 @@ export const removeProfileImage = async (req, res) => {
 
 export const createLink = async (req, res) => {
   try {
-    
     const { url, title } = req.body;
     const userId = req.user?.id; 
-
     if (!userId) {
       return res.status(401).json({ message: "Unauthorized: No user ID found" });
     }
-    
-
-
     if (!url || !title) {
       return res.status(400).json({ message: "Title and URL are required" });
     }
-
     const newLink = new Link({ userId, url, title });
     await newLink.save();
-
     res.status(201).json({ message: "Link created successfully", link: newLink });
   } catch (error) {
-    console.error("Error creating link:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -131,7 +110,6 @@ export const getUserLinks = async (req, res) => {
 
 // Get a single link by ID
 export const getLinkById = async (req, res) => {
-
   try {
     const { linkId } = req.params;
     const link = await Link.findById(linkId);
@@ -151,8 +129,6 @@ export const updateLink = async (req, res) => {
   try {
     const { linkId } = req.params;
     const { url, title } = req.body;
-    // const userId = req.user?.id; 
-
         if (!linkId) {
           return res.status(401).json({ message: "Unauthorized: No user ID found" });
         }
@@ -160,17 +136,16 @@ export const updateLink = async (req, res) => {
       linkId,
       { url, title },
       { new: true }
-    );
-
+    )
     if (!updatedLink) {
       return res.status(404).json({ message: "Link not found" });
     }
-
     res.status(200).json({ message: "Link updated successfully", link: updatedLink });
   } catch (error) {
     res.status(500).json({ message: "Server error", error });
   }
 };
+//click link
 
 export const linkClick= async (req, res) => {
   try {
@@ -178,14 +153,12 @@ export const linkClick= async (req, res) => {
   
     const updatedLink = await Link.findByIdAndUpdate(
       id,
-      { $inc: { clicks: 1 } }, // Increment clicks by 1
+      { $inc: { clicks: 1 } },
       { new: true }
-    );
-  
+    )
     if (!updatedLink) {
       return res.status(404).json({ message: 'Link not found' });
     }
-  
     res.status(200).json(updatedLink);
   } catch (error) {
     res.status(500).json({ message: 'Server error', error });
@@ -213,28 +186,19 @@ export const deleteLink = async (req, res) => {
 // createShop
 
 export const createShop = async (req, res) => {
-  
   try {
-    
     const { url, title } = req.body;
     const userId = req.user?.id; 
-
     if (!userId) {
       return res.status(401).json({ message: "Unauthorized: No user ID found" });
     }
-    
-
-
     if (!url || !title) {
       return res.status(400).json({ message: "Title and URL are required" });
     }
-
     const newShop = new Shop({ userId, url, title });
     await newShop.save();
-
     res.status(201).json({ message: "Link created successfully", shop: newShop });
   } catch (error) {
-    console.error("Error creating link:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -251,22 +215,18 @@ export const getUserShops = async (req, res) => {
 
     res.status(200).json(shops);
   } catch (error) {
-    console.error("Error fetching user links:", error);
     res.status(500).json({ message: "Server error", error });
   }
 };
 
 // Get a single link by ID
 export const getShopById = async (req, res) => {
-
   try {
     const { shopId } = req.params;
     const shop = await Shop.findById(shopId);
-
     if (!shop) {
       return res.status(404).json({ message: "Link not found" });
     }
-
     res.status(200).json(shop);
   } catch (error) {
     res.status(500).json({ message: "Server error", error });
@@ -278,7 +238,6 @@ export const updateShop = async (req, res) => {
   try {
     const { shopId } = req.params;
     const { url, title } = req.body;
-
         if (!shopId) {
           return res.status(401).json({ message: "Unauthorized: No user ID found" });
         }
@@ -287,18 +246,16 @@ export const updateShop = async (req, res) => {
       { url, title },
       { new: true }
     );
-
     if (!updatedShop) {
       return res.status(404).json({ message: "Link not found" });
     }
-
     res.status(200).json({ message: "Link updated successfully", shop: updatedShop});
   } catch (error) {
     res.status(500).json({ message: "Server error", error });
   }
 };
 
-
+//click  shop
 
 export const shopClick= async (req, res) => {
   try {
@@ -306,14 +263,12 @@ export const shopClick= async (req, res) => {
   
     const updatedShop = await Shop.findByIdAndUpdate(
       id,
-      { $inc: { clicks: 1 } }, // Increment clicks by 1
+      { $inc: { clicks: 1 } },
       { new: true }
-    );
-  
+    )
     if (!updatedShop) {
       return res.status(404).json({ message: 'Link not found' });
     }
-  
     res.status(200).json(updatedShop);
   } catch (error) {
     res.status(500).json({ message: 'Server error', error });

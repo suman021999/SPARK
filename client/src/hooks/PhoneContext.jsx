@@ -7,6 +7,20 @@ export const PhoneProvider = ({ children }) => {
   const [avatar, setAvatar] = useState(localStorage.getItem("avatar") || "");
   const [username, setUsername] = useState(localStorage.getItem("username") || "");
   const [bgColor, setBgColor] = useState(localStorage.getItem("bgColor") || "#fff");
+  
+
+
+
+  const [userLinks, setUserLinks] = useState(
+    JSON.parse(localStorage.getItem("userLinks")) || []
+  );
+
+
+   const [userShop, setUserShop] = useState(
+    JSON.parse(localStorage.getItem("userShop")) || []
+  );
+
+
   const [profileTitle, setProfileTitle] = useState("");
   const [bio, setBio] = useState("");
   const [toggle, setToggle] = useState("link"); 
@@ -17,12 +31,33 @@ export const PhoneProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem("avatar", avatar);
     localStorage.setItem("bgColor", bgColor);
-  }, [avatar, bgColor]);
+    localStorage.setItem("userLinks", JSON.stringify(userLinks))
+    localStorage.setItem("userShop", JSON.stringify(userShop))
+
+  }, [avatar, bgColor,userLinks,userShop]);
 
   return (
     <PhoneContext.Provider
      value={
-        { avatar, setAvatar, bgColor, setBgColor, toggle, setToggle, textColor,profileTitle, setProfileTitle,username, setUsername,bio, setBio }
+        { 
+          avatar,
+          setAvatar, 
+          bgColor, 
+          setBgColor, 
+          toggle, 
+          setToggle, 
+          textColor,
+          profileTitle, 
+          setProfileTitle,
+          username, 
+          setUsername,
+          bio, 
+          setBio,
+          userLinks,
+          setUserLinks,
+          userShop, 
+          setUserShop
+        }
         }>
       {children}
     </PhoneContext.Provider>

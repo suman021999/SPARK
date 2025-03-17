@@ -17,7 +17,7 @@ const linkSchema = new Schema(
     },
     clicks: {
       type: Number,
-      default: 0, // Track the number of times the link is clicked
+      default: 0,
     },
   },
   { timestamps: true }

@@ -14,9 +14,9 @@ router.route("/remove-profile").put( authMiddleware, removeProfileImage);
 // links
 
 router.route("/links/create").post(authMiddleware, createLink)
-router.route("/links/:userId").get(authMiddleware, getUserLinks); // Get all links for a user
-router.route("/links/:linkId").get(authMiddleware, getLinkById); // Get a single link by ID
-router.route("/links/update/:linkId").put(authMiddleware, updateLink); // Update a link
+router.route("/links/:userId").get(authMiddleware, getUserLinks)
+router.route("/links/:linkId").get(authMiddleware, getLinkById)
+router.route("/links/update/:linkId").put(authMiddleware, updateLink)
 router.route('/links/:id/click').put(linkClick)
 router.route("/links/delete/:linkId").delete(authMiddleware, deleteLink);
 
@@ -25,7 +25,7 @@ router.route("/links/delete/:linkId").delete(authMiddleware, deleteLink);
 router.route("/shop/create").post(authMiddleware, createShop)
 router.route("/shop/:userId").get(authMiddleware, getUserShops); 
 router.route("/shop/:linkId").get(authMiddleware, getShopById); 
-router.route("/shop/update/:shopId").put(authMiddleware, updateShop); // Update a shop
+router.route("/shop/update/:shopId").put(authMiddleware, updateShop)
 router.route('/shop/:id/click').put(shopClick)
 router.route("/shop/delete/:shopId").delete( authMiddleware, deleteShop)
 

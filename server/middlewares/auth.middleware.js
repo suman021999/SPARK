@@ -1,8 +1,6 @@
 import jwt from "jsonwebtoken";
 import { User } from "../models/user.models.js";
 
-
-
 const authMiddleware = async(req, res, next) => {
  
   try {
@@ -18,7 +16,6 @@ const authMiddleware = async(req, res, next) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-
     req.user = user;
     next();
   } catch (err) {

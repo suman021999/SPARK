@@ -237,25 +237,25 @@ export const layouts = [
   { id: "carousel", src: "/public/carosel.svg" },
 ];
 
-export const socialApps = [
-  { name: "Instagram", icon: "📸" },
-  { name: "FaceBook", icon: "📘" },
-  { name: "YouTube", icon: "📺" },
-  { name: "X", icon: "❌" },
-];
-
 
 export const categories = [
-  { name: "Business", icon: "🏢" },
-  { name: "Creative", icon: "🎨" },
-  { name: "Education", icon: "📚" },
-  { name: "Entertainment", icon: "🎵" },
-  { name: "Fashion & Beauty", icon: "💄" },
-  { name: "Food & Beverage", icon: "🍕" },
-  { name: "Government & Politics", icon: "⚖️" },
-  { name: "Health & Wellness", icon: "🍎" },
-  { name: "Non-Profit", icon: "💗" },
-  { name: "Other", icon: "💗" },
-  { name: "Tech", icon: "💻" },
-  { name: "Travel & Tourism", icon: "✈️" }
+  { name: "Business",img:"🏢" },
+  { name: "Creative", img:"🎨" },
+  { name: "Education", img:"📚" },
+  { name: "Entertainment", img:"🎶"  },
+  { name: "Fashion & Beauty", img:"👗" },
+  { name: "Food & Beverage", img:"🍕" },
+  { name: "Government & Politics", img:"⚖️"},
+  { name: "Health & Wellness",img:"🍎"},
+  { name: "Non-Profit", img:"💗" },
+  { name: "Other", img:"💗" },
+  { name: "Tech", img:"💻" },
+  { name: "Travel & Tourism", img:"✈️" }
+];
+
+export const socialApps = [
+  { name: "Instagram", img: "/public/instagram.svg" },
+  { name: "Facebook", img: "/public/facebook.svg" },
+  { name: "YouTube", img: "/public/youtube.svg" },
+  { name: "X", img: "/public/twitter.svg" }
 ];

@@ -3,6 +3,9 @@ import logo from "../../../public/logo.svg"
  import Frame from "../../../public/Frame.png"
  import axios from "axios";
 import { useNavigate } from 'react-router-dom'
+
+
+
 const Register = () => {
 
  const [formData, setFormData] = useState({
@@ -12,7 +15,8 @@ const Register = () => {
   password: "",
   confirmPassword: "",
   agreeToTerms: false,
-});
+})
+
 const [errors, setErrors] = useState({});
 const navigate=useNavigate()
 const validatePassword = (password) => {
@@ -27,7 +31,7 @@ const validatePassword = (password) => {
     }
   }
   return passwordErrors;
-};
+}
 
 const validate = (name, value) => {
   let newErrors = { ...errors };
@@ -65,7 +69,7 @@ const handleRegister = async (e) => {
      
      if (res.status === 201) {
       alert("Registration Successful!");
-      navigate("/login"); // Redirect to login page
+      navigate("/login")
     } else {
       alert("Unexpected response. Please try again.");
     }
@@ -75,9 +79,7 @@ const handleRegister = async (e) => {
   }
 
 }
- 
 
-  
   return (
     <>
       <section className='reg'>

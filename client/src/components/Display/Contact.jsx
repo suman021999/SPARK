@@ -11,9 +11,7 @@ const Contact = () => {
       <section id='contact_sec'>
         <div className='contact'>
             <div className='contact_pages'>
-
                 <div className='page'>
-
                     <div className='auth'>
                         <button className='login'>Log in</button>
                         <button className='singin'>Sing up free</button>

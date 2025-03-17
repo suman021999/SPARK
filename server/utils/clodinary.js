@@ -9,15 +9,11 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
-
-// Upload function (Direct Upload to Cloudinary)
 const uploadOnCloudinary = async (buffer, userId) => {
   try {
     if (!buffer || !userId) {
       throw new Error("Missing file buffer or user ID");
     }
-
-    // Convert buffer to a stream and upload to Cloudinary
     const result = await new Promise((resolve, reject) => {
       const stream = cloudinary.uploader.upload_stream(
         {
@@ -32,9 +28,6 @@ const uploadOnCloudinary = async (buffer, userId) => {
       streamifier.createReadStream(buffer).pipe(stream);
     });
 
-    console.log("Uploaded to Cloudinary:", result.url);
-
-    // Update user's profile image in MongoDB
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       { avatar: result.url },
@@ -44,8 +37,6 @@ const uploadOnCloudinary = async (buffer, userId) => {
     if (!updatedUser) {
       throw new Error("User not found or update failed");
     }
-
-    console.log("Updated User:", updatedUser);
     return result.url;
   } catch (err) {
     console.error("Upload error:", err);
@@ -60,7 +51,7 @@ export { uploadOnCloudinary };
 
 export const deleteFromCloudinary = async (imageUrl) => {
   try {
-    if (!imageUrl) throw new Error("Image URL is required for deletion");
+    if (!imageUrl) throw new Error("Image URL required for deletion");
     const parts = imageUrl.split("/");
     const filename = parts.pop().split(".")[0];
     const folder = parts[parts.length - 1] === "avatars" ? "avatars/" : "";

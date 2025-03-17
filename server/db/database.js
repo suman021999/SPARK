@@ -7,7 +7,6 @@ dotenv.config(
         path:'./env'
     }
 )
-
 const database=async()=>{
     try {
        await mongoose.connect(`${process.env.MONGODB_URL}`)

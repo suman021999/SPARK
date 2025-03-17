@@ -92,16 +92,33 @@
 .phone_links_scroll_bar{
     display: flex;
     align-items: center;
+    position: relative;
     padding: 5px;
     justify-content: start;
     background-color: #C9C9C9;
     border-radius: 35px;
     height: 60px;
     gap: 20px;
+    cursor: pointer;
 }
 
-.phone_links_scroll .phone_links_scroll_bar img{
-    height: 40px;
+.hidden-link {
+    position: absolute;  
+    opacity: 0;         
+    pointer-events: auto; 
+  }
+.phone_links_scroll_bar_img_div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    margin: 1px;
+    height: 50px;
+    width: 50px;
+    border-radius: 35px;
+}
+.phone_links_scroll_bar_img{
+    height: 30px;
     width: 40px ;
     border-radius: 100%;
 }

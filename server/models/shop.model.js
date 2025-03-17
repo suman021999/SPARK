@@ -17,12 +17,8 @@ import mongoose, { Schema } from "mongoose";
     },
     clicks: {
       type: Number,
-      default: 0, // Track the number of times the link is clicked
+      default: 0,
     },
-    isActive: {
-      type: Boolean,
-      default: true, // Allow enabling/disabling links
-    }
   },
   { timestamps: true }
 );

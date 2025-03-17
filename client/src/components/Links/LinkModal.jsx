@@ -3,12 +3,15 @@ import "./links.css";
 import { FiCopy } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri"
 import axios from "axios";
+import { socialApps } from "../../utils/constants";
 
 const LinkModal = ({ isOpen, onClose, setUserLinks,editLink = null}) => {
-  const [title, setTitle] = useState("");
-  const [linkUrl, setLinkUrl] = useState("");
   const [isToggleOn, setIsToggleOn] = useState(false);
   const [editingLinkId, setEditingLinkId] = useState(null);
+  const [title, setTitle] = useState( "");
+  const [linkUrl, setLinkUrl] = useState( "");
+
+
 
   if (!isOpen) return null;
 
@@ -18,36 +21,32 @@ const LinkModal = ({ isOpen, onClose, setUserLinks,editLink = null}) => {
       setTitle(editLink.title || "");
       setLinkUrl(editLink.url || "");
       setEditingLinkId(editLink._id);
-      
-    } else {
-      setTitle("");
-      setLinkUrl("");
-      setEditingLinkId(null);
-      
+      setIsToggleOn((prev) => (prev ? false : prev))
     }
   }, [editLink]);
 
+  const handleToggle = () => {
+    setIsToggleOn((prevState) => {
+      const newState = !prevState;
+      console.log("Toggle State:", newState);
+      return newState;
+    });
+  };
 
   const handleAppClick = (appName) => {
     setTitle(appName);
   }
 
-  const handleToggle = () => {
-    setIsToggleOn(!isToggleOn);
-    console.log(setIsToggleOn(!isToggleOn));
-  };
 
   const handleOutsideClick = (e) => {
     if (e.target.classList.contains("linkcard_modal-overlay")) {
       onClose();
     }
   };
-
-  // copy
   const handleCopy = (url) => {
     navigator.clipboard.writeText(url);
     alert("Link copied! ✅");
-  };
+  }
 
   const handleSave = async () => {
     if (!title || !linkUrl ) {
@@ -86,7 +85,6 @@ const LinkModal = ({ isOpen, onClose, setUserLinks,editLink = null}) => {
             ? [...prevLinks, res.data.link]
             : [res.data.link]
         );
-        // alert("Link saved successfully ✅");
       }
       onClose();
       setTitle("");
@@ -145,52 +143,17 @@ const LinkModal = ({ isOpen, onClose, setUserLinks,editLink = null}) => {
         <h3>Applications</h3>
 
         <div className="linkcard_app-icons_box_container">
-          
-          <div className="linkcard_app-icons_box" onClick={() => handleAppClick("Instagram")}>
 
+          {socialApps.map((app, index)=>(
+            <div 
+            key={index}
+            className="linkcard_app-icons_box" onClick={() => handleAppClick(app.name)}>
             <div className="linkcard_app-icons_border">
-              <img
-                className="linkcard_app-icons"
-                src="/public/instagram.svg"
-                alt=""
-              />
+              <img className="linkcard_app-icons" src={app.img} alt={app.name} />
             </div>
-            <span>Instagram</span>
-
-          </div>
-
-          <div className="linkcard_app-icons_box" onClick={() => handleAppClick("Facebook")}>
-            <div className="linkcard_app-icons_border" >
-              <img
-                className="linkcard_app-icons"
-                src="/public/facebook.svg"
-                alt=""
-              />
+            <span>{app.name}</span>
             </div>
-            <span>Facebook</span>
-          </div>
-
-          <div className="linkcard_app-icons_box" onClick={() => handleAppClick("YouTube")}>
-            <div className="linkcard_app-icons_border">
-              <img
-                className="linkcard_app-icons"
-                src="/public/youtube.svg"
-                alt=""
-              />
-            </div>
-            <span>YouTube</span>
-          </div>
-
-          <div className="linkcard_app-icons_box" onClick={() => handleAppClick("X")}>
-            <div className="linkcard_app-icons_border">
-              <img
-                className="linkcard_app-icons"
-                src="/public/twitter.svg"
-                alt=""
-              />
-            </div>
-            <span>X</span>
-          </div>
+          ))}
         </div>
 
       </div>
@@ -199,5 +162,3 @@ const LinkModal = ({ isOpen, onClose, setUserLinks,editLink = null}) => {
 };
 
 export default LinkModal;
-
-
