@@ -8,12 +8,14 @@ export const sidebar = [
 export const presetColors = ["#3B2E25", "#ffffffde", "#000000"];
 
 export const fonts = [
-  "DM Sans",
-  "Times New Roman",
-  "Inter",
-  "Roboto",
-  "Poppins",
-  "Lato",
+  { id: 0, fonts: "DM Sans", url: "https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" },
+  { id: 1, fonts: "Tinos", url: "https://fonts.googleapis.com/css2?family=Tinos&display=swap" },
+  { id: 2, fonts: "Inter", url: "https://fonts.googleapis.com/css2?family=Inter&display=swap" },
+  { id: 3, fonts: "Roboto", url: "https://fonts.googleapis.com/css2?family=Roboto&display=swap" },
+  { id: 4, fonts: "Poppins", url: "https://fonts.googleapis.com/css2?family=Poppins&display=swap" },
+  { id: 5, fonts: "Lato", url: "https://fonts.googleapis.com/css2?family=Lato&display=swap" },
+  { id: 6, fonts: "Italianno", url: "https://fonts.googleapis.com/css2?family=Italianno&display=swap" },
+  { id: 7, fonts: "Tourney", url: "https://fonts.googleapis.com/css2?family=Tourney&display=swap" }
 ];
 
 export const fillLine = [
@@ -23,6 +25,7 @@ export const fillLine = [
     borderRadius: "0px",
     height: "5vh",
     width: "10vw",
+    color:"#fff"
   },
   {
     id:1,
@@ -30,6 +33,7 @@ export const fillLine = [
     borderRadius: "5px",
     height: "5vh",
     width: "10vw",
+    color:"#fff"
   },
   {
     id:2,
@@ -39,132 +43,115 @@ export const fillLine = [
     borderRadius: "25px",
     height: "5vh",
     width: "10vw",
+    color:"#fff"
   },
-];
-
-export const outLine = [
-  {
-    id:0,
-    outline: "#222 solid 3px",
-    outlineOffset: "2px",
-    height: "5vh",
-    width: "10vw",
-  },
-  {
-    id:1,
-    borderRadius: "5px",
-    outline: "#222 solid 3px",
-    outlineOffset: "2px",
-    height: "5vh",
-    width: "10vw",
-  },
-  {
-    id:2,
-    outline: "#222 solid 3px",
-    outlineOffset: "2px",
-    borderRadius: "25px",
-    height: "5vh",
-    width: "10vw",
-  },
-];
-
-export const HardShadow = [
-  {
-    id:0,
-    border: "#222 solid 3px",
-    boxShadow: "4px 4px 0px 0px #222",
-    height: "5vh",
-    width: "10vw",
-  },
-  {
-    id:1,
-    borderRadius: "5px",
-    border: "#222 solid 3px",
-    boxShadow: "4px 4px 0px 0px #222",
-    height: "5vh",
-    width: "10vw",
-  },
-  {
-    id:2,
-    border: "#222 solid 3px",
-    boxShadow: "4px 4px 0px 0px #222",
-    borderRadius: "25px",
-    height: "5vh",
-    width: "10vw",
-  },
-];
-
-export const SoftShadow = [
-  {
-    id:0,
-    backgroundColor: "#fff",
-    boxShadow: "4px 4px 0px 0px #dad7d7",
-    height: "5vh",
-    width: "10vw",
-  },
-  {
-    id:1,
-    backgroundColor: "#fff",
-    borderRadius: "5px",
-    boxShadow: "4px 4px 0px 0px #dad7d7",
-    height: "5vh",
-    width: "10vw",
-  },
-  {
-    id:2,
-    backgroundColor: "#fff",
-    borderRadius: "25px",
-    boxShadow: "4px 4px 0px 0px #dad7d7",
-    height: "5vh",
-    width: "10vw",
-  },
-];
-
-export const Spacial = [
-  {
-    id:0,
-    backgroundColor: "#222",
-    height: "5vh",
-    width: "10vw",
-  },
-  {
-    id:1,
-    backgroundColor: "#222",
-    borderRadius: "5px",
-    height: "5vh",
-    width: "10vw",
-  },
-  {
-    id:2,
-    backgroundColor: "#222",
-    borderRadius: "25px",
-    height: "5vh",
-    width: "10vw",
-  },
-
   {
     id:3,
-    backgroundColor: "#222",
-    borderRadius: "25px",
+    borderRadius: "0px",
+    outline: "#222 solid 3px",
+    outlineOffset: "2px",
     height: "5vh",
     width: "10vw",
+    backgroundColor: "transparent",
   },
   {
     id:4,
-    backgroundColor: "#222",
     borderRadius: "5px",
+    outline: "#222 solid 3px",
+    outlineOffset: "2px",
+    backgroundColor: "transparent",
     height: "5vh",
     width: "10vw",
   },
   {
     id:5,
-    backgroundColor: "#222",
-    borderTopLeftRadius: "25px",
-    borderBottomLeftRadius: "25px",
+    outline: "#222 solid 3px",
+    outlineOffset: "2px",
+    borderRadius: "25px",
+    backgroundColor: "transparent",
     height: "5vh",
     width: "10vw",
   },
+  {
+    id:6,
+    border: "#222 solid 3px",
+    boxShadow: "4px 4px 0px 0px #222",
+    height: "5vh",
+    width: "10vw",
+  },
+  {
+    id:7,
+    borderRadius: "5px",
+    border: "#222 solid 3px",
+    boxShadow: "4px 4px 0px 0px #222",
+    height: "5vh",
+    width: "10vw",
+  },
+  {
+    id:8,
+    border: "#222 solid 3px",
+    boxShadow: "4px 4px 0px 0px #222",
+    borderRadius: "25px",
+    height: "5vh",
+    width: "10vw",
+  },
+
+  {
+    id:9,
+    backgroundColor: "#fff",
+    boxShadow: "4px 4px 0px 0px #dad7d7",
+    height: "5vh",
+    width: "10vw",
+  },
+  {
+    id:10,
+    backgroundColor: "#fff",
+    borderRadius: "5px",
+    boxShadow: "4px 4px 0px 0px #dad7d7",
+    height: "5vh",
+    width: "10vw",
+  },
+  {
+    id:11,
+    backgroundColor: "#fff",
+    borderRadius: "25px",
+    boxShadow: "4px 4px 0px 0px #dad7d7",
+    height: "5vh",
+    width: "10vw",
+  },
+  {
+    id: 12,
+    backgroundColor: "transparent",
+    border: "3px dashed #222",
+    outline: "3px dashed #222",
+    borderRadius: "10px 100px / 120px",
+    height: "5vh",
+    width: "10vw",
+  },
+  {
+    id: 13,
+    backgroundColor: "transparent",
+    border: "3px dashed #222",
+    outline: "3px  dashed #222",
+    outlineOffset: "2px",
+    borderRadius: "2px",
+    height: "5vh",
+    width: "10vw",
+  },
+  {
+    id: 14,
+    border: "3px solid   #222",
+    outline: "3px solid #222",
+    outlineOffset: "2px",
+    borderRadius: "2px",
+    backgroundColor: "transparent",
+  }
 ];
+
+
+
+
+
 
 
 
@@ -232,9 +219,9 @@ export const themebox = [
 
 
 export const layouts = [
-  { id: "stack", src: "/public/stack.svg" },
-  { id: "grids", src: "/public/grids.svg" },
-  { id: "carousel", src: "/public/carosel.svg" },
+  { id: "stack",name:"Stack", src: "/public/stack.svg" },
+  { id: "grids",name:"Grid", src: "/public/grids.svg" },
+  { id: "carousel",name:"Carousel", src: "/public/carosel.svg" },
 ];
 
 

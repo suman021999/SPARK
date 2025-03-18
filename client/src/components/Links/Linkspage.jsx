@@ -13,8 +13,6 @@ const Linkspage = () => {
   const [uploading, setUploading] = useState(false);
   const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
   const [isShopModalOpen, setIsShopModalOpen] = useState(false);
-  // const [userShop, setUserShop] = useState([]);
-
   const [currentEditLink, setCurrentEditLink] = useState(null);
   const [currentEditshop, setCurrentEditShop] = useState(null);
 
@@ -426,7 +424,9 @@ const handleDeleteShop = async (shopId) => {
                                 
                                  <div className="phone_save_container_saved-link_url_div" >
                                    <div className="phone_save_container_saved-link_url_link" onClick={() => handleLinkClick(link._id)}>
-                                   <a
+                                    
+                                    <a
+                                     style={{overflow:"hidden",height:'5vh',width:"30vw"}}
                                      className="phone_save_container_saved-link_url"
                                      href={link.url}
                                      target="_blank"
@@ -435,6 +435,8 @@ const handleDeleteShop = async (shopId) => {
                                    >
                                      {link.url}
                                    </a>
+                                    
+                                  
                                    
                                    <img  src="/public/pen.png" alt=""  onClick={() =>{ 
                                       setCurrentEditLink(link);
@@ -496,8 +498,8 @@ const handleDeleteShop = async (shopId) => {
 
                                   <div className="phone_save_container_saved-link_url_div">
                                   <div className="phone_save_container_saved-link_url_link" onClick={() => handleShopClick(shop._id)}>
-
-                                  <a
+                                    <a
+                                    style={{overflow:"hidden",height:'5vh',width:"30vw"}}
                                       className="phone_save_container_saved-link_url"
                                       href={shop.url}
                                       target="_blank"
@@ -506,6 +508,8 @@ const handleDeleteShop = async (shopId) => {
                                     >
                                       {shop.url}
                                     </a>
+                                   
+                               
                                     <img  src="/public/pen.png" alt=""  onClick={() =>{ 
                                      setCurrentEditShop(shop);
                                      setIsShopModalOpen(true)

@@ -160,8 +160,6 @@ gap: 6px;
 }
 .phone_save_container_saved-link_url_link{
   display: flex;
-  overflow: hidden;
-  width: 30vw;
   gap: 2px;
 }
 
