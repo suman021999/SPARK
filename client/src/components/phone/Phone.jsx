@@ -10,7 +10,7 @@ const Phone = () => {
 
   const { avatar, bgColor, toggle,setToggle,textColor,profileTitle,username,bio,userLinks,userShop,selectedButtonStyle,layoutbox,fontChange,fontColor,theam} = useContext(PhoneContext);
 
- 
+  const displayUsername = username.includes("@") ? username.split("@")[0] : username;
   return (
      <>
       <div className="phone">
@@ -21,7 +21,7 @@ const Phone = () => {
                      alt=""
                    />
                    <p className='phone_text' style={{ color: textColor }}>
-                    {profileTitle.trim() ? profileTitle : username}
+                    {profileTitle.trim() ? profileTitle : displayUsername}
                     </p>
 
                     <p className='phone_bio' style={{ color: textColor }}>

@@ -63,35 +63,81 @@ export const loginUser=async(req,res)=>{
         return res.status(500).json({ msg: "Internal Server Error" });
     }   
 } 
-// namepage
 
 export const updateUserProfile = async (req, res) => {
     const { userId } = req.params;
-    const { bio, category } = req.body;
+    const { firstName, lastName, email, password, bio, category, username } = req.body;
+  
     try {
+      let updateFields = { firstName, lastName, bio, category };
+  
+      // 🔹 Check if the username is being changed and ensure it's unique
+      if (username) {
+        const existingUser = await User.findOne({ username });
+        if (existingUser && existingUser._id.toString() !== userId) {
+          return res.status(400).json({ msg: "Username is already in use" });
+        }
+        updateFields.username = username;
+      }
+  
+      // 🔹 Check if the email is being changed and ensure it's unique
+      if (email) {
+        const existingEmail = await User.findOne({ email });
+        if (existingEmail && existingEmail._id.toString() !== userId) {
+          return res.status(400).json({ msg: "Email is already in use" });
+        }
+        updateFields.email = email;
+      }
+  
+      // 🔹 If password is provided, hash it before updating
+      if (password) {
+        const salt = await bcrypt.genSalt(10);
+        updateFields.password = await bcrypt.hash(password, salt);
+      }
+  
+      // 🔹 Update user in the database
       const user = await User.findByIdAndUpdate(
         userId,
-        { bio, category },
+        { $set: updateFields }, // ✅ Ensure proper update
         { new: true, runValidators: true }
       );
-      if (!user) {return res.status(404).json({ msg: "User not found" })}
-        res.status(200).json({ user });
+  
+      if (!user) return res.status(404).json({ msg: "User not found" });
+  
+      res.status(200).json({ msg: "Profile updated successfully", user });
+  
     } catch (error) {
+      console.error("Error updating profile:", error);
       res.status(500).json({ msg: "Server error", error: error.message });
     }
   };
+  
+
 
 
 // Logout
-
 export const logout = (req, res) => {
-    return res.cookie("token", "", { expiresIn: new Date(Date.now()) }).json({
-      message: "user logged out successfully.",
+  return res
+    .cookie("token", "", { expires: new Date(0), httpOnly: true })
+    .json({
+      message: "User logged out successfully.",
       success: true,
     });
-  };
+};
 
+export const getUserProfile = async (req, res) => {
+  const { userId } = req.params;
 
+  try {
+      const user = await User.findById(userId).select("-password"); // Exclude password
+      if (!user) {
+          return res.status(404).json({ msg: "User not found" });
+      }
+      res.status(200).json(user);
+  } catch (error) {
+      res.status(500).json({ msg: "Server error", error: error.message });
+  }
+};
 
 
 

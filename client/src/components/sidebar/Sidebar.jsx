@@ -3,6 +3,7 @@ import "./sidebar.css";
 import { Link } from "react-router-dom";
 import logo from "../../../public/logo.svg";
 import { sidebar } from "../../utils/constants";
+import Logout from "../Logout/Logout";
 
 const Sidebar = () => {
   const [active,setActive]=useState()
@@ -14,7 +15,7 @@ const Sidebar = () => {
         <h2>SPARK</h2>
       </div>
 
-      <div className="">
+      <div>
         {sidebar.map((link, index) => (
             <div  className={`sidebar_link  ${active===index?"active":""}`} onClick={()=>setActive(index)} key={index}>
               <img className={`none ${active===index?"img_bar":""}`} src={link.img} alt="" />
@@ -23,9 +24,8 @@ const Sidebar = () => {
         ))}
       </div>
 
-      <div>
-        {/* <img src="" alt="" /> */}
-        <p>name</p>
+      <div className="logout">
+        <Logout/>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ export const PhoneContext = createContext();
 export const PhoneProvider = ({ children }) => {
 
   const [avatar, setAvatar] = useState(localStorage.getItem("avatar") || "");
-  const [username, setUsername] = useState(localStorage.getItem("username") || "");
+  
   const [bgColor, setBgColor] = useState(localStorage.getItem("bgColor") || "#fff");
   const [selectedButtonStyle, setSelectedButtonStyle] = useState(fillLine[0]);
   const [layoutbox, setLayoutbox] = useState(layouts[0]);
@@ -17,6 +17,24 @@ export const PhoneProvider = ({ children }) => {
     barColor: "#000",
     barBorder: "1px solid #ccc",
   });
+
+  const [username, setUsername] = useState(localStorage.getItem("username") || "");
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("username");
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, []);
+  
+  useEffect(() => {
+    if (username) {
+      localStorage.setItem("username", username);
+    }
+  }, [username]);
+  
+  
+
 
   useEffect(() => {
     localStorage.setItem("theam", JSON.stringify(theam));
@@ -37,12 +55,6 @@ export const PhoneProvider = ({ children }) => {
    const [userShop, setUserShop] = useState(
     JSON.parse(localStorage.getItem("userShop")) || []
   );
-
-
-
-
-
-
 
   const [profileTitle, setProfileTitle] = useState("");
   const [bio, setBio] = useState("");

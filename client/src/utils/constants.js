@@ -1,7 +1,6 @@
 export const sidebar = [
   { href: "/dashboard/links", label: "Links", img: "/public/linksss.svg" },
   { href: "/dashboard/appearance", label: "Appearance", img: "/public/linksss.svg" },
-  { href: "/dashboard/analytics", label: "Analytics", img: "/public/linksss.svg" },
   { href: "/dashboard/settings", label: "Settings", img: "/public/linksss.svg" },
 ];
 
@@ -157,7 +156,7 @@ export const fillLine = [
 
 export const themebox = [
   {
-    id: "air-snow",
+    id:0,
     name: "Air Snow",
     bgColor: "#fff",
     barBorder:'',
@@ -165,7 +164,7 @@ export const themebox = [
   },
 
   {
-    id: "air-grey",
+    id:1,
     name: "Air Grey",
     bgColor: "#EBEEF1",
     barBorder:'',
@@ -173,14 +172,14 @@ export const themebox = [
   },
 
   {
-    id: "air-smoke",
+    id:2,
     name: "Air Smoke",
     bgColor: "#2A3235",
     barBorder:'',
     barColor: "#fff",
   },
   {
-    id: "air-black",
+    id:3,
     name: "Air Black",
     bgColor: "#000000",
     barBorder:'',
@@ -188,28 +187,28 @@ export const themebox = [
   },
 
   {
-    id: "mineral-blue",
+    id:4,
     name: "Mineral Blue",
     bgColor: "#E0F6FF",
     barBorder: "2px solid rgba(0, 0, 0, 0.21)",
     barColor: "",
   },
   {
-    id: "mineral-green",
+    id: 5,
     name: "Mineral Green",
     bgColor: "#E0FAEE",
     barBorder: "2px solid rgba(0, 0, 0, 0.21)",
     barColor: "",
   },
   {
-    id: "mineral-orange",
+    id:6,
     name: "Mineral Orange",
     bgColor: "#FFEEE2",
     barBorder: "2px solid rgba(0, 0, 0, 0.21)",
     barColor: "",
   },
   {
-    id: "mineral-yellow",
+    id:7,
     name: "Mineral Yellow",
     bgColor: "#FFF8E0",
     barBorder: "2px solid rgba(0, 0, 0, 0.21)",

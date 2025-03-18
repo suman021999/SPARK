@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
+:root {
+  --poppins: "Poppins", serif;
+}
+
+.logout_flex {
+    display: flex;
+    height: 6vh;
+    width: 12vw;
+    border-radius: 35px;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+    border: 2px solid #222;
+    cursor: pointer;
+}
+.logout_flex_img{
+    height: 20px;
+    width: 20px;
+    border-radius: 100%;
+    outline: 2px solid #a5a6a9;
+    outline-offset: 4px;
+}
+.logout_flex_text{
+font-family: var(--poppins);
+font-size: 14px;
+font-weight: 700;
+
+}

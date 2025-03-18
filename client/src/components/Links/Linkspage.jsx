@@ -239,9 +239,6 @@ const handleDeleteShop = async (shopId) => {
   }
 }
 
-
-
-
   return (
     <>
       <section className="links">
@@ -589,7 +586,7 @@ const handleDeleteShop = async (shopId) => {
 
               <div className="profile_sec_button_box">
                 {" "}
-                <button className="profile_sec_button">save</button>
+                <button className="profile_sec_button" >save</button>
               </div>
             </div>
           </div>

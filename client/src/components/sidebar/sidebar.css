@@ -53,3 +53,10 @@
   color: #21a426;
   text-decoration: none;
 }
+.logout{
+  display: flex;
+  justify-content: center;
+  /* background: #21a426; */
+  align-items: center;
+  margin-top: 60vh;
+}

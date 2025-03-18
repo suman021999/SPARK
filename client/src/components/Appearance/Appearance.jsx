@@ -240,7 +240,7 @@ const appearancespage = () => {
                         </button>
 
                         <span className="text-sm font-medium">
-                          {theam.name}
+                        {theme.name}
                         </span>
                       </div>
                     ))}
