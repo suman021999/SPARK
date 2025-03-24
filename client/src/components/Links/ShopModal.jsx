@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./links.css";
 import { FaCopy, FaTrash } from "react-icons/fa";
 import axios from "axios";
 

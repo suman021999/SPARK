@@ -15,7 +15,7 @@ database()
 const corsOptions = {
   origin: [
     "http://localhost:5173",
-    "https://spark-qlan.onrender.com",
+
     "https://link02199.netlify.app"
   ],
   credentials:true,

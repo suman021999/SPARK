@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./links.css";
 import { FiCopy } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri"
 import axios from "axios";
