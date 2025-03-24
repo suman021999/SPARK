@@ -148,12 +148,6 @@ export const fillLine = [
 ];
 
 
-
-
-
-
-
-
 export const themebox = [
   {
     id:0,
@@ -215,7 +209,6 @@ export const themebox = [
     barColor: "",
   },
 ];
-
 
 export const layouts = [
   { id: "stack",name:"Stack", src: "/public/stack.svg" },

@@ -29,4 +29,6 @@ router.route("/shop/update/:shopId").put(authMiddleware, updateShop)
 router.route('/shop/:id/click').put(shopClick)
 router.route("/shop/delete/:shopId").delete( authMiddleware, deleteShop)
 
+
+
 export default router

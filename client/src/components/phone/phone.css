@@ -2,11 +2,12 @@
     height:80vh;
     width: 20vw;
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     flex-direction: column;
     border-radius: 35px;
     border: 8px solid black;
     position: fixed;
+    
 }
 .phone .phone_profile{
     display: flex;
@@ -40,6 +41,20 @@
     font-family: var(--poppins);
     margin-top: 10px;
     color: #fff;
+}
+.phone_profile_btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 35px;
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+.phone_profile_btn_icon{
+  font-size: 25px;
 }
 .phone .phone_save{
     display: flex;
@@ -139,24 +154,26 @@
 
 
 .phone .phone_button{
-    margin-top: 7vh;
+    margin-top: 4vh;
     margin-bottom: 8px;
     display: flex;
     justify-content: center;
+    
 }
 .phone .phone_button button{
-padding: 10px;
-border-radius: 35px;
+   padding: 10px;
+    border-radius: 35px;
     background: #28A263;
     border: none;
     color: #fff;
     width: 15vw;
 }
- .logo{
+.phone .logo{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: var(--poppins)
+    font-family: var(--poppins);
+    
 }
 .grid_layout {
     display: grid;

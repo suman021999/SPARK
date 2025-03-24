@@ -37,20 +37,43 @@ const userSchema = new Schema(
       type: String,
     },
     avatar: {
-      type: String, 
+      type: String,
       required: false,
     },
     bio: {
-      type: String, 
+      type: String,
       trim: true,
-      default: "" 
+      default: "",
     },
-    profileTitle: { 
+    profileTitle: {
       trim: true,
-      type: String, 
-      default: "" 
+      type: String,
+      default: "",
     },
-
+    bgColor: {
+      type: String,
+      default: "#000000",
+    },
+    fillLineButton:{
+    type: String,
+    required: true,
+   },
+   layaout: {
+      type: String,
+      required: true,
+    },
+    selectFont: {
+      type: String,
+      required: true,
+    },
+    fontColor: {
+      type: String,
+      required: true,
+    },
+    themes: {
+      type: String,
+      required: true,
+    },
     category: {
       type: String,
       enum: [
@@ -70,8 +93,7 @@ const userSchema = new Schema(
     },
   },
 
-
   { timestamps: true }
 );
 
-export const User=mongoose.model('User',userSchema)
+export const User = mongoose.model("User", userSchema);

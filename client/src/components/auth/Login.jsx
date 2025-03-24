@@ -72,14 +72,6 @@ const{username, setUsername}=useContext(PhoneContext)
                 <button type="submit">login</button>
             </form>
 
-            {/* <h4
-              className='underline_green'
-              onClick={() => navigate("/forgot-password")}
-              style={{ cursor: "pointer", color: "green" }}
-            >
-              Forgot password?
-            </h4> */}
-
             <p>Don't have an account?<span  className='underline_green' onClick={() => navigate("/register")}>Sign up</span></p>           
         </div>
         

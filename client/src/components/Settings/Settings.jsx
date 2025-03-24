@@ -158,14 +158,14 @@ const Settings = () => {
           </div>
 
           <div className="form_box">
-            <label>Password (leave blank to keep current)</label>
+            <label>Password</label>
             <input
               className="form_box_input"
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
-              placeholder="New password (optional)"
+              
             />
             {passwordError && <p className="error">{passwordError}</p>}
           </div>

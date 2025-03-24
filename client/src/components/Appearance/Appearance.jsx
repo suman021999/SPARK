@@ -1,4 +1,4 @@
-import React, {  useContext, useState } from "react";
+import React, {  useContext, useEffect, useState } from "react";
 import "./appearance.css";
 import Nav from "../Navbar/Nav";
 import {
@@ -9,29 +9,179 @@ import {
 } from "../../utils/constants";
 import Phone from "../phone/Phone";
 import { PhoneContext } from "../../hooks/PhoneContext";
+import axios from "axios";
 
-
-const appearancespage = () => {
+const Appearancespage = () => {
   const [isFontOpen, setIsFontOpen] = useState(false);
   const [selectFont, setSelectFont] = useState("");
-  const [fillLineButton, setFillLineButton] = useState(null);
-  const [layaout, setLayaout] = useState(null);
- const { avatar,  bgColor,  toggle,setSelectedButtonStyle,setLayoutbox , setFontChange,fontColor, setFontColor,setTheam,theam} = useContext(PhoneContext)
+  const [fillLineButton, setFillLineButton] = useState('');
+  const [layaout, setLayaout] = useState('');
+ const { 
+  avatar,  
+  bgColor,  
+  toggle,
+  setSelectedButtonStyle,
+  setLayoutbox ,
+  setFontChange,
+  fontColor, 
+  setFontColor,
+  setTheam,
+  theam,
+  profileTitle,
+  setProfileTitle,
+  bio, 
+  setBio,
+   
+  } = useContext(PhoneContext)
 
 
  const handleFontSelect = (fontName, fontUrl) => {
   setSelectFont(fontName);
+  setFontChange({ fontFamily: fontName }); 
   setIsFontOpen(false);
 
-  // Avoid duplicate font link elements
+  localStorage.setItem("selectedFont", JSON.stringify( fontName ))
   if (!document.querySelector(`link[href="${fontUrl}"]`)) {
     const link = document.createElement("link");
     link.href = fontUrl;
     link.rel = "stylesheet";
     document.head.appendChild(link);
   }
+
 };
 
+const handleSaveApperence = async () => {
+  const userId = localStorage.getItem("userId");
+
+  if (!userId) {
+    alert("User ID is missing!");
+    return;
+  }
+
+  const payload = {
+    userId,
+    layaout,
+    fillLineButton,
+    selectFont,
+    fontColor,
+    themes: theam?.id
+  };
+
+  try {
+    const res = await axios.put(`${import.meta.env.VITE_AUTH_URL}/saved`,
+      payload,
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    );
+
+    if (res.data.success) {
+      alert("Profile saved successfully ✅");
+
+
+
+      // Save data to localStorage for instant persistence
+      localStorage.setItem("profileTitle", profileTitle);
+      localStorage.setItem("bio", bio);
+      localStorage.setItem("fontColor", fontColor);
+      if (typeof theam === "object") {
+        localStorage.setItem("themes", JSON.stringify(theam));
+      } 
+
+      if(layaout){
+        localStorage.setItem('layaout',JSON.stringify(layaout))
+      }
+
+      if (selectFont) {
+        localStorage.setItem("selectedFont", JSON.stringify(selectFont));
+      }
+    if (fillLineButton) {
+      localStorage.setItem("fillLineButton", JSON.stringify(fillLineButton));
+    }
+
+
+
+      localStorage.setItem("layout", layaout);
+      localStorage.setItem("selectedButtonStyle", fillLineButton);
+
+
+    }
+
+  } catch (error) {
+    console.error("Error saving profile:", error);
+    alert("Failed to save profile ❌");
+  }
+};
+
+useEffect(() => {
+  const storedFontColor = localStorage.getItem("fontColor");
+  const storedTheam = localStorage.getItem("themes");
+  const storedProfileTitle = localStorage.getItem("profileTitle");
+  const storedBio = localStorage.getItem("bio");
+  const storedLayaout = localStorage.getItem("layaout");
+  const storedfillLineButton=localStorage.getItem("fillLineButton")
+  
+
+  if (storedLayaout) {
+    const parsedLayaout = JSON.parse(storedLayaout);
+    setLayaout(parsedLayaout);
+
+    const foundLayout = layouts.find(layout => layout.id === parsedLayaout);
+    if (foundLayout) {
+      setLayoutbox(foundLayout);
+    }
+  }
+
+  if (storedfillLineButton) {
+    const parsedstoredfillLineButton = JSON.parse(storedfillLineButton);
+    setFillLineButton(parsedstoredfillLineButton);
+
+    const foundstoredfillLineButton = fillLine.find(FillLine => FillLine.id === parsedstoredfillLineButton);
+    if (foundstoredfillLineButton) {
+      setSelectedButtonStyle(foundstoredfillLineButton);
+    }
+  }
+  
+ 
+ 
+
+  if (storedProfileTitle) setProfileTitle(storedProfileTitle);
+  if (storedBio) setBio(storedBio);
+
+  if (storedTheam) setTheam(JSON.parse(storedTheam));
+
+
+
+  if (storedFontColor) {
+    setFontColor(storedFontColor);
+  }
+
+
+}, []);
+
+
+
+useEffect(() => {
+  const storedFont = localStorage.getItem("selectedFont");
+
+  if (storedFont) {
+    const parsedFont = JSON.parse(storedFont);
+
+    if (parsedFont.fontFamily) {
+      setSelectFont(parsedFont.fontFamily);
+
+      const foundFont = fonts.find(font => font.fonts === parsedFont.fontFamily);
+      if (foundFont) {
+        setFontChange({ fontFamily: foundFont.fonts });
+      }
+    }
+  }
+}, []);
+
+
+
+
+  
   return (
     <>
       <section className="apperences">
@@ -62,6 +212,7 @@ const appearancespage = () => {
                   const { height, width, ...filteredStyle } =layout 
                   setLayoutbox(filteredStyle);
                   setLayaout(layout.id)
+                  localStorage.setItem("layaout", JSON.stringify(layout.id));
                 }}
                 style={{
                   cursor: "pointer",       
@@ -107,6 +258,7 @@ const appearancespage = () => {
                             const { height, width, ...filteredStyle } =FillLine; 
                             setSelectedButtonStyle(filteredStyle);
                             setFillLineButton(FillLine.id);
+                            localStorage.setItem("layaout", JSON.stringify(FillLine.id));
                           }}
                         ></div>
                       ))}
@@ -145,15 +297,8 @@ const appearancespage = () => {
                              <div
                                className="Fonts_one"
                                key={font.id}
-                              //  onClick={() => handleFontSelect(font.fonts, font.url)}
-                               style={{ fontFamily: font.fonts }}
-
-                               onClick={() => {
-                                if (setFontChange) {
-                                  setFontChange({ fontFamily: font.fonts });
-                                }
-                                handleFontSelect(font.fonts, font.url);
-                              }}
+                               onClick={() => handleFontSelect(font.fonts, font.url)} 
+                               style={{ fontFamily: font.fonts, cursor: "pointer", transition: "all 0.3s ease-in-out" }}
                              >
                                {font.fonts}
                              </div>
@@ -202,6 +347,7 @@ const appearancespage = () => {
                 <div className="theam_box">
 
                   <div className="theam_grp">
+                    
                     {themebox.map((theme) => (
                       <div className="theam_Contain" key={theme.id}>
                         <button
@@ -250,7 +396,7 @@ const appearancespage = () => {
               </div>
             </div>
             
-            <div className="apperence_box_button_box"> <button className="apperence_box_button">save</button></div>
+            <div className="apperence_box_button_box"> <button className="apperence_box_button" onClick={handleSaveApperence}>save</button></div>
           </div>
         </div>
       </section>
@@ -258,4 +404,4 @@ const appearancespage = () => {
   );
 };
 
-export default appearancespage;
+export default Appearancespage;

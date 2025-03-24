@@ -174,8 +174,6 @@ const Linkspage = () => {
     }
   };
 
-
-
  // Handle Link Click & Update UI
  const handleLinkClick = async (linkId) => {
   try {
@@ -238,6 +236,56 @@ const handleDeleteShop = async (shopId) => {
     alert("Failed to delete shop ❌");
   }
 }
+
+
+const handleSaveProfile = async () => {
+  const userId = localStorage.getItem("userId");
+
+  if (!userId) {
+    alert("User ID is missing!");
+    return;
+  }
+
+  const payload = {
+    userId,
+    profileTitle,
+    bio,
+    bgColor,
+  };
+
+  try {
+    const res = await axios.put(`${import.meta.env.VITE_AUTH_URL}/saved`,
+      payload,
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    );
+
+    if (res.data.success) {
+      alert("Profile saved successfully ✅");
+
+      // Save data to localStorage for instant persistence
+      localStorage.setItem("profileTitle", profileTitle);
+      console.log(profileTitle)
+      localStorage.setItem("bio", bio);
+      localStorage.setItem("bgColor", bgColor);
+    }
+  } catch (error) {
+    console.error("Error saving profile:", error);
+    alert("Failed to save profile ❌");
+  }
+};
+useEffect(() => {
+  const storedProfileTitle = localStorage.getItem("profileTitle");
+  const storedBio = localStorage.getItem("bio");
+  const storedBgColor = localStorage.getItem("bgColor");
+
+  if (storedProfileTitle) setProfileTitle(storedProfileTitle);
+  if (storedBio) setBio(storedBio);
+  if (storedBgColor) setBgColor(storedBgColor);
+}, []);
+
+
 
   return (
     <>
@@ -586,7 +634,7 @@ const handleDeleteShop = async (shopId) => {
 
               <div className="profile_sec_button_box">
                 {" "}
-                <button className="profile_sec_button" >save</button>
+                <button className="profile_sec_button" onClick={handleSaveProfile}>save</button>
               </div>
             </div>
           </div>

@@ -71,7 +71,6 @@ export const updateUserProfile = async (req, res) => {
     try {
       let updateFields = { firstName, lastName, bio, category };
   
-      // 🔹 Check if the username is being changed and ensure it's unique
       if (username) {
         const existingUser = await User.findOne({ username });
         if (existingUser && existingUser._id.toString() !== userId) {
@@ -80,7 +79,6 @@ export const updateUserProfile = async (req, res) => {
         updateFields.username = username;
       }
   
-      // 🔹 Check if the email is being changed and ensure it's unique
       if (email) {
         const existingEmail = await User.findOne({ email });
         if (existingEmail && existingEmail._id.toString() !== userId) {
@@ -89,16 +87,14 @@ export const updateUserProfile = async (req, res) => {
         updateFields.email = email;
       }
   
-      // 🔹 If password is provided, hash it before updating
       if (password) {
         const salt = await bcrypt.genSalt(10);
         updateFields.password = await bcrypt.hash(password, salt);
       }
   
-      // 🔹 Update user in the database
       const user = await User.findByIdAndUpdate(
         userId,
-        { $set: updateFields }, // ✅ Ensure proper update
+        { $set: updateFields },
         { new: true, runValidators: true }
       );
   
@@ -129,7 +125,7 @@ export const getUserProfile = async (req, res) => {
   const { userId } = req.params;
 
   try {
-      const user = await User.findById(userId).select("-password"); // Exclude password
+      const user = await User.findById(userId).select("-password"); 
       if (!user) {
           return res.status(404).json({ msg: "User not found" });
       }
@@ -140,9 +136,24 @@ export const getUserProfile = async (req, res) => {
 };
 
 
+export const handleSave =async (req, res) => {
+  const { userId, profileTitle, bio, bgColor,fillLineButton,layaout,selectFont,fontColor,themes } = req.body;
+
+  if (!userId) return res.status(400).json({ error: "User ID is required" });
+
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { profileTitle, bio, bgColor,layaout,fillLineButton,selectFont,fontColor,themes },
+      { new: true }
+    );
+
+    res.json({ success: true, user: updatedUser });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update profile" });
+  }
+};
 
 
 
-
-
-
+    

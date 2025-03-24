@@ -28,7 +28,6 @@ const LinkModal = ({ isOpen, onClose, setUserLinks,editLink = null}) => {
   const handleToggle = () => {
     setIsToggleOn((prevState) => {
       const newState = !prevState;
-      console.log("Toggle State:", newState);
       return newState;
     });
   };
