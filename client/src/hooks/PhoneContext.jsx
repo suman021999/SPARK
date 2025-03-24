@@ -14,8 +14,9 @@ export const PhoneProvider = ({ children }) => {
 
   const [fontColor, setFontColor] = useState(localStorage.getItem("fontColor") || "#222"); 
 
-
-
+const [selectFont, setSelectFont] = useState("");
+  const [fillLineButton, setFillLineButton] = useState('');
+  const [layaout, setLayaout] = useState('');
 
   const [theam, setTheam] = useState({
     bgColor: "#fff",
@@ -104,7 +105,10 @@ export const PhoneProvider = ({ children }) => {
           layoutbox, setLayoutbox,
           fontChange, setFontChange,
           fontColor, setFontColor,
-          theam, setTheam
+          theam, setTheam,
+          selectFont, setSelectFont,
+          fillLineButton, setFillLineButton,
+          layaout, setLayaout
       
         }
         }>

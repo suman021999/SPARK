@@ -13,7 +13,7 @@ dotenv.config()
 database()
 
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: ["http://localhost:5173", "https://spark-qlan.onrender.com"],
   credentials:true,
 }
 

@@ -13,9 +13,9 @@ import axios from "axios";
 
 const Appearancespage = () => {
   const [isFontOpen, setIsFontOpen] = useState(false);
-  const [selectFont, setSelectFont] = useState("");
-  const [fillLineButton, setFillLineButton] = useState('');
-  const [layaout, setLayaout] = useState('');
+  // const [selectFont, setSelectFont] = useState("");
+  // const [fillLineButton, setFillLineButton] = useState('');
+  
  const { 
   avatar,  
   bgColor,  
@@ -31,6 +31,9 @@ const Appearancespage = () => {
   setProfileTitle,
   bio, 
   setBio,
+  selectFont, setSelectFont,
+  fillLineButton, setFillLineButton,
+  layaout, setLayaout
    
   } = useContext(PhoneContext)
 
@@ -91,15 +94,15 @@ const handleSaveApperence = async () => {
       if(layaout){
         localStorage.setItem('layaout',JSON.stringify(layaout))
       }
-
-      if (selectFont) {
-        localStorage.setItem("selectedFont", JSON.stringify(selectFont));
-      }
+     
     if (fillLineButton) {
       localStorage.setItem("fillLineButton", JSON.stringify(fillLineButton));
     }
 
-
+    if (selectFont) {
+      localStorage.setItem("selectedFont", JSON.stringify(selectFont));
+    }
+    
 
       localStorage.setItem("layout", layaout);
       localStorage.setItem("selectedButtonStyle", fillLineButton);
@@ -118,6 +121,7 @@ useEffect(() => {
   const storedTheam = localStorage.getItem("themes");
   const storedProfileTitle = localStorage.getItem("profileTitle");
   const storedBio = localStorage.getItem("bio");
+
   const storedLayaout = localStorage.getItem("layaout");
   const storedfillLineButton=localStorage.getItem("fillLineButton")
   
@@ -185,7 +189,7 @@ useEffect(() => {
   return (
     <>
       <section className="apperences">
-        <Nav isVisible={false} />
+        <Nav />
         <div className="apperences_scroll">
           
         {/* phone */}

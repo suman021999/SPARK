@@ -6,12 +6,7 @@
     justify-content: space-between;
     margin-top: 20px;
 }
-.nav .nav_share{
-    display: flex;
-    background: #e7e4e4;
-    padding: 10px;
-    border-radius: 25px;
-}
+
 .hidden_boxx{
     display: none;
 }

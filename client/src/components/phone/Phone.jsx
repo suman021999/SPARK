@@ -1,9 +1,10 @@
-import React, { useContext} from "react";
+import React, { useContext, useRef} from "react";
 import { IoShareOutline } from "react-icons/io5";
 import "./phone.css";
 import logo from "../../../public/logos.svg";
 import { PhoneContext } from "../../hooks/PhoneContext";
 import { socialApps } from "../../utils/constants";
+import html2canvas from "html2canvas";
 
 const Phone = () => {
   const {
@@ -29,6 +30,29 @@ const Phone = () => {
     : username;
 
 
+    
+
+    const handleShare = async () => {
+      const phoneElement = document.querySelector(".phone"); // Select the phone container
+      if (!phoneElement) return;
+    
+      try {
+        const canvas = await html2canvas(phoneElement);
+        const imageUrl = canvas.toDataURL("image/png");
+    
+        const link = document.createElement("a");
+        link.href = imageUrl;
+        link.download = "profile.png";
+        link.click();
+      } catch (error) {
+        console.error("Failed to capture screenshot:", error);
+      }
+    };
+    
+    
+    
+   
+  
 
   return (
     <>
@@ -36,7 +60,7 @@ const Phone = () => {
 
         
         <div style={{ background: `${bgColor}` }} className="phone_profile">
-          <button className="phone_profile_btn"><IoShareOutline className="phone_profile_btn_icon"/></button>
+          <button className="phone_profile_btn" onClick={handleShare}><IoShareOutline className="phone_profile_btn_icon"/></button>
           <img
             className="image_piker"
             src={avatar || "default-profile.png"}
@@ -305,3 +329,7 @@ const Phone = () => {
 };
 
 export default Phone;
+
+
+
+// import html2canvas from "html2canvas";

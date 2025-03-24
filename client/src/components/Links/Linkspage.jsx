@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import "./links.css";
 import { RiDeleteBin6Line } from "react-icons/ri"
 import Nav from "../Navbar/Nav";
-import { presetColors } from "../../utils/constants";
+import { fillLine, layouts, presetColors } from "../../utils/constants";
 import axios from "axios";
 import Phone from "../phone/Phone";
 import { PhoneContext } from "../../hooks/PhoneContext";
@@ -31,8 +31,18 @@ const Linkspage = () => {
     userLinks, 
     setUserLinks,
     userShop, 
-    setUserShop
+    setUserShop,
+    setSelectedButtonStyle,
+    setLayoutbox,setFillLineButton,
+    setLayaout,layaout,fillLineButton,
+    setTheam
+      
+    
   } = useContext(PhoneContext);
+
+
+
+
 
   useEffect(() => {
     const storedAvatar = localStorage.getItem("avatar");
@@ -269,17 +279,51 @@ const handleSaveProfile = async () => {
       console.log(profileTitle)
       localStorage.setItem("bio", bio);
       localStorage.setItem("bgColor", bgColor);
+      if (typeof theam === "object") {
+        localStorage.setItem("themes", JSON.stringify(theam));
+      } 
+      if(layaout){
+        localStorage.setItem('layaout',JSON.stringify(layaout))
+      }
+     
+    if (fillLineButton) {
+      localStorage.setItem("fillLineButton", JSON.stringify(fillLineButton));
+    }
     }
   } catch (error) {
     console.error("Error saving profile:", error);
     alert("Failed to save profile ❌");
   }
 };
+
 useEffect(() => {
   const storedProfileTitle = localStorage.getItem("profileTitle");
   const storedBio = localStorage.getItem("bio");
   const storedBgColor = localStorage.getItem("bgColor");
-
+    const storedLayaout = localStorage.getItem("layaout");
+    const storedfillLineButton=localStorage.getItem("fillLineButton")
+    const storedTheam = localStorage.getItem("themes");
+  
+    if (storedLayaout) {
+      const parsedLayaout = JSON.parse(storedLayaout);
+      setLayaout(parsedLayaout);
+  
+      const foundLayout = layouts.find(layout => layout.id === parsedLayaout);
+      if (foundLayout) {
+        setLayoutbox(foundLayout);
+      }
+    }
+  
+    if (storedfillLineButton) {
+      const parsedstoredfillLineButton = JSON.parse(storedfillLineButton);
+      setFillLineButton(parsedstoredfillLineButton);
+  
+      const foundstoredfillLineButton = fillLine.find(FillLine => FillLine.id === parsedstoredfillLineButton);
+      if (foundstoredfillLineButton) {
+        setSelectedButtonStyle(foundstoredfillLineButton);
+      }
+    }
+    if (storedTheam) setTheam(JSON.parse(storedTheam));
   if (storedProfileTitle) setProfileTitle(storedProfileTitle);
   if (storedBio) setBio(storedBio);
   if (storedBgColor) setBgColor(storedBgColor);
@@ -290,7 +334,7 @@ useEffect(() => {
   return (
     <>
       <section className="links">
-        <Nav isVisible={true} />
+        <Nav />
         <div className="links_scroll">
           {/* phone */}
           <Phone
