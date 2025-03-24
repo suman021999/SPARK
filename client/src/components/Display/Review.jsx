@@ -1,5 +1,4 @@
 import React from "react";
-import "./display.css";
 import review from '../../../public/review.svg'
 const Review = () => {
   return (

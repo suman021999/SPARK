@@ -1,5 +1,4 @@
 import React from 'react'
-import "./display.css"
 import Audiomack from '../../../public/Audiomack.svg'
 import Brandsingtown from '../../../public/Brandsingtown.svg'
 import Bonfair from '../../../public/Bonfair.svg'

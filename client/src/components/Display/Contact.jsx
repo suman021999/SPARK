@@ -1,5 +1,4 @@
 import React from 'react'
-import "./display.css"
 import { FaTwitter } from "react-icons/fa";
 import { AiFillInstagram } from "react-icons/ai";
 import { FaYoutube } from "react-icons/fa";

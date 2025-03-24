@@ -8,7 +8,6 @@ import sell5 from "../../../public/sell5.svg"
 import selllogo from "../../../public/square01.webp.png"
 import selllogo2 from "../../../public/square02.webp.png"
 import selllogo3 from "../../../public/div.png"
-import "./display.css"
 
 const Front = () => {
   return (

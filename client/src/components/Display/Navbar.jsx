@@ -1,6 +1,5 @@
 import React from 'react'
 import logo from "../../../public/logo.svg"
-import "./display.css"
 import { useNavigate } from 'react-router-dom'
 import Login from '../auth/Login'
 const Navbar = () => {
