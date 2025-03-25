@@ -15,7 +15,7 @@ database()
 const corsOptions = {
   origin: [
     "http://localhost:5173",
-    "spark-ldsm47whh-vini19999s-projects.vercel.app",
+    "link2314.netlify.app",
     "https://link02199.netlify.app"
   ],
   credentials:true,
