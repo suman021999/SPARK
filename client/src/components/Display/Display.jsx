@@ -1,5 +1,5 @@
 import React from 'react'
-import "./display.css"
+import "./Display.css"
 import Navbar from './Navbar'
 import Front from './Front'
 import Review from './Review'
