@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import logo from "../../../public/logo.svg"
  import Frame from "../../../public/Frame.png"
  import "./auth.css"
 import { categories } from '../../utils/constants'
@@ -54,7 +53,7 @@ const Namepage = () => {
           <section className='name'>
               <div className='name_from'>
                  <div className='logo'>
-                  <img src={logo} alt="" />
+                  <img src='/public/logo.svg' alt="" />
                   <h2>SPARK<sup>TM</sup></h2>
                  </div>
       

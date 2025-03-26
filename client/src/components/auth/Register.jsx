@@ -1,6 +1,5 @@
 
 import React, { useState, useContext} from "react";
-import logo from "../../../public/logo.svg";
 import Frame from "../../../public/Frame.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -96,7 +95,7 @@ const Register = () => {
       <section className="reg">
         <div className="reg_from">
           <div className="logo">
-            <img src={logo} alt="" />
+            <img src='/public/logo.svg' alt="" />
             <h2>SPARK<sup>TM</sup></h2>
           </div>
 

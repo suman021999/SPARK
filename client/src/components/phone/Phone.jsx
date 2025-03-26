@@ -1,7 +1,6 @@
 import React, { useContext, useRef} from "react";
 import { IoShareOutline } from "react-icons/io5";
 import "./phone.css";
-import logo from "../../../public/logos.svg";
 import { PhoneContext } from "../../hooks/PhoneContext";
 import { socialApps } from "../../utils/constants";
 import html2canvas from "html2canvas";
@@ -320,7 +319,7 @@ const Phone = () => {
 
         <div className="logo">
           <h2>SPARK</h2>
-          <img src={logo} alt="" />
+          <img src='/public/logo.svg' alt="" />
         </div>
         
       </div>

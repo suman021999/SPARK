@@ -1,6 +1,5 @@
 import React, {useContext, useState } from 'react'
 import "./auth.css"
-import logo from "../../../public/logo.svg"
 import Frame from "../../../public/Frame.png"
 import { useNavigate } from 'react-router-dom'
 import { FaEyeSlash } from "react-icons/fa";
@@ -40,7 +39,7 @@ const{username, setUsername}=useContext(PhoneContext)
       <section className='login'>
         <div className='login_from'>
            <div className='logo'>
-            <img src={logo} alt="" />
+            <img src='/public/logo.svg' alt="" />
             <h2>SPARK<sup>TM</sup></h2>
            </div>
 
