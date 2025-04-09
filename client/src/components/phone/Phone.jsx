@@ -164,6 +164,14 @@ const Phone = () => {
                           >
                             {link.title}
                           </p>
+                          <a
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hidden-link"
+                        >
+                          {link.url}
+                        </a>
                         </div>
                       );
                     })}
@@ -196,6 +204,14 @@ const Phone = () => {
                           >
                             {link.title}
                           </p>
+                          <a
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hidden-link"
+                        >
+                          {link.url}
+                        </a>
                         </div>
                       );
                     })}
