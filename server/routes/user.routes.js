@@ -8,7 +8,6 @@ const router=Router()
 
   
 router.route("/upload-profile").post(authMiddleware, upload.single("avatar"), uploadProfileImage);
-
 router.route("/remove-profile").put( authMiddleware, removeProfileImage);
 
 // links

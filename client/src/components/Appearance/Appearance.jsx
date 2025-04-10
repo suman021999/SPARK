@@ -13,8 +13,6 @@ import axios from "axios";
 
 const Appearancespage = () => {
   const [isFontOpen, setIsFontOpen] = useState(false);
-  // const [selectFont, setSelectFont] = useState("");
-  // const [fillLineButton, setFillLineButton] = useState('');
   
  const { 
   avatar,  

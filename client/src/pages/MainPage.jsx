@@ -4,6 +4,7 @@ import Login from '../components/auth/Login'
 import Register from '../components/auth/Register'
 import Namepage from '../components/auth/Namepage'
 import DashboardPage from './DashboardPage'
+import PhonePrivew from "../components/phone/PhonePrivew"
 import {BrowserRouter as Router, Routes,Route } from 'react-router-dom'
 
 
@@ -18,6 +19,8 @@ const MainPage = () => {
         <Route path='/register' element={<Register/>}/>
         <Route path='/namepage' element={<Namepage/>}/>
         <Route path="/dashboard/*" element={<DashboardPage/>}/>
+        <Route path="/preview" element={<PhonePrivew/>} />
+
       </Routes>
     </Router> 
     </>

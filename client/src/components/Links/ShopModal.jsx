@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { FaCopy, FaTrash } from "react-icons/fa";
 import axios from "axios";
+import { sellsApps} from "../../utils/constants";
 
 const ShopModal = ({ isOpen, onClose, setUserShop,editShop = null}) => {
   const [title, setTitle] = useState("");
   const [shopUrl, setShopUrl] = useState("");
   const [isToggleOn, setIsToggleOn] = useState(false);
   const [editingLinkId, setEditingLinkId] = useState(null);
+  
 
   if (!isOpen) return null;
 
@@ -19,6 +21,9 @@ const ShopModal = ({ isOpen, onClose, setUserShop,editShop = null}) => {
       }
     }, [editShop]);
 
+    const handleAppClick = (appName) => {
+      setTitle(appName);
+    }
 
     const handleToggle = () => {
       setIsToggleOn((prevState) => {
@@ -131,6 +136,24 @@ const ShopModal = ({ isOpen, onClose, setUserShop,editShop = null}) => {
             <FaTrash />
           </button>
         </div>
+
+
+
+              <h3>Applications</h3>
+        
+                <div className="linkcard_app-icons_box_container">
+        
+                  {sellsApps.map((app, index)=>(
+                    <div 
+                    key={index}
+                    className="linkcard_app-icons_box" onClick={() => handleAppClick(app.name)}>
+                    <div className="linkcard_app-icons_border">
+                      <img className="linkcard_app-icons" src={app.img} alt={app.name} />
+                    </div>
+                    <span>{app.name}</span>
+                    </div>
+                  ))}
+                </div>
       </div>
     </div>
   );

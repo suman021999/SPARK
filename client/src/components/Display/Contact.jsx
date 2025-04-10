@@ -4,7 +4,10 @@ import { AiFillInstagram } from "react-icons/ai";
 import { FaYoutube } from "react-icons/fa";
 import { FaTiktok } from "react-icons/fa6";
 import logos from "../../../public/logos.svg"
+import { useNavigate } from 'react-router-dom';
+import Login from '../auth/Login';
 const Contact = () => {
+    const nevigate=useNavigate()
   return (
     <>
       <section id='contact_sec'>
@@ -12,8 +15,8 @@ const Contact = () => {
             <div className='contact_pages'>
                 <div className='page'>
                     <div className='auth'>
-                        <button className='login'>Log in</button>
-                        <button className='singin'>Sing up free</button>
+                        <button className='login' onClick={()=>nevigate('/login')}>Log in</button>
+                        <button className='singin' onClick={()=>nevigate('/register')}>Sing up free</button>
                     </div>
 
                     <div className='page_text'>

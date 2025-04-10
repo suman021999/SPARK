@@ -238,3 +238,10 @@ export const socialApps = [
   { name: "YouTube", img: "/public/youtube.svg" },
   { name: "X", img: "/public/twitter.svg" }
 ];
+
+export const sellsApps = [
+  { name: "Amazon", img: "/public/Amazon.svg" },
+  { name: "Flipkart", img: "/public/Flipkart.svg" },
+  { name: "Blinkit", img: "/public/Blinkit.svg" },
+  { name: "Other", img: "/public/Other.svg" }
+];

@@ -2,8 +2,8 @@ import React, { useContext, useRef} from "react";
 import { IoShareOutline } from "react-icons/io5";
 import "./phone.css";
 import { PhoneContext } from "../../hooks/PhoneContext";
-import { socialApps } from "../../utils/constants";
-import html2canvas from "html2canvas";
+import { sellsApps, socialApps } from "../../utils/constants";
+// import html2canvas from "html2canvas";
 
 const Phone = () => {
   const {
@@ -31,21 +31,28 @@ const Phone = () => {
 
     
 
-    const handleShare = async () => {
-      const phoneElement = document.querySelector(".phone"); // Select the phone container
-      if (!phoneElement) return;
+    const handleShare = () => {
+      const profileData = {
+        avatar,
+        username,
+        bio,
+        profileTitle,
+        userLinks,
+        userShop,
+        bgColor,
+        textColor,
+        selectedButtonStyle,
+        layoutbox,
+        fontChange,
+        fontColor,
+        theam,
+      };
     
-      try {
-        const canvas = await html2canvas(phoneElement);
-        const imageUrl = canvas.toDataURL("image/png");
+      const encodedData = btoa(encodeURIComponent(JSON.stringify(profileData)));
+      const shareableLink = `${window.location.origin}/preview#${encodedData}`;
     
-        const link = document.createElement("a");
-        link.href = imageUrl;
-        link.download = "profile.png";
-        link.click();
-      } catch (error) {
-        console.error("Failed to capture screenshot:", error);
-      }
+      navigator.clipboard.writeText(shareableLink);
+      alert("Shareable link copied to clipboard!");
     };
     
     
@@ -226,6 +233,9 @@ const Phone = () => {
           </div>
         )}
 
+
+   
+
         {toggle === "shop" && (
           <div
             className="phone_links"
@@ -234,19 +244,33 @@ const Phone = () => {
             <div id="tasklist" className="phone_links_scroll">
               {userShop.length > 0 ? (
                 layoutbox.id === "stack" ? (
-                  userShop.map((link) => (
+                  userShop.map((link) => {
+                    const sellsApp = sellsApps.find((app) =>
+                      link.title.toLowerCase().includes(app.name.toLowerCase())
+                    );
+                    
+                    return(
                     <div
                       key={link._id}
                       className="stack"
                       style={{ ...selectedButtonStyle, ...layoutbox }}
                     >
+                      <div className="phone_links_scroll_bar_img_div">
+                      <img
+                            className="phone_links_scroll_bar_img"
+                            src={sellsApp ? sellsApp.img : ""}
+                            alt=""
+                          />
+                      </div>
+                      
+
                       <p
                         style={{
                           ...fontChange,
                           color: fontColor,
                           fontFamily: fontChange.fontFamily,
                         }}
-                        className="phone_links_scroll_bar_img_p"
+                        
                       >
                         {link.title}
                       </p>
@@ -260,22 +284,31 @@ const Phone = () => {
                         {link.url}
                       </a>
                     </div>
-                  ))
+                     )})
                 ) : layoutbox.id === "grids" ? (
                   <div className="grid_layout">
-                    {userShop.map((link) => (
+                    {userShop.map((link) => {
+                      const sellsApp = sellsApps.find((app) =>
+                        link.title.toLowerCase().includes(app.name.toLowerCase())
+                      );
+                      return(
                       <div
                         key={link._id}
-                        className="grid_item_shop"
+                        className="grid_item"
                         style={{ ...selectedButtonStyle, ...layoutbox }}
                       >
+                        <img
+                            className="grid_img"
+                            src={sellsApp ? sellsApp.img : ""}
+                            alt=""
+                          />
                         <p
                           style={{
                             ...fontChange,
                             color: fontColor,
                             fontFamily: fontChange.fontFamily,
                           }}
-                          className="phone_links_scroll_bar_img_p_grid_shop"
+                          
                         >
                           {link.title}
                         </p>
@@ -288,23 +321,33 @@ const Phone = () => {
                           {link.url}
                         </a>
                       </div>
-                    ))}
+                    )
+                    })}
                   </div>
                 ) : layoutbox.id === "carousel" ? (
-                  <div className="carousel_layout_shop" id="tasklist">
-                    {userShop.map((link) => (
+                  <div className="carousel_layout" id="tasklist">
+                    {userShop.map((link) => {
+                      const sellsApp = sellsApps.find((app) =>
+                        link.title.toLowerCase().includes(app.name.toLowerCase())
+                      );
+                      return(
                       <div
                         key={link._id}
-                        className="carousel_item_shop"
+                        className="carousel_item"
                         style={{ ...selectedButtonStyle, ...layoutbox }}
                       >
+                        <img
+                            className="carousel_img"
+                            src={sellsApp ? sellsApp.img : ""}
+                            alt=""
+                          />
                         <p
                           style={{
                             ...fontChange,
                             color: fontColor,
                             fontFamily: fontChange.fontFamily,
                           }}
-                          className="phone_links_scroll_bar_img_p"
+                          
                         >
                           {link.title}
                         </p>
@@ -317,7 +360,8 @@ const Phone = () => {
                           {link.url}
                         </a>
                       </div>
-                    ))}
+                    )
+                    })}
                   </div>
                 ) : (
                   <p style={{ color: textColor }}>No links available</p>
@@ -329,10 +373,7 @@ const Phone = () => {
           </div>
         )}
 
-        <div className="phone_button">
-          <button>Get Connected</button>
-        </div>
-
+      
         <div className="logo">
           <h2>SPARK</h2>
           <img src='/public/logo.svg' alt="" />
@@ -347,4 +388,3 @@ export default Phone;
 
 
 
-// import html2canvas from "html2canvas";
