@@ -2,7 +2,7 @@
     "rewrites":[
         {
             "source":"/(.*)",
-            "destination":"/"
+            "destination":"https://spark-qlan.onrender.com"
         }
     ]
 }
