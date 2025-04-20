@@ -1,8 +1,13 @@
 {
-    "rewrites":[
-        {
-            "source":"/(.*)",
-            "destination":"https://spark-qlan.onrender.com/api/v1"
-        }
+    "rewrites": [
+      {
+        "source": "/api/v1/:match*",
+        "destination": "https://spark-qlan.onrender.com/api/v1/:match*"
+      },
+      {
+        "source": "/api/:match*",
+        "destination": "https://spark-qlan.onrender.com/api/:match*"
+      }
     ]
-}
+  }
+  
