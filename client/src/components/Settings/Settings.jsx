@@ -31,7 +31,7 @@ const Settings = () => {
       }
 
       const res = await axios.get(
-        `${import.meta.env.VITE_AUTH_URL}/user/${userId}`,
+        `/user/${userId}`,
         { withCredentials: true }
       );
 

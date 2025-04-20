@@ -57,7 +57,7 @@ const LinkModal = ({ isOpen, onClose, setUserLinks,editLink = null}) => {
 
       if (editingLinkId) {
         await axios.put(
-          `${import.meta.env.VITE_USER_URL}/links/update/${editingLinkId}`,
+          `/links/update/${editingLinkId}`,
           payload,
           {
             headers: {
