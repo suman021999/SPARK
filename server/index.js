@@ -15,7 +15,8 @@ database()
 const corsOptions = {
   origin: [
     "http://localhost:5174",
-    "https://spark-qlan.onrender.com",
+    "http://localhost:8000",
+    
     
   ],
   credentials: true,

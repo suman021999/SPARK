@@ -7,7 +7,6 @@ import Logout from "../Logout/Logout";
 
 const Sidebar = () => {
   const [active,setActive]=useState()
-  // console.log(active)
   return (
     <div className="sidebar">
       <div className="logo">

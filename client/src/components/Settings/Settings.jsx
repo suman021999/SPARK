@@ -1,4 +1,3 @@
-
 import React, { useContext, useEffect, useState } from "react";
 import "./settings.css";
 import Nav from "../Navbar/Nav";
@@ -30,10 +29,7 @@ const Settings = () => {
         return;
       }
 
-      const res = await axios.get(
-        `/user/${userId}`,
-        { withCredentials: true }
-      );
+      const res = await axios.get(`/user/${userId}`, { withCredentials: true });
 
       console.log("Fetched user data:", res.data);
 
@@ -47,7 +43,10 @@ const Settings = () => {
       setUsername(res.data.email || ""); // ✅ Set username from email
       localStorage.setItem("username", res.data.email || "");
     } catch (error) {
-      console.error("Error fetching user data:", error.response?.data || error.message);
+      console.error(
+        "Error fetching user data:",
+        error.response?.data || error.message
+      );
     }
   };
 
@@ -68,7 +67,9 @@ const Settings = () => {
     } else {
       if (password.length < 8) {
         passwordErrors = "The password must be at least 8 characters long*";
-      } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&*!])/.test(password)) {
+      } else if (
+        !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&*!])/.test(password)
+      ) {
         passwordErrors =
           "Please choose a strong password that includes at least 1 lowercase and uppercase letter, a number, and a special character (@#$%^&*)*";
       }
@@ -105,13 +106,16 @@ const Settings = () => {
         setMessage("Profile updated successfully!");
 
         // ✅ Set username from email in context & localStorage
-        setUsername(formData.email);
-        localStorage.setItem("username", formData.email);
+        const usernameFromEmail = formData.email.split("@")[0];
+        setUsername(usernameFromEmail);
+        localStorage.setItem("username", usernameFromEmail);
       } else {
         setMessage("Something went wrong. Please try again.");
       }
     } catch (error) {
-      setMessage(error.response?.data?.msg || "Update failed. Please try again.");
+      setMessage(
+        error.response?.data?.msg || "Update failed. Please try again."
+      );
     }
   };
 
@@ -165,7 +169,6 @@ const Settings = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              
             />
             {passwordError && <p className="error">{passwordError}</p>}
           </div>

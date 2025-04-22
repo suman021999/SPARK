@@ -39,6 +39,7 @@ const userSchema = new Schema(
     avatar: {
       type: String,
       required: false,
+      default: ""
     },
     bio: {
       type: String,
@@ -57,22 +58,27 @@ const userSchema = new Schema(
     fillLineButton:{
     type: String,
     required: true,
+    default: false
    },
    layaout: {
       type: String,
       required: true,
+      default: "stack"
     },
     selectFont: {
       type: String,
       required: true,
+      default: "Roboto"
     },
     fontColor: {
       type: String,
       required: true,
+      default: "#000000"
     },
     themes: {
       type: String,
       required: true,
+      default: "default"
     },
     category: {
       type: String,

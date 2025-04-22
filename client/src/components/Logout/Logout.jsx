@@ -12,20 +12,24 @@ const Logout = () => {
 
   useEffect(() => {
     const storedUsername = localStorage.getItem("username");
-    if (storedUsername) {
-      setUsername(storedUsername);
-      setDisplayName(storedUsername);
-    }
-  }, []);
 
-  useEffect(() => {
-    setDisplayName(username.includes('@') ? username.split('@')[0] : username);
-    
-  }, [username]);
+    if (!username && storedUsername) {
+      setUsername(storedUsername);
+      setDisplayName(storedUsername.split("@")[0]);
+    } else if (username && username.trim() !== "") {
+      setDisplayName(
+        username.includes("@") ? username.split("@")[0] : username
+      );
+    }
+  }, [username, setUsername]);
 
   const handleLogout = async () => {
     try {
-      await axios.post(`/logout`, { withCredentials: true });
+      await axios.post(
+        `${import.meta.env.VITE_AUTH_URL}/logout`,
+        {},
+        { withCredentials: true }
+      );
 
       localStorage.removeItem("avatar");
       localStorage.removeItem("username");
@@ -50,4 +54,3 @@ const Logout = () => {
 };
 
 export default Logout;
-

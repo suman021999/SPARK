@@ -26,7 +26,11 @@ const [selectFont, setSelectFont] = useState("");
 
    
 
-  const [username, setUsername] = useState(localStorage.getItem("username") || "");
+ 
+
+  const [username, setUsername] = useState(() => {
+    return localStorage.getItem("username") || "";
+  });
 
   useEffect(() => {
     const storedUsername = localStorage.getItem("username");
