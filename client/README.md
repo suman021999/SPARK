@@ -7,6 +7,18 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-
+{
+    "rewrites": [
+      {
+        "source": "/api/v1/auth/:match*",
+        "destination": "https://spark-qlan.onrender.com/api/v1/auth/:match*"
+      },
+      {
+        "source": "/api/:match*",
+        "destination": "https://spark-qlan.onrender.com/api/:match*"
+      }
+    ]
+  }
+  
 
 
