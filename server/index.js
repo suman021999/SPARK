@@ -15,7 +15,7 @@ database()
 const corsOptions = {
   origin: [
     "http://localhost:5173",
-    "https://spark-eight-xi.vercel.app/",
+    // "https://spark-eight-xi.vercel.app/",
     "https://spark-qlan.onrender.com",
     
   ],

@@ -26,7 +26,7 @@ const Namepage = () => {
       if (!userId) {alert("User ID missing. Please log in again."); return;}
       if (!bio || !selectedCategory) {alert("Please fill out all fields.");return;}
       try {
-        const res = await axios.put(`/update-profile/${userId}`,
+        const res = await axios.put(`${import.meta.env.VITE_AUTH_URL}/update-profile/${userId}`,
           { bio, category: selectedCategory },
           {
             headers: { 

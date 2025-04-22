@@ -16,7 +16,7 @@ const{username, setUsername}=useContext(PhoneContext)
   const handleLogin=async(evx)=>{
     evx.preventDefault();
     try {
-      const res=await axios.post(`/api/v1/auth/login`,{
+      const res=await axios.post(`${import.meta.env.VITE_AUTH_URL}/login`,{
         username,
         password,
       })
