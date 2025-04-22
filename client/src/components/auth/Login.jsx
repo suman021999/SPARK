@@ -19,7 +19,11 @@ const{username, setUsername}=useContext(PhoneContext)
       const res=await axios.post(`${import.meta.env.VITE_AUTH_URL}/login`,{
         username,
         password,
-      })
+      },
+      {
+        withCredentials: true
+      }
+    )
       
       if (res.status === 200) {
         localStorage.setItem("token", res.data.token);

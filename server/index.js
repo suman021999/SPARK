@@ -14,12 +14,13 @@ database()
 
 const corsOptions = {
   origin: [
-    "http://localhost:5173",
-    // "https://spark-eight-xi.vercel.app/",
+    "http://localhost:5174",
     "https://spark-qlan.onrender.com",
     
   ],
-  credentials:true,
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  optionsSuccessStatus: 200,
 }
 
 app.use(cors(corsOptions))
