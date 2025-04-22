@@ -69,7 +69,7 @@ const handleSaveApperence = async () => {
   };
 
   try {
-    const res = await axios.put(`/saved`,
+    const res = await axios.put(`${import.meta.env.VITE_AUTH_URL}/saved`,
       payload,
       {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },

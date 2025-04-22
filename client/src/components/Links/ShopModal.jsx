@@ -72,7 +72,7 @@ const ShopModal = ({ isOpen, onClose, setUserShop,editShop = null}) => {
         alert("Link updated successfully ✅");
       } 
       else {
-        const res = await axios.post(`/shop/create`,
+        const res = await axios.post(`${import.meta.env.VITE_USER_URL}/shop/create`,
           payload,
           {
              headers: { 
