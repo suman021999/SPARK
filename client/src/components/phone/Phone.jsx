@@ -3,7 +3,7 @@ import { IoShareOutline } from "react-icons/io5";
 import "./phone.css";
 import { PhoneContext } from "../../hooks/PhoneContext";
 import { sellsApps, socialApps } from "../../utils/constants";
-// import html2canvas from "html2canvas";
+import { compressToEncodedURIComponent } from "lz-string";
 
 const Phone = () => {
   const {
@@ -31,7 +31,7 @@ const Phone = () => {
 
     
 
-    const handleShare = () => {
+    const handleShare = async () => {
       const profileData = {
         avatar,
         username,
@@ -48,12 +48,14 @@ const Phone = () => {
         theam,
       };
     
-      const encodedData = btoa(encodeURIComponent(JSON.stringify(profileData)));
-      const shareableLink = `${window.location.origin}/preview#${encodedData}`;
+      const res = await axios.post("/api/share", profileData);
+      const shareableLink = `${window.location.origin}/preview/${res.data.id}`;
     
       navigator.clipboard.writeText(shareableLink);
       alert("Shareable link copied to clipboard!");
     };
+    
+  
     
     
     
