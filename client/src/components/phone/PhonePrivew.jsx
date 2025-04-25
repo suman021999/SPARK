@@ -9,7 +9,7 @@ const PhonePublicPreview = () => {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    axios.get(`/api/share/${id}`).then((res) => {
+    axios.get(`${import.meta.env.VITE_USER_URL}/api/share/${id}`).then((res) => {
       setUserData(res.data);
     });
   }, [id]);

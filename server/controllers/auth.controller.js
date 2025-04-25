@@ -1,5 +1,4 @@
 import {User}  from "../models/user.models.js"
-import {PhonePreview}  from "../models/Phoneprivew.model.js"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 
@@ -156,27 +155,3 @@ export const handleSave =async (req, res) => {
 };   
 
 
-export const phonelink = async (req, res) => {
-  try {
-    const phoneData = req.body;
-    const saved = await PhonePreview.create(phoneData);
-    return res.status(201).json({ id: saved._id });
-  } catch (error) {
-    console.error("Error saving phone preview:", error);
-    return res.status(500).json({ error: "Failed to save phone preview." });
-  }
-};
-
-// GET /api/share/:id
-export const phoneId = async (req, res) => {
-  try {
-    const data = await PhonePreview.findById(req.params.id);
-    if (!data) {
-      return res.status(404).json({ error: "Preview not found." });
-    }
-    return res.status(200).json(data);
-  } catch (error) {
-    console.error("Error fetching preview by ID:", error);
-    return res.status(500).json({ error: "Failed to load preview." });
-  }
-};

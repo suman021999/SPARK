@@ -3,7 +3,7 @@ import { IoShareOutline } from "react-icons/io5";
 import "./phone.css";
 import { PhoneContext } from "../../hooks/PhoneContext";
 import { sellsApps, socialApps } from "../../utils/constants";
-import { compressToEncodedURIComponent } from "lz-string";
+import axios from "axios";
 
 const Phone = () => {
   const {
@@ -48,7 +48,7 @@ const Phone = () => {
         theam,
       };
     
-      const res = await axios.post("/api/share", profileData);
+      const res = await axios.post(`${import.meta.env.VITE_USER_URL}/share`, profileData);
       const shareableLink = `${window.location.origin}/preview/${res.data.id}`;
     
       navigator.clipboard.writeText(shareableLink);

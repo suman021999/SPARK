@@ -2,6 +2,7 @@ import {Router} from 'express'
 import {uploadProfileImage,removeProfileImage, createLink, getUserLinks, getLinkById, updateLink,  createShop, getUserShops, getShopById, updateShop, linkClick, shopClick, deleteLink, deleteShop} from '../controllers/user.controller.js'
 import { upload } from "../middlewares/upload.middleware.js";
 import { authMiddleware } from '../middlewares/auth.middleware.js'; 
+import { phoneId, phonelink } from '../controllers/auth.controller.js';
 
 const router=Router()
 
@@ -27,6 +28,10 @@ router.route("/shop/:linkId").get(authMiddleware, getShopById);
 router.route("/shop/update/:shopId").put(authMiddleware, updateShop)
 router.route('/shop/:id/click').put(shopClick)
 router.route("/shop/delete/:shopId").delete( authMiddleware, deleteShop)
+
+//shear
+router.route("/share").post(phonelink)
+router.route("/share/:id").get(phoneId)
 
 
 
