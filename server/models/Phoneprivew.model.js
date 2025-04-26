@@ -35,9 +35,9 @@ const PhonePreviewSchema = new mongoose.Schema({
   ],
   userShop: [
     {
-      name: String,
-      price: Number,
-      link: String,
+      title: String,
+      url: String,
+      icon: String,
     },
   ],
   theam: {
