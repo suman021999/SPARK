@@ -293,6 +293,7 @@ const Phone = () => {
                             color: fontColor,
                             fontFamily: fontChange.fontFamily,
                           }}
+                  
                         >
                           {shop.title}
                         </p>

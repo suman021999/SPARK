@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import "./links.css";
 import { RiDeleteBin6Line } from "react-icons/ri"
 import Nav from "../Navbar/Nav";
-import { fillLine, layouts, presetColors } from "../../utils/constants";
+import { fillLine, fonts, layouts, presetColors } from "../../utils/constants";
 import axios from "axios";
 import Phone from "../phone/Phone";
 import { PhoneContext } from "../../hooks/PhoneContext";
@@ -35,7 +35,7 @@ const Linkspage = () => {
     setSelectedButtonStyle,
     setLayoutbox,setFillLineButton,
     setLayaout,layaout,fillLineButton,
-    setTheam
+    setTheam,setSelectFont,setFontChange
       
     
   } = useContext(PhoneContext);

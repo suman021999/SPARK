@@ -9,12 +9,15 @@ export const PhoneProvider = ({ children }) => {
   const [bgColor, setBgColor] = useState(localStorage.getItem("bgColor") || "#fff");
   const [selectedButtonStyle, setSelectedButtonStyle] = useState(fillLine[0]);
   const [layoutbox, setLayoutbox] = useState(layouts[0]);
-  const [fontChange, setFontChange] = useState(fonts[0]);
- 
+  const [fontChange, setFontChange] = useState({
+    fontFamily: fonts[0].fonts, 
+    ...fonts[0]         
+  });
+  const [selectFont, setSelectFont] = useState("");
 
   const [fontColor, setFontColor] = useState(localStorage.getItem("fontColor") || "#222"); 
 
-const [selectFont, setSelectFont] = useState("");
+
   const [fillLineButton, setFillLineButton] = useState('');
   const [layaout, setLayaout] = useState('');
 
