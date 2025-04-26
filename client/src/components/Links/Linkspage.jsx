@@ -303,6 +303,7 @@ useEffect(() => {
     const storedLayaout = localStorage.getItem("layaout");
     const storedfillLineButton=localStorage.getItem("fillLineButton")
     const storedTheam = localStorage.getItem("themes");
+    const storedFont = localStorage.getItem("selectedFont");
   
     if (storedLayaout) {
       const parsedLayaout = JSON.parse(storedLayaout);
@@ -327,9 +328,25 @@ useEffect(() => {
   if (storedProfileTitle) setProfileTitle(storedProfileTitle);
   if (storedBio) setBio(storedBio);
   if (storedBgColor) setBgColor(storedBgColor);
+
+
+  if (storedFont) {
+    const parsedFont = JSON.parse(storedFont);
+    setSelectFont(parsedFont);
+    const foundFont = fonts.find(font => font.fonts === parsedFont);
+    if (foundFont) {
+      setFontChange({ fontFamily: foundFont.fonts });
+      if (!document.querySelector(`link[href="${foundFont.url}"]`)) {
+        const link = document.createElement("link");
+        link.href = foundFont.url;
+        link.rel = "stylesheet";
+        document.head.appendChild(link);
+      }
+    }
+  }
+
+  
 }, []);
-
-
 
   return (
     <>

@@ -119,7 +119,7 @@ useEffect(() => {
   const storedTheam = localStorage.getItem("themes");
   const storedProfileTitle = localStorage.getItem("profileTitle");
   const storedBio = localStorage.getItem("bio");
-
+  const storedFont = localStorage.getItem("selectedFont");
   const storedLayaout = localStorage.getItem("layaout");
   const storedfillLineButton=localStorage.getItem("fillLineButton")
   
@@ -159,26 +159,30 @@ useEffect(() => {
   }
 
 
-}, []);
-
-
-
-useEffect(() => {
-  const storedFont = localStorage.getItem("selectedFont");
-
   if (storedFont) {
     const parsedFont = JSON.parse(storedFont);
-
-    if (parsedFont.fontFamily) {
-      setSelectFont(parsedFont.fontFamily);
-
-      const foundFont = fonts.find(font => font.fonts === parsedFont.fontFamily);
-      if (foundFont) {
-        setFontChange({ fontFamily: foundFont.fonts });
+    setSelectFont(parsedFont); // Directly use the parsed string
+    
+    // Find the font object to load its URL
+    const foundFont = fonts.find(font => font.fonts === parsedFont);
+    if (foundFont) {
+      setFontChange({ fontFamily: foundFont.fonts });
+      
+      // Load the font stylesheet if not already loaded
+      if (!document.querySelector(`link[href="${foundFont.url}"]`)) {
+        const link = document.createElement("link");
+        link.href = foundFont.url;
+        link.rel = "stylesheet";
+        document.head.appendChild(link);
       }
     }
   }
+
+
 }, []);
+
+
+
 
 
 
