@@ -190,9 +190,10 @@
     
   }
 
-  .carousel_item {
+  .carousel_item{
     background: white;
     padding: 15px;
+    height: 15vh !important;
     margin: 10px;
     text-align: center;
     border-radius: 10px;
