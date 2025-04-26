@@ -19,8 +19,6 @@ const PhonePublicPreview = () => {
   }, [id]);
 
   if (!userData) return <p>Loading preview...</p>;
-
-  // Provide both userData and the toggle state/function to the context
   const contextValue = {
     ...userData,
     toggle,
