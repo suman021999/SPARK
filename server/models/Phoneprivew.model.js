@@ -1,37 +1,55 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from 'mongoose';
 
-const phonePreviewSchema = new Schema(
-  {
-    avatar: String,
-    username: String,
-    bio: String,
-    profileTitle: String,
-
-    userLinks: [
-      {
-        url: String,
-        platform: String,
-      }
-    ],
-
-    userShop: [
-      {
-        title: String,
-        image: String,
-        price: String,
-        url: String,
-      }
-    ],
-
-    bgColor: String,
-    textColor: String,
-    selectedButtonStyle: String,
-    layoutbox: String,
-    fontChange: String,
-    fontColor: String,
-    theam: String,
+const PhonePreviewSchema = new mongoose.Schema({
+  avatar: String,
+  username: String,
+  bio: String,
+  profileTitle: String,
+  bgColor: String,
+  textColor: String,
+  fontColor: String,
+  fontChange: {
+    id: Number,
+    font: String,
+    url: String,
   },
-  { timestamps: true }
-);
+  layoutbox: {
+    id: String,
+    name: String,
+    src: String,
+  },
+  selectedButtonStyle: {
+    id: Number,
+    backgroundColor: String,
+    borderRadius: String,
+    border: String,
+    boxShadow: String,
+    height: String,
+  },
+  userLinks: [
+    {
+      title: String,
+      url: String,
+      icon: String,
+    },
+  ],
+  userShop: [
+    {
+      name: String,
+      price: Number,
+      link: String,
+    },
+  ],
+  theam: {
+    id: Number,
+    name: String,
+    bgColor: String,
+    barBorder: String,
+    barColor: String,
+  },
+}, { timestamps: true });
 
-export const PhonePreview = mongoose.model("PhonePreview", phonePreviewSchema);
+export const PhonePreview = mongoose.model('PhonePreview', PhonePreviewSchema);
+
+
+

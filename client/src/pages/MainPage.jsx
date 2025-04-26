@@ -19,7 +19,7 @@ const MainPage = () => {
         <Route path='/register' element={<Register/>}/>
         <Route path='/namepage' element={<Namepage/>}/>
         <Route path="/dashboard/*" element={<DashboardPage/>}/>
-        <Route path="/preview" element={<PhonePrivew/>} />
+        <Route path="/preview/:id" element={<PhonePrivew/>} />
 
       </Routes>
     </Router> 

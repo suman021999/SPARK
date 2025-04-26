@@ -29,33 +29,59 @@ const Phone = () => {
     : username;
 
 
+    function cleanObject(obj) {
+      const cleaned = {};
+      for (const key in obj) {
+        if (
+          obj[key] !== undefined &&
+          obj[key] !== null &&
+          (typeof obj[key] !== "object" || Object.keys(obj[key]).length > 0) &&
+          (Array.isArray(obj[key]) ? obj[key].length > 0 : true)
+        ) {
+          cleaned[key] = obj[key];
+        }
+      }
+      return cleaned;
+    }
     
 
+    
     const handleShare = async () => {
-      const profileData = {
-        avatar,
-        username,
-        bio,
-        profileTitle,
-        userLinks,
-        userShop,
-        bgColor,
-        textColor,
-        selectedButtonStyle,
-        layoutbox,
-        fontChange,
-        fontColor,
-        theam,
-      };
+      try {
+        // Filter out empty userLinks and userShop
+        const validUserLinks = userLinks.filter(link => Object.keys(link).length > 0) ||[];
+        const validUserShop = userShop?.filter(shop => Object.keys(shop).length > 0) || [];
     
-      const res = await axios.post(`${import.meta.env.VITE_USER_URL}/share`, profileData);
-      const shareableLink = `${window.location.origin}/preview/${res.data.id}`;
+        const profileData = {
+          avatar,
+          username,
+          bio,
+          profileTitle,
+          userLinks: validUserLinks,
+          userShop: validUserShop,
+          bgColor,
+          textColor,
+          selectedButtonStyle,
+          layoutbox,
+          fontChange,
+          fontColor,
+          theam,
+        };
     
-      navigator.clipboard.writeText(shareableLink);
-      alert("Shareable link copied to clipboard!");
+        const cleanedData = cleanObject(profileData);
+        console.log('Sending data:', cleanedData);
+    
+        const res = await axios.post(`${import.meta.env.VITE_USER_URL}/share`, cleanedData);
+    
+        const shareableLink = `${window.location.origin}/preview/${res.data.id}`;
+        navigator.clipboard.writeText(shareableLink);
+        alert("Shareable link copied to clipboard!");
+      } catch (error) {
+        console.error('Share failed:', error.response?.data || error.message);
+        alert('Failed to create share link.');
+      }
     };
     
-  
     
     
     

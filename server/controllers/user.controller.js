@@ -294,8 +294,12 @@ export const deleteShop = async (req, res) => {
 
 
 
+
+
+
 export const phonelink = async (req, res) => {
   try {
+    console.log(req.body)
     const phoneData = req.body;
     const saved = await PhonePreview.create(phoneData);
     return res.status(201).json({ id: saved._id });
@@ -305,7 +309,7 @@ export const phonelink = async (req, res) => {
   }
 };
 
-// GET /api/share/:id
+
 export const phoneId = async (req, res) => {
   try {
     const data = await PhonePreview.findById(req.params.id);

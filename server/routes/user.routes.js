@@ -1,8 +1,8 @@
 import {Router} from 'express'
-import {uploadProfileImage,removeProfileImage, createLink, getUserLinks, getLinkById, updateLink,  createShop, getUserShops, getShopById, updateShop, linkClick, shopClick, deleteLink, deleteShop} from '../controllers/user.controller.js'
+import {uploadProfileImage,removeProfileImage, createLink, getUserLinks, getLinkById, updateLink,  createShop, getUserShops, getShopById, updateShop, linkClick, shopClick, deleteLink, deleteShop,phoneId, phonelink} from '../controllers/user.controller.js'
 import { upload } from "../middlewares/upload.middleware.js";
 import { authMiddleware } from '../middlewares/auth.middleware.js'; 
-import { phoneId, phonelink } from '../controllers/auth.controller.js';
+
 
 const router=Router()
 
