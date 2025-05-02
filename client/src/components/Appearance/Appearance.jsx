@@ -51,6 +51,7 @@ const Appearancespage = () => {
 
 };
 
+
 const handleSaveApperence = async () => {
   const userId = localStorage.getItem("userId");
 
@@ -65,7 +66,12 @@ const handleSaveApperence = async () => {
     fillLineButton,
     selectFont,
     fontColor,
-    themes: theam?.id
+    themes: theam?.id,
+    fontChange: {
+      fontFamily:selectFont.fonts,
+      url:selectFont.url
+    }
+    
   };
 
   try {

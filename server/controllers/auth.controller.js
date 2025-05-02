@@ -137,14 +137,14 @@ export const getUserProfile = async (req, res) => {
 
 
 export const handleSave =async (req, res) => {
-  const { userId, profileTitle, bio, bgColor,fillLineButton,layaout,selectFont,fontColor,themes } = req.body;
+  const { userId, profileTitle, bio, bgColor,fillLineButton,layaout,selectFont,fontColor,themes,fontChange } = req.body;
 
   if (!userId) return res.status(400).json({ error: "User ID is required" });
 
   try {
     const updatedUser = await User.findByIdAndUpdate(
       userId,
-      { profileTitle, bio, bgColor,layaout,fillLineButton,selectFont,fontColor,themes },
+      { profileTitle, bio, bgColor,layaout,fillLineButton,selectFont,fontColor,themes,fontChange },
       { new: true }
     );
 

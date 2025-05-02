@@ -9,9 +9,8 @@ const PhonePreviewSchema = new mongoose.Schema({
   textColor: String,
   fontColor: String,
   fontChange: {
-    id: Number,
-    font: String,
-    url: String,
+    fontFamily: String,
+    url: String
   },
   layoutbox: {
     id: String,

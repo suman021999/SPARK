@@ -67,6 +67,12 @@ const Phone = () => {
         fontColor,
         theam,
       };
+
+      fontChange: {
+        fontFamily: fontChange?.fontFamily || "Roboto";
+        url: fonts.find(f => f.fonts === (fontChange?.fontFamily || "Roboto"))?.url 
+              || "https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      }
   
       const cleanedData = cleanObject(profileData);
       // console.log('Sending data:', cleanedData);

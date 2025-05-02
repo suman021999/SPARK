@@ -9,6 +9,8 @@ export const PhoneProvider = ({ children }) => {
   const [bgColor, setBgColor] = useState(localStorage.getItem("bgColor") || "#fff");
   const [selectedButtonStyle, setSelectedButtonStyle] = useState(fillLine[0]);
   const [layoutbox, setLayoutbox] = useState(layouts[0]);
+
+
   const [fontChange, setFontChange] = useState({
     fontFamily: fonts[0].fonts, 
     ...fonts[0]         

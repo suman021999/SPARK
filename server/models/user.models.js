@@ -70,6 +70,10 @@ const userSchema = new Schema(
       required: true,
       default: "Roboto"
     },
+    fontChange: {
+      fontFamily: { type: String, default: "Roboto" },
+      url: { type: String, default: "https://fonts.googleapis.com/css2?family=Roboto&display=swap" }
+    },
     fontColor: {
       type: String,
       required: true,
