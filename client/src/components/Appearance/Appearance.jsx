@@ -29,7 +29,8 @@ const Appearancespage = () => {
   setProfileTitle,
   bio, 
   setBio,
-  selectFont, setSelectFont,
+  selectFont,
+   setSelectFont,
   fillLineButton, setFillLineButton,
   layaout, setLayaout
    
@@ -407,3 +408,6 @@ useEffect(() => {
 };
 
 export default Appearancespage;
+
+
+

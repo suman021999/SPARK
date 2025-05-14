@@ -1,14 +1,13 @@
-
 import React, { useContext } from "react";
 import { IoShareOutline } from "react-icons/io5";
 import "./phone.css";
 import { PhoneContext } from "../../hooks/PhoneContext";
-import { sellsApps, socialApps } from "../../utils/constants";
+import { fonts, sellsApps, socialApps } from "../../utils/constants";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 const Phone = () => {
-  const location = useLocation()
-  const isPreviewMode = location.pathname.includes('/preview/');
+  const location = useLocation();
+  const isPreviewMode = location.pathname.includes("/preview/");
   const {
     avatar,
     bgColor,
@@ -45,13 +44,15 @@ const Phone = () => {
     }
     return cleaned;
   }
-    
+
   const handleShare = async () => {
     try {
       // Filter out empty userLinks and userShop
-      const validUserLinks = userLinks.filter(link => link && Object.keys(link).length > 0) || [];
-      const validUserShop = userShop?.filter(shop => shop && Object.keys(shop).length > 0) || [];
-  
+      const validUserLinks =
+        userLinks.filter((link) => link && Object.keys(link).length > 0) || [];
+      const validUserShop =
+        userShop?.filter((shop) => shop && Object.keys(shop).length > 0) || [];
+
       const profileData = {
         avatar,
         username,
@@ -63,35 +64,38 @@ const Phone = () => {
         textColor,
         selectedButtonStyle,
         layoutbox,
-        fontChange,
+
+
+      fontChange: {
+         fontFamily: fontChange?.fontFamily,
+         url: fonts.find((f) => f.fonts === fontChange?.fontFamily)?.url || "",
+      },
+
         fontColor,
         theam,
       };
 
-      fontChange: {
-        fontFamily: fontChange?.fontFamily || "Roboto";
-        url: fonts.find(f => f.fonts === (fontChange?.fontFamily || "Roboto"))?.url 
-              || "https://fonts.googleapis.com/css2?family=Roboto&display=swap"
-      }
-  
       const cleanedData = cleanObject(profileData);
-      // console.log('Sending data:', cleanedData);
-  
-      const res = await axios.post(`${import.meta.env.VITE_USER_URL}/share`, cleanedData);
-  
+      
+
+      const res = await axios.post(
+        `${import.meta.env.VITE_USER_URL}/share`,
+        cleanedData
+      );
+
       const shareableLink = `${window.location.origin}/preview/${res.data.id}`;
       navigator.clipboard.writeText(shareableLink);
       alert("Shareable link copied to clipboard!");
     } catch (error) {
-      console.error('Share failed:', error.response?.data || error.message);
-      alert('Failed to create share link.');
+      console.error("Share failed:", error.response?.data || error.message);
+      alert("Failed to create share link.");
     }
   };
 
   // Helper function to safely find app
   const findApp = (apps, linkTitle) => {
     if (!linkTitle) return null;
-    return apps.find(app => 
+    return apps.find((app) =>
       linkTitle.toLowerCase().includes(app.name.toLowerCase())
     );
   };
@@ -100,13 +104,11 @@ const Phone = () => {
     <>
       <div className="phone">
         <div style={{ background: `${bgColor}` }} className="phone_profile">
-
-        {!isPreviewMode && (
-           <button className="phone_profile_btn" onClick={handleShare}>
-            <IoShareOutline className="phone_profile_btn_icon"/></button>
+          {!isPreviewMode && (
+            <button className="phone_profile_btn" onClick={handleShare}>
+              <IoShareOutline className="phone_profile_btn_icon" />
+            </button>
           )}
-          
-
 
           <img
             className="image_piker"
@@ -278,7 +280,7 @@ const Phone = () => {
                   userShop.map((shop, index) => {
                     if (!shop || !shop.title) return null;
                     const sellsApp = findApp(sellsApps, shop.title);
-                    
+
                     return (
                       <div
                         key={shop._id || index}
@@ -292,14 +294,13 @@ const Phone = () => {
                             alt=""
                           />
                         </div>
-                        
+
                         <p
                           style={{
                             ...fontChange,
                             color: fontColor,
                             fontFamily: fontChange.fontFamily,
                           }}
-                  
                         >
                           {shop.title}
                         </p>
@@ -320,7 +321,7 @@ const Phone = () => {
                     {userShop.map((shop, index) => {
                       if (!shop || !shop.title) return null;
                       const sellsApp = findApp(sellsApps, shop.title);
-                      
+
                       return (
                         <div
                           key={shop._id || index}
@@ -358,7 +359,7 @@ const Phone = () => {
                     {userShop.map((shop, index) => {
                       if (!shop || !shop.title) return null;
                       const sellsApp = findApp(sellsApps, shop.title);
-                      
+
                       return (
                         <div
                           key={shop._id || index}
@@ -411,6 +412,3 @@ const Phone = () => {
 };
 
 export default Phone;
-
-
-

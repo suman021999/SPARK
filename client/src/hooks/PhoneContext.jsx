@@ -112,9 +112,10 @@ export const PhoneProvider = ({ children }) => {
           selectedButtonStyle, 
           setSelectedButtonStyle,
           layoutbox, setLayoutbox,
-          fontChange, setFontChange,
+          
           fontColor, setFontColor,
           theam, setTheam,
+          fontChange, setFontChange,
           selectFont, setSelectFont,
           fillLineButton, setFillLineButton,
           layaout, setLayaout
