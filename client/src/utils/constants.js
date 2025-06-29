@@ -243,7 +243,7 @@ export const socialApps = [
 ];
 
 export const sellsApps = [
-  { name: "Amazon", img: "/Amazon.svg" },
+  { name: "Amazon", img: "/Ama.svg" },
   { name: "Flipkart", img: "/Flipkart.svg" },
   { name: "Blinkit", img: "/Blinkit.svg" },
   { name: "Other", img: "/Other.svg" }
