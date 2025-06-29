@@ -236,15 +236,15 @@ export const categories = [
 
 
 export const socialApps = [
-  { name: "Instagram", img: "/public/instagram.svg" },
-  { name: "Facebook", img: "/public/facebook.svg" },
-  { name: "YouTube", img: "/public/youtube.svg" },
-  { name: "X", img: "/public/twitter.svg" }
+  { name: "Instagram", img: "/instagram.svg" },
+  { name: "Facebook", img: "/facebook.svg" },
+  { name: "YouTube", img: "/youtube.svg" },
+  { name: "X", img: "/twitter.svg" }
 ];
 
 export const sellsApps = [
-  { name: "Amazon", img: "/public/Amazon.svg" },
-  { name: "Flipkart", img: "/public/Flipkart.svg" },
-  { name: "Blinkit", img: "/public/Blinkit.svg" },
-  { name: "Other", img: "/public/Other.svg" }
+  { name: "Amazon", img: "/Amazon.svg" },
+  { name: "Flipkart", img: "/Flipkart.svg" },
+  { name: "Blinkit", img: "/Blinkit.svg" },
+  { name: "Other", img: "/Other.svg" }
 ];
