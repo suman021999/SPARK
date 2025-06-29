@@ -65,7 +65,15 @@ const userSchema = new Schema(
       required: true,
       default: "stack"
     },
- 
+    selectFont: {
+      type: String,
+      required: true,
+      default: "Roboto"
+    },
+    fontChange: {
+      fontFamily: { type: String, default: "Roboto" },
+      url: { type: String, default: "https://fonts.googleapis.com/css2?family=Roboto&display=swap" }
+    },
     fontColor: {
       type: String,
       required: true,
@@ -99,12 +107,3 @@ const userSchema = new Schema(
 );
 
 export const User = mongoose.model("User", userSchema);
-  //  selectFont: {
-  //     type: String,
-  //     required: true,
-  //     default: "Roboto"
-  //   },
-  //   fontChange: {
-  //     fontFamily: { type: String, default: "Roboto" },
-  //     url: { type: String, default: "https://fonts.googleapis.com/css2?family=Roboto&display=swap" }
-  //   },
