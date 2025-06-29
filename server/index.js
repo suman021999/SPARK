@@ -12,7 +12,7 @@ database();
 
 const corsOptions = {
   origin: [
-    "http://localhost:5173",
+    process.env.FRONTEND_URL || "http://localhost:3000",
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
