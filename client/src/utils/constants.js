@@ -233,25 +233,16 @@ export const categories = [
 ];
 
 
-import Instagram from "../../public/instagram.svg"
-import {Facebook} from "../../public/facebook.svg"
-import {YouTube} from "../../public/youtube.svg"
-import {X} from "../../public/twitter.svg"
 export const socialApps = [
-  { name: "Instagram", img: Instagram },
-  { name: "Facebook", img: {Facebook} },
-  { name: "YouTube", img:{YouTube}  },
-  { name: "X", img:{X}  }
+  { name: "Instagram", img: "/public/instagram.svg" },
+  { name: "Facebook", img: "/public/facebook.svg" },
+  { name: "YouTube", img: "/public/youtube.svg" },
+  { name: "X", img: "/public/twitter.svg" }
 ];
 
-import {Amazon} from "../../public/Amazon.svg" 
-import {Flipkart} from "../../public/Flipkart.svg"
-import {Blinkit} from "../../public/Blinkit.svg"
-import {Other} from "../../public/Other.svg"
-
 export const sellsApps = [
-  { name: "Amazon", img:{Amazon} },
-  { name: "Flipkart", img:{Flipkart}  },
-  { name: "Blinkit", img:{Blinkit}  },
-  { name: "Other", img:{Other}  }
+  { name: "Amazon", img: "/public/Amazon.svg" },
+  { name: "Flipkart", img: "/public/Flipkart.svg" },
+  { name: "Blinkit", img: "/public/Blinkit.svg" },
+  { name: "Other", img: "/public/Other.svg" }
 ];
