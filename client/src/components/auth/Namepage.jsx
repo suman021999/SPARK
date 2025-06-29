@@ -3,6 +3,7 @@ import React, { useState } from 'react'
  import "./auth.css"
 import { categories } from '../../utils/constants'
 import { useNavigate } from 'react-router-dom'
+import logo from "../../../public/logo.svg"
 import axios from 'axios'
 const Namepage = () => {
   const [bio, setBio] = useState("")
@@ -53,7 +54,7 @@ const Namepage = () => {
           <section className='name'>
               <div className='name_from'>
                  <div className='logo'>
-                  <img src='/public/logo.svg' alt="" />
+                  <img src={logo} alt="" />
                   <h2>SPARK<sup>TM</sup></h2>
                  </div>
       
