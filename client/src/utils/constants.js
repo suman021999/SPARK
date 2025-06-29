@@ -233,12 +233,12 @@ export const categories = [
 ];
 
 
-import {Instagram} from "../../public/instagram.svg"
+import Instagram from "../../public/instagram.svg"
 import {Facebook} from "../../public/facebook.svg"
 import {YouTube} from "../../public/youtube.svg"
 import {X} from "../../public/twitter.svg"
 export const socialApps = [
-  { name: "Instagram", img: {Instagram} },
+  { name: "Instagram", img: Instagram },
   { name: "Facebook", img: {Facebook} },
   { name: "YouTube", img:{YouTube}  },
   { name: "X", img:{X}  }
