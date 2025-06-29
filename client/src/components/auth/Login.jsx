@@ -6,6 +6,7 @@ import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 import axios from 'axios';
 import { PhoneContext } from '../../hooks/PhoneContext'
+import logo from "../../../public/logo.svg"
 
 const Login = () => {
 const [password, setPassword] = useState('');
@@ -43,7 +44,7 @@ const{username, setUsername}=useContext(PhoneContext)
       <section className='login'>
         <div className='login_from'>
            <div className='logo'>
-            <img src='/public/logo.svg' alt="" />
+            <img src={logo} alt="" />
             <h2>SPARK<sup>TM</sup></h2>
            </div>
 

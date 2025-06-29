@@ -4,6 +4,7 @@ import Frame from "../../../public/Frame.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { PhoneContext } from "../../hooks/PhoneContext"; 
+import logo from "../../../public/logo.svg"
 
 const Register = () => {
   const { setUsername } = useContext(PhoneContext);
@@ -95,7 +96,7 @@ const Register = () => {
       <section className="reg">
         <div className="reg_from">
           <div className="logo">
-            <img src='/public/logo.svg' alt="" />
+            <img src={logo} alt="" />
             <h2>SPARK<sup>TM</sup></h2>
           </div>
 
