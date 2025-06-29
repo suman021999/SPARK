@@ -210,12 +210,12 @@ export const themebox = [
   },
 ];
 
-import stack from ""
+
 
 export const layouts = [
-  { id: "stack",name:"Stack", src: "../../public/stack.svg" },
-  { id: "grids",name:"Grid", src: "/public/grids.svg" },
-  { id: "carousel",name:"Carousel", src: "/public/carosel.svg" },
+  { id: "stack",name:"Stack", src: "/stack.svg" },
+  { id: "grids",name:"Grid", src: "/grids.svg" },
+  { id: "carousel",name:"Carousel", src: "/carosel.svg" },
 ];
 
 
